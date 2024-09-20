@@ -1,0 +1,8 @@
+extends Node
+
+enum {
+	NORMAL,
+	HOPPING,
+	DRIFTING_LEFT,
+	DRIFTING_RIGHT
+}

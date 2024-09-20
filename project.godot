@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
+CarState="*res://car_state.gd"
 
 [editor_plugins]
 
