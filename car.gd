@@ -22,10 +22,10 @@ signal start_drift
 var current_state = CarState.NORMAL
 
 func _process(delta: float) -> void:
-	ImGui.Begin("Current Car State")
-	ImGui.Text(str(current_state))
-	ImGui.Text(str(speed))
-	
+	#ImGui.Begin("Current Car State")
+	#ImGui.Text(str(current_state))
+	#ImGui.Text(str(speed))
+	#
 	car_sprite.rotation = heading
 	
 	var max_steer = STEERING_MAX_TURN
@@ -66,8 +66,8 @@ func _process(delta: float) -> void:
 		current_state = CarState.HOPPING
 		animation_player.play("Hop")
 	
-	ImGui.Text(str(steering))
-	ImGui.End()
+	#ImGui.Text(str(steering))
+	#ImGui.End()
 	
 	heading += steering * delta
 

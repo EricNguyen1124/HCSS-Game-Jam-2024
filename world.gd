@@ -10,7 +10,6 @@ var currentLine
 func _ready() -> void:
 	car.start_drift.connect(_on_car_startDrift)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if currentLine != null and car.current_state == CarState.DRIFTING_LEFT or car.current_state == CarState.DRIFTING_RIGHT:
