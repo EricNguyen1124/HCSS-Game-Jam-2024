@@ -66,6 +66,8 @@ script = ExtResource("1_gscac")
 position = Vector2(-1, -6)
 shape = SubResource("RectangleShape2D_af75u")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(-0.500026, -5.5)
 scale = Vector2(0.351562, 0.820313)
@@ -75,9 +77,18 @@ texture = ExtResource("2_544c0")
 position = Vector2(-61.1556, 33.5238)
 scale = Vector2(2.84445, 1.21905)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_4vi1l")
 }
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2(1, 35)
+lifetime_randomness = 0.21
+texture = ExtResource("2_544c0")
+emission_shape = 1
+emission_sphere_radius = 25.45
+spread = 77.72
+gravity = Vector2(0, -250)
+scale_amount_min = 0.0

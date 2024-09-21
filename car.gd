@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
-const STEERING_CENTERING_FORCE = 0.35
-const STEERING_TURN_RATE = 0.6
-const STEERING_MAX_TURN = 0.05
+const STEERING_CENTERING_FORCE = 30.0
+const STEERING_TURN_RATE = 40.0
+const STEERING_MAX_TURN = 3.4
+const DRIFTING_TURN = 30.0
 
 const ACCELERATION_RATE = 150.0
 const BRAKING_FORCE = 400.0
@@ -24,27 +25,33 @@ func _process(delta: float) -> void:
 	ImGui.Begin("Current Car State")
 	ImGui.Text(str(current_state))
 	ImGui.Text(str(speed))
-	ImGui.End()
 	
 	car_sprite.rotation = heading
 	
+	var max_steer = STEERING_MAX_TURN
+	var steer_rate = STEERING_TURN_RATE
+	
+	if current_state == CarState.DRIFTING_LEFT:
+		car_sprite.rotation -= PI/4
+		max_steer *= 2
+		steer_rate *= 5
+		steering = -STEERING_MAX_TURN
+	
+	if current_state == CarState.DRIFTING_RIGHT:
+		car_sprite.rotation += PI/4
+		max_steer *= 2
+		steer_rate *= 5
+		steering = STEERING_MAX_TURN
+		
 	if Input.is_key_pressed(KEY_A):
-		steering = maxf(-STEERING_MAX_TURN, steering - STEERING_TURN_RATE * delta)
+		steering = maxf(-max_steer, steering - (steer_rate * delta))
 	elif Input.is_key_pressed(KEY_D):
-		steering = minf(STEERING_MAX_TURN, steering + STEERING_TURN_RATE * delta)	
+		steering = minf(max_steer, steering + (steer_rate * delta))
 	else:
 		if steering < 0:
 			steering += STEERING_CENTERING_FORCE * delta
 		elif steering > 0:
 			steering -= STEERING_CENTERING_FORCE * delta
-	
-	if current_state == CarState.DRIFTING_LEFT:
-		car_sprite.rotation -= PI/4
-		steering -= 0.5 * delta
-	
-	if current_state == CarState.DRIFTING_RIGHT:
-		car_sprite.rotation += PI/4
-		steering += 0.5 * delta
 	
 	if Input.is_key_pressed(KEY_W):
 		if speed < MAX_SPEED:
@@ -58,11 +65,13 @@ func _process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_SPACE):
 		current_state = CarState.HOPPING
 		animation_player.play("Hop")
+	
+	ImGui.Text(str(steering))
+	ImGui.End()
+	
+	heading += steering * delta
 
 func _physics_process(delta: float) -> void:
-	heading += steering
-	
-	car_sprite.rotation = heading
 	velocity = Vector2(0, -speed).rotated(heading)
 	move_and_slide()
 
