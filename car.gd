@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 	#ImGui.Begin("Current Car State")
 	#ImGui.Text(str(current_state))
 	#ImGui.Text(str(speed))
-	#
+	
 	car_sprite.rotation = heading
 	
 	var max_steer = STEERING_MAX_TURN
@@ -33,13 +33,13 @@ func _process(delta: float) -> void:
 	
 	if current_state == CarState.DRIFTING_LEFT:
 		car_sprite.rotation -= PI/4
-		max_steer *= 2
+		max_steer *= 1.5
 		steer_rate *= 5
 		steering = -STEERING_MAX_TURN
 	
 	if current_state == CarState.DRIFTING_RIGHT:
 		car_sprite.rotation += PI/4
-		max_steer *= 2
+		max_steer *= 1.5
 		steer_rate *= 5
 		steering = STEERING_MAX_TURN
 		
