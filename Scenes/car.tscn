@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://crb4xj6obysjs"]
 
-[ext_resource type="Script" path="res://car.gd" id="1_gscac"]
+[ext_resource type="Script" path="res://Scenes/car.gd" id="1_gscac"]
 [ext_resource type="Texture2D" uid="uid://4ckvpyjppbvu" path="res://icon.svg" id="2_544c0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_af75u"]
@@ -68,12 +68,15 @@ script = ExtResource("1_gscac")
 position = Vector2(-1, -6)
 shape = SubResource("RectangleShape2D_af75u")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(-0.500026, -5.5)
 scale = Vector2(0.351562, 0.820313)
 texture = ExtResource("2_544c0")
+
+[node name="Camera2D" type="Camera2D" parent="Icon"]
+position = Vector2(1.42224, 6.70477)
+scale = Vector2(2.84445, 1.21905)
+rotation_smoothing_speed = 2.0
 
 [node name="LeftTireMarker" type="Marker2D" parent="Icon"]
 position = Vector2(-61.1556, 33.5238)

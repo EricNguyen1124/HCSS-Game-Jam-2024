@@ -17,8 +17,12 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-CarState="*res://car_state.gd"
+CarState="*res://Scripts/car_state.gd"
 ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
+
+[display]
+
+window/stretch/mode="viewport"
 
 [editor_plugins]
 

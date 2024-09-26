@@ -1,10 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://di6dhdotv7olm"]
+[gd_scene load_steps=3 format=3 uid="uid://di6dhdotv7olm"]
 
 [ext_resource type="Texture2D" uid="uid://c76adl25uffmf" path="res://output-onlinepngtools.png" id="1_od2xo"]
+[ext_resource type="Script" path="res://Scenes/tire_line_2d.gd" id="2_bhple"]
 
 [node name="TireLine2D" type="Line2D"]
 texture_repeat = 2
-position = Vector2(20.175, 25.87)
 width = 5.0
 texture = ExtResource("1_od2xo")
 texture_mode = 1
+script = ExtResource("2_bhple")
