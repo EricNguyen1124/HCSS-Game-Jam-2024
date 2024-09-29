@@ -57,19 +57,16 @@ func _physics_process(_delta: float) -> void:
 		var overlappingAreas = currentArea.get_overlapping_areas();
 		if overlappingAreas.size() > 1:
 
-			print("yipee")
-			var overlapAreaId = overlappingAreas[1].get_instance_id()
+			overlappingAreas.sort_custom(func(a,b): return a.get_instance_id() < b.get_instance_id())
+			var overlapAreaId = overlappingAreas[0].get_instance_id()
 			var overlapPointIndex = pointByAreaId[overlapAreaId]
-			print(currentArea.get_instance_id())
-			print(overlapAreaId)
-			print(pointByAreaId)
 
 			var area = Area2D.new()
 
 			area.collision_layer = 4
 			var collisionShape = CollisionPolygon2D.new();
 			
-			var polygonPoints = points.slice(overlapPointIndex, points.size())
+			var polygonPoints = points.slice(overlapPointIndex, points.size() - 12)
 			collisionShape.polygon = polygonPoints
 			
 			add_child(area)
