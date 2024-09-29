@@ -12,8 +12,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if currentLine != null and car.current_state == CarState.DRIFTING_LEFT or car.current_state == CarState.DRIFTING_RIGHT:
+
+	var car_is_drifting = car.current_state == CarState.DRIFTING_LEFT or car.current_state == CarState.DRIFTING_RIGHT
+
+	if currentLine != null and car_is_drifting:
 		currentLine.add_drift_point(carLeftTire.global_position)
+	elif currentLine != null and !car_is_drifting:
+		currentLine.end_drift()
+		currentLine = null
 
 func _on_car_startDrift():
 	currentLine = tireScene.instantiate()

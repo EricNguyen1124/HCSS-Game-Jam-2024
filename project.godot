@@ -28,6 +28,14 @@ window/stretch/mode="viewport"
 
 enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg")
 
+[layer_names]
+
+2d_physics/layer_1="Car"
+2d_physics/layer_2="Walls"
+2d_physics/layer_3="Enemies"
+2d_physics/layer_4="Tire Lines"
+2d_physics/layer_5="Drift Ring"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

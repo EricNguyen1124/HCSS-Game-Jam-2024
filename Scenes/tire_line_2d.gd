@@ -2,15 +2,15 @@ class_name TireLine2D extends Line2D
 
 var areaList: Array[Area2D]
 
-var areaGranularity = 20
+var areaGranularity = 15
 var pointsAdded = 0
 
-var startPoint: Vector2
+var startPoint: Vector2	
 var firstPoint = true
 
 var currentArea: Area2D = null
 
-var pointByAreaId = {}
+var pointIndexByAreaId = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -37,6 +37,9 @@ func add_drift_point(pos: Vector2):
 		
 		collisionShape.shape = shape
 		
+		area.set_collision_layer(0b1000)
+		area.set_collision_mask(0b1000)
+
 		add_child(area)
 		area.add_child(collisionShape)
 		
@@ -44,7 +47,7 @@ func add_drift_point(pos: Vector2):
 
 		areaList.append(area)
 
-		pointByAreaId[area.get_instance_id()] = points.size()
+		pointIndexByAreaId[area.get_instance_id()] = points.size()
 		
 		pointsAdded = 0
 	else:
@@ -56,25 +59,34 @@ func _physics_process(_delta: float) -> void:
 	if currentArea != null:
 		var overlappingAreas = currentArea.get_overlapping_areas();
 		if overlappingAreas.size() > 1:
-
-			overlappingAreas.sort_custom(func(a,b): return a.get_instance_id() < b.get_instance_id())
+			for area in areaList:
+				area.queue_free()
+			areaList.clear()
+			overlappingAreas.sort_custom(func(a, b): return a.get_instance_id() < b.get_instance_id())
 			var overlapAreaId = overlappingAreas[0].get_instance_id()
-			var overlapPointIndex = pointByAreaId[overlapAreaId]
+			var overlapPointIndex = pointIndexByAreaId[overlapAreaId]
 
 			var area = Area2D.new()
-
-			area.collision_layer = 4
 			var collisionShape = CollisionPolygon2D.new();
 			
-			var polygonPoints = points.slice(overlapPointIndex, points.size() - 12)
+			area.set_collision_layer(0b10000)
+			area.set_collision_mask(0b100)
+
+			var polygonPoints = points.slice(overlapPointIndex, pointIndexByAreaId[currentArea.get_instance_id()] - 12)
 			collisionShape.polygon = polygonPoints
-			
 			add_child(area)
 			area.add_child(collisionShape)
-			area.connect("area_entered", _on_area_enter)
+
+			print(area.get_overlapping_areas())
+			area.body_entered.connect(_on_area_enter)
 			currentArea = null
 
-func _on_area_enter(area: Area2D):
+func _on_area_enter(body):
 	print("enemy!")
-	print(area)
-	pass
+	print(body)
+	body.queue_free()
+
+func end_drift():
+	for area in areaList:
+		area.queue_free()
+	areaList.clear()
