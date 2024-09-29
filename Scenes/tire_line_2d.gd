@@ -71,4 +71,10 @@ func _physics_process(_delta: float) -> void:
 			
 			add_child(area)
 			area.add_child(collisionShape)
+			area.connect("area_entered", _on_area_enter)
 			currentArea = null
+
+func _on_area_enter(area: Area2D):
+	print("enemy!")
+	print(area)
+	pass

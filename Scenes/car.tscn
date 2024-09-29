@@ -64,23 +64,22 @@ collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_gscac")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -6)
-shape = SubResource("RectangleShape2D_af75u")
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(1, 1)
+rotation_smoothing_speed = 2.0
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(-0.500026, -5.5)
 scale = Vector2(0.351562, 0.820313)
 texture = ExtResource("2_544c0")
 
-[node name="Camera2D" type="Camera2D" parent="Icon"]
-position = Vector2(1.42224, 6.70477)
-scale = Vector2(2.84445, 1.21905)
-rotation_smoothing_speed = 2.0
-
 [node name="LeftTireMarker" type="Marker2D" parent="Icon"]
 position = Vector2(-61.1556, 33.5238)
 scale = Vector2(2.84445, 1.21905)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.999939, -6)
+shape = SubResource("RectangleShape2D_af75u")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

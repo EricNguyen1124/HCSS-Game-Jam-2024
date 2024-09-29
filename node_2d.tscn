@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dljit8iuf4it6"]
+[gd_scene load_steps=5 format=3 uid="uid://dljit8iuf4it6"]
 
 [ext_resource type="Texture2D" uid="uid://qy4n8qluv7ql" path="res://carpet.png" id="1_fk4fn"]
 [ext_resource type="Script" path="res://world.gd" id="1_lu4yv"]
 [ext_resource type="PackedScene" uid="uid://crb4xj6obysjs" path="res://Scenes/car.tscn" id="2_sfugh"]
+[ext_resource type="PackedScene" uid="uid://c7yutvhshxhxj" path="res://Scenes/Enemy.tscn" id="4_dfu4r"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_lu4yv")
@@ -14,3 +15,6 @@ texture = ExtResource("1_fk4fn")
 
 [node name="Car" parent="." instance=ExtResource("2_sfugh")]
 position = Vector2(1254, 1049)
+
+[node name="Enemy" parent="." instance=ExtResource("4_dfu4r")]
+position = Vector2(1170, 980)
