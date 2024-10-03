@@ -1,5 +1,7 @@
 class_name TireLine2D extends Line2D
 
+@onready var ringEffectScene: PackedScene = preload("res://Scenes/RingEffect.tscn")
+
 var areaList: Array[Area2D]
 
 var areaGranularity = 15
@@ -80,6 +82,15 @@ func _physics_process(_delta: float) -> void:
 			print(area.get_overlapping_areas())
 			area.body_entered.connect(_on_area_enter)
 			currentArea = null
+
+			var ringEffect: Path2D = ringEffectScene.instantiate()
+
+			var curve = Curve.new()
+			for point in polygonPoints:
+				curve.add_point(point)
+			ringEffect.set_curve(curve)
+
+			add_child(ringEffect)
 
 func _on_area_enter(body):
 	print("enemy!")
