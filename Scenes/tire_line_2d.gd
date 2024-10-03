@@ -23,6 +23,45 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+func _physics_process(_delta: float) -> void:
+	if currentArea != null:
+		var overlappingAreas = currentArea.get_overlapping_areas();
+		if overlappingAreas.size() > 1:
+			for area in areaList:
+				area.queue_free()
+			areaList.clear()
+			overlappingAreas.sort_custom(func(a, b): return a.get_instance_id() < b.get_instance_id())
+			var overlapAreaId = overlappingAreas[0].get_instance_id()
+			var overlapPointIndex = pointIndexByAreaId[overlapAreaId]
+
+			var area = Area2D.new()
+			var collisionShape = CollisionPolygon2D.new();
+			
+			area.set_collision_layer(0b10000)
+			area.set_collision_mask(0b100)
+
+			var polygonPoints = points.slice(overlapPointIndex, pointIndexByAreaId[currentArea.get_instance_id()] - 12)
+			collisionShape.polygon = polygonPoints
+			add_child(area)
+			area.add_child(collisionShape)
+
+			area.body_entered.connect(_on_area_enter)
+			currentArea = null
+
+			var ringEffect: Path2D = ringEffectScene.instantiate()
+
+			var curve = Curve2D.new()
+			for point in polygonPoints:
+				curve.add_point(point)
+			ringEffect.set_curve(curve)
+			add_child(ringEffect)
+			ringEffect.start_animation()
+
+func _on_area_enter(body):
+	print("enemy!")
+	print(body)
+	body.queue_free()
+
 func add_drift_point(pos: Vector2):
 	if firstPoint:
 			startPoint = pos
@@ -56,46 +95,6 @@ func add_drift_point(pos: Vector2):
 		pointsAdded += 1
 
 	add_point(pos)
-
-func _physics_process(_delta: float) -> void:
-	if currentArea != null:
-		var overlappingAreas = currentArea.get_overlapping_areas();
-		if overlappingAreas.size() > 1:
-			for area in areaList:
-				area.queue_free()
-			areaList.clear()
-			overlappingAreas.sort_custom(func(a, b): return a.get_instance_id() < b.get_instance_id())
-			var overlapAreaId = overlappingAreas[0].get_instance_id()
-			var overlapPointIndex = pointIndexByAreaId[overlapAreaId]
-
-			var area = Area2D.new()
-			var collisionShape = CollisionPolygon2D.new();
-			
-			area.set_collision_layer(0b10000)
-			area.set_collision_mask(0b100)
-
-			var polygonPoints = points.slice(overlapPointIndex, pointIndexByAreaId[currentArea.get_instance_id()] - 12)
-			collisionShape.polygon = polygonPoints
-			add_child(area)
-			area.add_child(collisionShape)
-
-			print(area.get_overlapping_areas())
-			area.body_entered.connect(_on_area_enter)
-			currentArea = null
-
-			var ringEffect: Path2D = ringEffectScene.instantiate()
-
-			var curve = Curve.new()
-			for point in polygonPoints:
-				curve.add_point(point)
-			ringEffect.set_curve(curve)
-
-			add_child(ringEffect)
-
-func _on_area_enter(body):
-	print("enemy!")
-	print(body)
-	body.queue_free()
 
 func end_drift():
 	for area in areaList:

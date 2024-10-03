@@ -59,11 +59,12 @@ _data = {
 
 [node name="Car" type="CharacterBody2D"]
 position = Vector2(576, 324)
-collision_mask = 6
+collision_mask = 34
 motion_mode = 1
 script = ExtResource("1_gscac")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.735, 0.735)
 rotation_smoothing_speed = 2.0
 
 [node name="Icon" type="Sprite2D" parent="."]

@@ -3,6 +3,7 @@ extends Node2D
 @onready var car = $Car
 @onready var carLeftTire = $Car/Icon/LeftTireMarker
 @onready var tireScene = preload("res://Scenes/TireLine2D.tscn")
+@onready var enemyScene = preload("res://Scenes/Enemy.tscn")
 
 var currentLine: TireLine2D
 
