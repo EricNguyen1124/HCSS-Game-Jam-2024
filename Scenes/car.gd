@@ -28,31 +28,38 @@ func _process(delta: float) -> void:
 	
 	car_sprite.rotation = heading
 	
-	var max_steer = STEERING_MAX_TURN
-	var steer_rate = STEERING_TURN_RATE
-	
+	# SHIT CODE FIX LATER LMAOO
 	if current_state == CarState.DRIFTING_LEFT:
 		car_sprite.rotation -= PI/4
-		max_steer *= 1.5
-		steer_rate *= 5
 		steering = -STEERING_MAX_TURN
-	
-	if current_state == CarState.DRIFTING_RIGHT:
+		if Input.is_key_pressed(KEY_A):
+			steering -= 1.5
+		elif Input.is_key_pressed(KEY_D):
+			steering += 2
+	elif current_state == CarState.DRIFTING_RIGHT:
 		car_sprite.rotation += PI/4
-		max_steer *= 1.5
-		steer_rate *= 5
 		steering = STEERING_MAX_TURN
-		
-	if Input.is_key_pressed(KEY_A):
-		steering = maxf(-max_steer, steering - (steer_rate * delta))
-	elif Input.is_key_pressed(KEY_D):
-		steering = minf(max_steer, steering + (steer_rate * delta))
-	else:
-		if steering < 0:
-			steering += STEERING_CENTERING_FORCE * delta
-		elif steering > 0:
-			steering -= STEERING_CENTERING_FORCE * delta
+		if Input.is_key_pressed(KEY_A):
+			steering -= 2
+		elif Input.is_key_pressed(KEY_D):
+			steering += 1.5
+	else:	
+		if Input.is_key_pressed(KEY_A):
+			steering = maxf(-STEERING_MAX_TURN, steering - (STEERING_TURN_RATE * delta))
+		elif Input.is_key_pressed(KEY_D):
+			steering = minf(STEERING_MAX_TURN, steering + (STEERING_TURN_RATE * delta))
+		else:
+			if steering < 0:
+				steering += STEERING_CENTERING_FORCE * delta
+			elif steering > 0:
+				steering -= STEERING_CENTERING_FORCE * delta
+
+	if Input.is_key_pressed(KEY_M):
+		Engine.max_fps = 15
 	
+	if Input.is_key_pressed(KEY_N):
+		Engine.max_fps = 120
+
 	if Input.is_key_pressed(KEY_W):
 		if speed < MAX_SPEED:
 			speed += ACCELERATION_RATE * delta

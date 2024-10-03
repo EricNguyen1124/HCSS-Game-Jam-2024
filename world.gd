@@ -4,6 +4,7 @@ extends Node2D
 @onready var carLeftTire = $Car/Icon/LeftTireMarker
 @onready var tireScene = preload("res://Scenes/TireLine2D.tscn")
 @onready var enemyScene = preload("res://Scenes/Enemy.tscn")
+@onready var enemy = $Enemy
 
 var currentLine: TireLine2D
 
@@ -21,6 +22,8 @@ func _process(delta: float) -> void:
 	elif currentLine != null and !car_is_drifting:
 		currentLine.end_drift()
 		currentLine = null
+
+	#enemy.target_position = car.global_position
 
 func _on_car_startDrift():
 	currentLine = tireScene.instantiate()
