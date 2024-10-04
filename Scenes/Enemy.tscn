@@ -1,13 +1,115 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7yutvhshxhxj"]
+[gd_scene load_steps=21 format=3 uid="uid://c7yutvhshxhxj"]
 
 [ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_kkja3"]
-[ext_resource type="Texture2D" uid="uid://pgftsiv1ampl" path="res://mncrbsi3.bmp" id="1_unjvm"]
+[ext_resource type="Texture2D" uid="uid://c2xia4psnkv5a" path="res://Sprites/Zombies/Zombie+right+to+left/frame_00001.png" id="2_bqc73"]
+[ext_resource type="Texture2D" uid="uid://d1u5hodjoku2x" path="res://Sprites/Zombies/Zombie+bot+to+top/frame_00001.png" id="2_j68hw"]
+[ext_resource type="Texture2D" uid="uid://c4gtjksg35gmx" path="res://Sprites/Zombies/Zombie+right+to+left/frame_00002.png" id="3_37c5g"]
+[ext_resource type="Texture2D" uid="uid://ba7qt55vsn1yb" path="res://Sprites/Zombies/Zombie+bot+to+top/frame_00002.png" id="3_gkkgy"]
+[ext_resource type="Texture2D" uid="uid://gh7levk6jieg" path="res://Sprites/Zombies/Zombie+right+to+left/frame_00003.png" id="4_4s214"]
+[ext_resource type="Texture2D" uid="uid://byg0op3gllart" path="res://Sprites/Zombies/Zombie+bot+to+top/frame_00003.png" id="4_7rlfb"]
+[ext_resource type="Texture2D" uid="uid://cyh0rlioldk5" path="res://Sprites/Zombies/Zombie+bot+to+top/frame_00004.png" id="5_lklqj"]
+[ext_resource type="Texture2D" uid="uid://bflu40ensew5y" path="res://Sprites/Zombies/Zombie+right+to+left/frame_00004.png" id="5_oqpk0"]
+[ext_resource type="Texture2D" uid="uid://cekw7ni3kyt42" path="res://Sprites/Zombies/Zombie+Left+_+Right/frame_00001.png" id="6_vav81"]
+[ext_resource type="Texture2D" uid="uid://ddehwfbo1qcus" path="res://Sprites/Zombies/Zombie+Left+_+Right/frame_00002.png" id="7_i7ej4"]
+[ext_resource type="Texture2D" uid="uid://d3pj06gf2p26c" path="res://Sprites/Zombies/Zombie+Left+_+Right/frame_00003.png" id="8_7iu2r"]
+[ext_resource type="Texture2D" uid="uid://deklfyona0vaq" path="res://Sprites/Zombies/Zombie+Left+_+Right/frame_00004.png" id="9_4ra6y"]
+[ext_resource type="Texture2D" uid="uid://2gcpi6ibvxw7" path="res://Sprites/Zombies/Zombie+top+to+bot/frame_00001.png" id="14_wslx8"]
+[ext_resource type="Texture2D" uid="uid://bymn53su0p3c4" path="res://Sprites/Zombies/Zombie+top+to+bot/frame_00002.png" id="15_ikmea"]
+[ext_resource type="Texture2D" uid="uid://gp4ytcmnyy5x" path="res://Sprites/Zombies/Zombie+top+to+bot/frame_00003.png" id="16_y2inx"]
+[ext_resource type="Texture2D" uid="uid://bog32xarrmspm" path="res://Sprites/Zombies/Zombie+top+to+bot/frame_00004.png" id="17_e0k8f"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jsu26"]
-radius = 14.0
-height = 66.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_hpxrb"]
+radius = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_debgr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7f2ek"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_j68hw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gkkgy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7rlfb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lklqj")
+}],
+"loop": true,
+"name": &"bot_to_top",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_vav81")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_i7ej4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7iu2r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4ra6y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_vav81")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_i7ej4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7iu2r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4ra6y")
+}],
+"loop": true,
+"name": &"left_to_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bqc73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_37c5g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4s214")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_oqpk0")
+}],
+"loop": true,
+"name": &"right_to_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_wslx8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ikmea")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_y2inx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_e0k8f")
+}],
+"loop": true,
+"name": &"top_to_bot",
+"speed": 5.0
+}]
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
@@ -15,18 +117,20 @@ collision_mask = 22
 motion_mode = 1
 script = ExtResource("1_kkja3")
 
-[node name="Mncrbsi3" type="Sprite2D" parent="."]
-position = Vector2(1, 2)
-scale = Vector2(0.12, 0.12)
-texture = ExtResource("1_unjvm")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, 4)
-shape = SubResource("CapsuleShape2D_jsu26")
+position = Vector2(2.575, -8.325)
+scale = Vector2(1.37, 1.37)
+shape = SubResource("CircleShape2D_hpxrb")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(3.19, -7.76)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(4, 5)
 shape = SubResource("CircleShape2D_debgr")
 debug_color = Color(0.828121, 0.284948, 0.693533, 0.42)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.27, 0.27)
+sprite_frames = SubResource("SpriteFrames_7f2ek")
+animation = &"top_to_bot"
+frame_progress = 0.778183

@@ -1,23 +1,25 @@
 extends CharacterBody2D
 
-const STEERING_CENTERING_FORCE = 30.0
-const STEERING_TURN_RATE = 40.0
-const STEERING_MAX_TURN = 3.4
-const DRIFTING_TURN = 30.0
+const STEERING_CENTERING_FORCE: float = 30.0
+const STEERING_TURN_RATE: float = 40.0
+const STEERING_MAX_TURN: float = 4.0
+const DRIFTING_TURN: float = 30.0
 
-const ACCELERATION_RATE = 150.0
-const BRAKING_FORCE = 400.0
-const ENGINE_BRAKING = 65.0
-const MAX_SPEED = 500.0
+const ACCELERATION_RATE: float = 250.0
+const BRAKING_FORCE: float = 400.0
+const ENGINE_BRAKING: float = 65.0
+const MAX_SPEED: float = 650.0
+const DRIFT_IN: float = 1.2
+const DRIFT_OUT: float = 2.5
 
-var heading = 0.0
-var steering = 0.0
-var speed = 0.0
+var heading: float = 0.0
+var steering: float = 0.0
+var speed: float = 0.0
 
 signal start_drift
 
-@onready var animation_player = $AnimationPlayer
-@onready var car_sprite = $Icon
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var car_sprite: Sprite2D = $Icon
 
 var current_state = CarState.NORMAL
 
@@ -29,21 +31,15 @@ func _process(delta: float) -> void:
 	car_sprite.rotation = heading
 	
 	# SHIT CODE FIX LATER LMAOO
-	if current_state == CarState.DRIFTING_LEFT:
-		car_sprite.rotation -= PI/4
-		steering = -STEERING_MAX_TURN
+	if current_state in [CarState.DRIFTING_LEFT, CarState.DRIFTING_RIGHT]:
+		var direction = 1 if current_state == CarState.DRIFTING_RIGHT else -1
+		car_sprite.rotation += direction * PI / 4
+		steering = direction * STEERING_MAX_TURN
 		if Input.is_key_pressed(KEY_A):
-			steering -= 1.5
+			steering -= DRIFT_OUT if direction == 1 else DRIFT_IN
 		elif Input.is_key_pressed(KEY_D):
-			steering += 2
-	elif current_state == CarState.DRIFTING_RIGHT:
-		car_sprite.rotation += PI/4
-		steering = STEERING_MAX_TURN
-		if Input.is_key_pressed(KEY_A):
-			steering -= 2
-		elif Input.is_key_pressed(KEY_D):
-			steering += 1.5
-	else:	
+			steering += DRIFT_IN if direction == 1 else DRIFT_OUT
+	else:
 		if Input.is_key_pressed(KEY_A):
 			steering = maxf(-STEERING_MAX_TURN, steering - (STEERING_TURN_RATE * delta))
 		elif Input.is_key_pressed(KEY_D):
@@ -78,7 +74,7 @@ func _process(delta: float) -> void:
 	
 	heading += steering * delta
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	velocity = Vector2(0, -speed).rotated(heading)
 	move_and_slide()
 

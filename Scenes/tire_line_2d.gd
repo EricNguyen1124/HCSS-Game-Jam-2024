@@ -4,24 +4,19 @@ class_name TireLine2D extends Line2D
 
 var areaList: Array[Area2D]
 
-var areaGranularity = 15
-var pointsAdded = 0
+var areaGranularity: int = 3
+var pointsAdded: int = 0
 
 var startPoint: Vector2	
-var firstPoint = true
+var firstPoint: bool = true
 
 var currentArea: Area2D = null
 
-var pointIndexByAreaId = {}
+var pointIndexByAreaId: Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
 
 func _physics_process(_delta: float) -> void:
 	if currentArea != null:
@@ -38,14 +33,15 @@ func _physics_process(_delta: float) -> void:
 			var collisionShape = CollisionPolygon2D.new();
 			
 			area.set_collision_layer(0b10000)
-			area.set_collision_mask(0b100)
+			area.set_collision_mask(0b1000100)
 
 			var polygonPoints = points.slice(overlapPointIndex, pointIndexByAreaId[currentArea.get_instance_id()] - 12)
 			collisionShape.polygon = polygonPoints
 			add_child(area)
 			area.add_child(collisionShape)
 
-			area.body_entered.connect(_on_area_enter)
+			area.area_entered.connect(_on_area_enter)
+			area.body_entered.connect(_on_body_enter)
 			currentArea = null
 
 			var ringEffect: Path2D = ringEffectScene.instantiate()
@@ -57,7 +53,10 @@ func _physics_process(_delta: float) -> void:
 			add_child(ringEffect)
 			ringEffect.start_animation()
 
-func _on_area_enter(body):
+func _on_area_enter(area: Area2D) -> void:
+	print("chest!")
+
+func _on_body_enter(body: Node2D) -> void:
 	print("enemy!")
 	print(body)
 	body.queue_free()

@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dljit8iuf4it6"]
+[gd_scene load_steps=6 format=3 uid="uid://dljit8iuf4it6"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_l1t70"]
 [ext_resource type="Texture2D" uid="uid://qy4n8qluv7ql" path="res://carpet.png" id="2_m5nk7"]
 [ext_resource type="PackedScene" uid="uid://crb4xj6obysjs" path="res://Scenes/car.tscn" id="3_5ouut"]
+[ext_resource type="PackedScene" uid="uid://dh3tmoxjbsts5" path="res://Scenes/Chest.tscn" id="4_5slmq"]
 [ext_resource type="PackedScene" uid="uid://c7yutvhshxhxj" path="res://Scenes/Enemy.tscn" id="4_7b6j5"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_l1t70")
 
 [node name="Untitled" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(1226, 806)
 scale = Vector2(3.5122, 5.19872)
 texture = ExtResource("2_m5nk7")
@@ -16,5 +18,12 @@ texture = ExtResource("2_m5nk7")
 [node name="Car" parent="." instance=ExtResource("3_5ouut")]
 position = Vector2(1254, 1049)
 
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="Chest" parent="." instance=ExtResource("4_5slmq")]
+position = Vector2(1001, 948)
+
 [node name="Enemy" parent="." instance=ExtResource("4_7b6j5")]
-position = Vector2(1170, 980)
+position = Vector2(1103, 1116)
