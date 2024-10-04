@@ -4,10 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://qy4n8qluv7ql" path="res://carpet.png" id="2_m5nk7"]
 [ext_resource type="PackedScene" uid="uid://crb4xj6obysjs" path="res://Scenes/car.tscn" id="3_5ouut"]
 [ext_resource type="PackedScene" uid="uid://dh3tmoxjbsts5" path="res://Scenes/Chest.tscn" id="4_5slmq"]
-[ext_resource type="PackedScene" uid="uid://c7yutvhshxhxj" path="res://Scenes/Enemy.tscn" id="4_7b6j5"]
+[ext_resource type="Texture2D" uid="uid://oiku3d1g702f" path="res://Sprites/notebook.jpg" id="6_eglqe"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_l1t70")
+
+[node name="Notebook" type="Sprite2D" parent="."]
+texture_filter = 3
+texture_repeat = 2
+position = Vector2(1258.5, 1060.5)
+scale = Vector2(1.594, 1.556)
+texture = ExtResource("6_eglqe")
 
 [node name="Untitled" type="Sprite2D" parent="."]
 visible = false
@@ -24,6 +31,3 @@ autostart = true
 
 [node name="Chest" parent="." instance=ExtResource("4_5slmq")]
 position = Vector2(1001, 948)
-
-[node name="Enemy" parent="." instance=ExtResource("4_7b6j5")]
-position = Vector2(1103, 1116)
