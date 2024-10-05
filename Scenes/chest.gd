@@ -2,6 +2,7 @@ extends Area2D
 
 class_name Chest
 
+@export var upgrade_database: UpgradeDatabase
 
 var health = 3
 
@@ -17,8 +18,13 @@ func _process(delta: float) -> void:
 func deal_damage() -> void:
 	health -= 1
 	if health > 0:
-		# play chest dmg anim
-		pass
+		roll_and_apply_upgrade()
 	else:
-		# open that shit up
-		pass
+		roll_and_apply_upgrade()
+		
+func roll_and_apply_upgrade() -> void:
+	var upgrade: Upgrade = upgrade_database.upgrades.pick_random()
+
+	# display name and description to user
+
+	upgrade_database.get_callable(upgrade.display_name).call()

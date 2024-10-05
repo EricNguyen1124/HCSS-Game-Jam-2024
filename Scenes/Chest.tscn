@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bv8264fd3byab"]
+[gd_scene load_steps=5 format=3 uid="uid://bv8264fd3byab"]
 
 [ext_resource type="Texture2D" uid="uid://dsyr3maa3whrd" path="res://Minecraft-Chest.jpg" id="1_u7i7w"]
 [ext_resource type="Script" path="res://Scenes/chest.gd" id="1_w7uc4"]
+[ext_resource type="Resource" uid="uid://bjmsc8s4n0t1d" path="res://Resources/upgrade_database.tres" id="2_8ish2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yuyrh"]
 radius = 16.0312
@@ -10,6 +11,7 @@ radius = 16.0312
 collision_layer = 64
 collision_mask = 0
 script = ExtResource("1_w7uc4")
+upgrade_database = ExtResource("2_8ish2")
 
 [node name="Minecraft-chest" type="Sprite2D" parent="."]
 scale = Vector2(0.015, 0.015)
