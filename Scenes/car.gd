@@ -21,6 +21,8 @@ signal start_drift
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var car_sprite: Sprite2D = $Icon
 
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
 var current_state = CarState.NORMAL
 
 func _process(delta: float) -> void:
@@ -50,12 +52,6 @@ func _process(delta: float) -> void:
 			elif steering > 0:
 				steering -= STEERING_CENTERING_FORCE * delta
 
-	if Input.is_key_pressed(KEY_M):
-		Engine.max_fps = 15
-	
-	if Input.is_key_pressed(KEY_N):
-		Engine.max_fps = 120
-
 	if Input.is_key_pressed(KEY_W):
 		if speed < MAX_SPEED:
 			speed += ACCELERATION_RATE * delta
@@ -71,8 +67,23 @@ func _process(delta: float) -> void:
 	
 	#ImGui.Text(str(steering))
 	#ImGui.End()
-	
+	set_sprite_rotation()
 	heading += steering * delta
+	
+func set_sprite_rotation() -> void:
+	var angle = velocity.angle()
+	
+	if angle < 0:
+		angle += TAU
+		
+	var index = int(round(angle / (PI / 4))) % 8
+	
+	if current_state == CarState.DRIFTING_LEFT:
+		index = (index + 8 - 2) % 8
+	elif current_state == CarState.DRIFTING_RIGHT:
+		index = (index + 8 + 2) % 8
+		
+	animated_sprite.set_frame(index)
 
 func _physics_process(_delta: float) -> void:
 	velocity = Vector2(0, -speed).rotated(heading)

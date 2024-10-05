@@ -53,13 +53,11 @@ func _physics_process(_delta: float) -> void:
 			add_child(ringEffect)
 			ringEffect.start_animation()
 
-func _on_area_enter(area: Area2D) -> void:
-	print("chest!")
+func _on_area_enter(area: Chest) -> void:
+	area.deal_damage()
 
-func _on_body_enter(body: Node2D) -> void:
-	print("enemy!")
-	print(body)
-	body.queue_free()
+func _on_body_enter(body: Enemy) -> void:
+	body.deal_damage(PlayerVariables.ring_damage)
 
 func add_drift_point(pos: Vector2):
 	if firstPoint:

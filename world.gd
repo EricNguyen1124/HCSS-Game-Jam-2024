@@ -32,14 +32,12 @@ func _physics_process(_delta: float) -> void:
 		currentLine.end_drift()
 		currentLine = null
 
-	#enemy.target_position = car.global_position
-
 func _on_car_startDrift():
 	currentLine = tireScene.instantiate()
 	add_child(currentLine)
 
 func spawn_enemies() -> void:
-	var random_angle = randf_range(0.0, 2*PI)
+	var random_angle = randf_range(0.0, 2 * PI)
 	var spawn_vector = (Vector2(0.0, 1.0).rotated(random_angle) * 800) + car.global_position
 	
 	var random_number_of_enemies = randi_range(3,7)

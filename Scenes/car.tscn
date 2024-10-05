@@ -1,7 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://crb4xj6obysjs"]
+[gd_scene load_steps=16 format=3 uid="uid://crb4xj6obysjs"]
 
 [ext_resource type="Script" path="res://Scenes/car.gd" id="1_gscac"]
 [ext_resource type="Texture2D" uid="uid://4ckvpyjppbvu" path="res://icon.svg" id="2_544c0"]
+[ext_resource type="Texture2D" uid="uid://ul3w5ett1jyf" path="res://Sprites/Red Car/Frame E.png" id="3_yqjl3"]
+[ext_resource type="Texture2D" uid="uid://26tfvbmnbw03" path="res://Sprites/Red Car/Frame SE.png" id="4_xkr2e"]
+[ext_resource type="Texture2D" uid="uid://bm3tel85erfyt" path="res://Sprites/Red Car/Frame S.png" id="5_e3e1c"]
+[ext_resource type="Texture2D" uid="uid://406yq3rgiyed" path="res://Sprites/Red Car/Frame SW.png" id="6_jxvco"]
+[ext_resource type="Texture2D" uid="uid://ca0f0djo5ixg6" path="res://Sprites/Red Car/Frame W.png" id="7_yecwp"]
+[ext_resource type="Texture2D" uid="uid://b5bskkgl51qvk" path="res://Sprites/Red Car/Frame NW.png" id="8_7hqpe"]
+[ext_resource type="Texture2D" uid="uid://b0pvc8fmhakfg" path="res://Sprites/Red Car/Frame N.png" id="9_u7pjr"]
+[ext_resource type="Texture2D" uid="uid://wsrghggko0ed" path="res://Sprites/Red Car/Frame NE.png" id="10_i2dr0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_af75u"]
 size = Vector2(42.9999, 103)
@@ -57,6 +65,38 @@ _data = {
 "RESET": SubResource("Animation_q53kt")
 }
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_nldst"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_yqjl3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xkr2e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_e3e1c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jxvco")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_yecwp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7hqpe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_u7pjr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_i2dr0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Car" type="CharacterBody2D"]
 position = Vector2(576, 324)
 collision_mask = 34
@@ -95,3 +135,9 @@ emission_sphere_radius = 25.45
 spread = 77.72
 gravity = Vector2(0, -250)
 scale_amount_min = 0.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.12, 0.12)
+sprite_frames = SubResource("SpriteFrames_nldst")
+frame = 1
+frame_progress = 0.813685
