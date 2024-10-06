@@ -10,8 +10,8 @@ func _init(p_upgrades: Array[Upgrade] = []):
 func get_callable(name: String) -> Callable:
 	match name:
 		"Drift Damage":
-			return func(): print("lmao")
+			return func(): PlayerVariables.ring_damage += 2
 		"Instant Chest":
-			return func(): print("hi")
+			return func(): PlayerVariables.instant_chest = true
 	
 	return func(): print("update get_callable dummie lmao")

@@ -4,6 +4,8 @@ class_name Upgrade
 
 @export var display_name: String
 @export var description: String
+@export var level: int
+@export var max_level: int
 #@export var action: Callable
 @export var texture: Texture2D
 
