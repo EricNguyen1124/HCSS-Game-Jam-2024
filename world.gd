@@ -47,4 +47,7 @@ func spawn_enemies() -> void:
 		enemy.global_position = spawn_vector + Vector2(randf_range(100.0, 200.0),randf_range(100.0, 200.0))
 		enemies.append(enemy)
 		add_child(enemy)
+		
+func spawn_chest() -> void:
+	pass
 	

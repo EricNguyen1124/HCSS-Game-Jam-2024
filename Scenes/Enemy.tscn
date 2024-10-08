@@ -268,7 +268,7 @@ debug_color = Color(0.828121, 0.284948, 0.693533, 0.42)
 scale = Vector2(0.27, 0.27)
 sprite_frames = SubResource("SpriteFrames_7f2ek")
 animation = &"left_to_right"
-frame_progress = 0.598976
+frame_progress = 0.131281
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
