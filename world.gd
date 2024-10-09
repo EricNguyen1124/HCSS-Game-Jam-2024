@@ -4,7 +4,15 @@ extends Node2D
 @onready var carLeftTire: Marker2D = $Car/Icon/LeftTireMarker
 @onready var tireScene: PackedScene = preload("res://Scenes/TireLine2D.tscn")
 @onready var enemyScene: PackedScene = preload("res://Scenes/Enemy.tscn")
-@onready var spawn_timer: Timer = $EnemySpawnTimer
+@onready var chestScene: PackedScene = preload("res://Scenes/Chest.tscn")
+@onready var enemy_spawn_timer: Timer = $EnemySpawnTimer
+@onready var chest_spawn_timer: Timer = $ChestSpawnTimer
+@onready var upgrade_ui: UpgradeUI = $CanvasLayer/UpgradeUI
+@onready var world_bounds: Marker2D = $Marker2D
+
+# temp
+@onready var chest: Chest = $"Chest"
+
 
 var currentLine: TireLine2D
 
@@ -13,7 +21,10 @@ var enemies: Array[Enemy]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	car.start_drift.connect(_on_car_startDrift)
-	spawn_timer.timeout.connect(spawn_enemies)
+	enemy_spawn_timer.timeout.connect(spawn_enemies)
+	chest_spawn_timer.timeout.connect(spawn_chest)
+	
+	chest.chest_opened.connect(_on_chest_open)
 
 func _process(_delta: float) -> void:
 	if Engine.get_frames_drawn() % 5 == 0:
@@ -49,5 +60,17 @@ func spawn_enemies() -> void:
 		add_child(enemy)
 		
 func spawn_chest() -> void:
-	pass
+	var randX: float = randf_range(0.0, world_bounds.global_position.x)
+	var randY: float = randf_range(0.0, world_bounds.global_position.y)
+	var spawn_vector: Vector2 = Vector2(randX, randY)
 	
+	var chest: Chest = chestScene.instantiate()
+	
+	print(spawn_vector)
+	
+	chest.global_position = spawn_vector
+	add_child(chest)
+	
+func _on_chest_open(upgrade: Upgrade) -> void:
+	upgrade_ui.set_text(upgrade.display_name, upgrade.description)
+	upgrade_ui.show_ui()

@@ -1,6 +1,6 @@
 extends PanelContainer
 
-class_name Upgrade_UI
+class_name UpgradeUI
 
 @onready var upgrade_title: Label = $VBox/HBox/VBox/UpgradeTitle
 @onready var upgrade_description: Label = $VBox/HBox/VBox/UpgradeDescription
@@ -9,7 +9,7 @@ class_name Upgrade_UI
 
 func _ready() -> void:
 	modulate.a = 0.0
-	timer.timeout.connect(hide_ui)
+	#timer.timeout.connect(hide_ui)
 
 func set_text(title: String, description: String):
 	upgrade_title.text = title
@@ -17,6 +17,5 @@ func set_text(title: String, description: String):
 
 func show_ui():
 	modulate.a = 1.0
-	
-func hide_ui():
 	animation_player.play("fade")
+	

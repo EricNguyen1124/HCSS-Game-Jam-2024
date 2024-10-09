@@ -21,6 +21,7 @@ signal start_drift
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var car_sprite: Sprite2D = $Icon
 
+@onready var car_scene: Node3D = $SubViewport/CarScene
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var current_state = CarState.NORMAL
@@ -71,6 +72,13 @@ func _process(delta: float) -> void:
 	heading += steering * delta
 	
 func set_sprite_rotation() -> void:
+	var model_angle = velocity.angle() - PI/4 + 0.25
+	if current_state == CarState.DRIFTING_LEFT:
+		model_angle -= PI/2
+	elif current_state == CarState.DRIFTING_RIGHT:
+		model_angle += PI/2
+	car_scene.set_car_rotation(model_angle)
+
 	var angle = velocity.angle()
 	
 	if angle < 0:
