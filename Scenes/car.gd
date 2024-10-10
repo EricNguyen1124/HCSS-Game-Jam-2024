@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name Car
+
 const STEERING_CENTERING_FORCE: float = 30.0
 const STEERING_TURN_RATE: float = 40.0
 const STEERING_MAX_TURN: float = 4.0
@@ -8,7 +10,7 @@ const DRIFTING_TURN: float = 30.0
 const ACCELERATION_RATE: float = 250.0
 const BRAKING_FORCE: float = 400.0
 const ENGINE_BRAKING: float = 65.0
-const MAX_SPEED: float = 650.0
+const MAX_SPEED: float = 750.0
 const DRIFT_IN: float = 1.2
 const DRIFT_OUT: float = 2.5
 
@@ -32,7 +34,7 @@ func _process(delta: float) -> void:
 	#ImGui.Text(str(speed))
 	
 	car_sprite.rotation = heading
-	
+		
 	# SHIT CODE FIX LATER LMAOO
 	if current_state in [CarState.DRIFTING_LEFT, CarState.DRIFTING_RIGHT]:
 		if !Input.is_key_pressed(KEY_SPACE):
@@ -64,7 +66,9 @@ func _process(delta: float) -> void:
 		if speed > 0:
 			speed -= ENGINE_BRAKING * delta
 	
-	if Input.is_key_pressed(KEY_SPACE) and current_state == CarState.NORMAL:
+	if Input.is_key_pressed(KEY_SPACE) and current_state == CarState.NORMAL and !animation_player.is_playing():
+		print("hop!")
+		print(current_state)
 		current_state = CarState.HOPPING
 		animation_player.play("Hop")
 	
@@ -116,6 +120,8 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func on_hop_land():
+	print("land!")
+	print(current_state)
 	if Input.is_key_pressed(KEY_A):
 		current_state = CarState.DRIFTING_LEFT
 		start_drift.emit()

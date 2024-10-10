@@ -18,7 +18,7 @@ size = Vector2(42.9999, 103)
 
 [sub_resource type="Animation" id="Animation_h38jl"]
 resource_name = "Hop"
-length = 0.25
+length = 0.235
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

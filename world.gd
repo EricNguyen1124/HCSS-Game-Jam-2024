@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var car: CharacterBody2D = $Car
+@onready var car: Car = $Car
 @onready var carLeftTire: Marker2D = $Car/Icon/LeftTireMarker
 @onready var tireScene: PackedScene = preload("res://Scenes/TireLine2D.tscn")
 @onready var enemyScene: PackedScene = preload("res://Scenes/Enemy.tscn")
@@ -9,7 +9,7 @@ extends Node2D
 @onready var chest_spawn_timer: Timer = $ChestSpawnTimer
 @onready var upgrade_ui: UpgradeUI = $CanvasLayer/UpgradeUI
 @onready var world_bounds: Marker2D = $Marker2D
-
+@onready var wheel: Sprite2D = $Wheel
 
 
 var currentLine: TireLine2D
@@ -29,6 +29,11 @@ func _process(_delta: float) -> void:
 		for enemy in enemies:
 			if enemy != null:
 				enemy.target_position = car.global_position
+				
+	var steer_value = car.steering
+	print(steer_value)
+	var steer_angle = steer_value / (PI/2)
+	wheel.set_rotation(steer_angle)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
