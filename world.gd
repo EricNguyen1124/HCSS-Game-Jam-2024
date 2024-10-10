@@ -10,8 +10,6 @@ extends Node2D
 @onready var upgrade_ui: UpgradeUI = $CanvasLayer/UpgradeUI
 @onready var world_bounds: Marker2D = $Marker2D
 
-# temp
-@onready var chest: Chest = $"Chest"
 
 
 var currentLine: TireLine2D
@@ -24,7 +22,7 @@ func _ready() -> void:
 	enemy_spawn_timer.timeout.connect(spawn_enemies)
 	chest_spawn_timer.timeout.connect(spawn_chest)
 	
-	chest.chest_opened.connect(_on_chest_open)
+	#chest.chest_opened.connect(_on_chest_open)
 
 func _process(_delta: float) -> void:
 	if Engine.get_frames_drawn() % 5 == 0:

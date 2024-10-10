@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://crb4xj6obysjs"]
+[gd_scene load_steps=26 format=3 uid="uid://crb4xj6obysjs"]
 
 [ext_resource type="Script" path="res://Scenes/car.gd" id="1_gscac"]
 [ext_resource type="Texture2D" uid="uid://4ckvpyjppbvu" path="res://icon.svg" id="2_544c0"]
@@ -114,6 +114,43 @@ animations = [{
 [sub_resource type="ViewportTexture" id="ViewportTexture_r2kls"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="Curve" id="Curve_43rdf"]
+_data = [Vector2(0, 0.380084), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_81pl3"]
+curve = SubResource("Curve_43rdf")
+
+[sub_resource type="Curve" id="Curve_rrkap"]
+_data = [Vector2(0.017301, 0), 0.0, 0.0, 0, 0, Vector2(0.186851, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fbi8t"]
+curve = SubResource("Curve_rrkap")
+
+[sub_resource type="Curve" id="Curve_r2avb"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0657439, 0.343618), -0.0302833, -0.0302833, 0, 0, Vector2(0.33218, 0.826788), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_8vhnf"]
+curve = SubResource("Curve_r2avb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vn7rn"]
+particle_flag_disable_z = true
+angle_min = -163.9
+angle_max = 159.5
+angle_curve = SubResource("CurveTexture_fbi8t")
+direction = Vector3(0, -1, 0)
+spread = 10.822
+initial_velocity_min = 483.08
+initial_velocity_max = 747.71
+gravity = Vector3(0, -10, 0)
+scale_curve = SubResource("CurveTexture_8vhnf")
+alpha_curve = SubResource("CurveTexture_81pl3")
+turbulence_enabled = true
+turbulence_influence_min = 0.043
+turbulence_influence_max = 0.046
+
 [node name="Car" type="CharacterBody2D"]
 position = Vector2(576, 324)
 collision_mask = 34
@@ -143,18 +180,8 @@ libraries = {
 "": SubResource("AnimationLibrary_4vi1l")
 }
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-visible = false
-position = Vector2(1, 35)
-lifetime_randomness = 0.21
-texture = ExtResource("2_544c0")
-emission_shape = 1
-emission_sphere_radius = 25.45
-spread = 77.72
-gravity = Vector2(0, -250)
-scale_amount_min = 0.0
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(124, 0)
 scale = Vector2(0.12, 0.12)
 sprite_frames = SubResource("SpriteFrames_nldst")
@@ -185,3 +212,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544509, 1.1575, 0.193263)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="SubViewport/CarScene"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.783946, 0)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_vn7rn")
+texture = ExtResource("2_544c0")
+lifetime = 0.5

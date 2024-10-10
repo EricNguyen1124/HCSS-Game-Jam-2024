@@ -1,6 +1,7 @@
 class_name TireLine2D extends Line2D
 
 @onready var ringEffectScene: PackedScene = preload("res://Scenes/RingEffect.tscn")
+@onready var hitbox_timer: Timer = $Timer
 
 var areaList: Array[Area2D]
 
@@ -14,9 +15,11 @@ var currentArea: Area2D = null
 
 var pointIndexByAreaId: Dictionary = {}
 
+var current_hitbox: Area2D = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	hitbox_timer.timeout.connect(_remove_hitbox)
 
 func _physics_process(_delta: float) -> void:
 	if currentArea != null:
@@ -29,29 +32,37 @@ func _physics_process(_delta: float) -> void:
 			var overlapAreaId = overlappingAreas[0].get_instance_id()
 			var overlapPointIndex = pointIndexByAreaId[overlapAreaId]
 
-			var area = Area2D.new()
-			var collisionShape = CollisionPolygon2D.new();
-			
-			area.set_collision_layer(0b10000)
-			area.set_collision_mask(0b1000100)
+			var polygonPoints: PackedVector2Array = points.slice(overlapPointIndex, pointIndexByAreaId[currentArea.get_instance_id()] - 12)
 
-			var polygonPoints = points.slice(overlapPointIndex, pointIndexByAreaId[currentArea.get_instance_id()] - 12)
-			collisionShape.polygon = polygonPoints
-			add_child(area)
-			area.add_child(collisionShape)
-
-			area.area_entered.connect(_on_area_enter)
-			area.body_entered.connect(_on_body_enter)
 			currentArea = null
 
-			var ringEffect: Path2D = ringEffectScene.instantiate()
+			var ringEffect: RingEffect = ringEffectScene.instantiate()
 
 			var curve = Curve2D.new()
 			for point in polygonPoints:
 				curve.add_point(point)
 			ringEffect.set_curve(curve)
+			ringEffect.ring_effect_completed.connect(do_area_damage)
 			add_child(ringEffect)
 			ringEffect.start_animation()
+
+func do_area_damage(polygon: PackedVector2Array) -> void:
+	var area = Area2D.new()
+	var collisionShape = CollisionPolygon2D.new();
+	
+	area.set_collision_layer(0b10000)
+	area.set_collision_mask(0b1000100)
+
+	
+	collisionShape.polygon = polygon
+	add_child(area)
+	area.add_child(collisionShape)
+
+	area.area_entered.connect(_on_area_enter)
+	area.body_entered.connect(_on_body_enter)
+	
+	current_hitbox = area
+	hitbox_timer.start()
 
 func _on_area_enter(area: Chest) -> void:
 	area.deal_damage()
@@ -92,6 +103,10 @@ func add_drift_point(pos: Vector2):
 		pointsAdded += 1
 
 	add_point(pos)
+
+func _remove_hitbox() -> void:
+	current_hitbox.queue_free()
+	current_hitbox = null
 
 func end_drift():
 	for area in areaList:

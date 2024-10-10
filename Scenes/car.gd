@@ -20,9 +20,9 @@ signal start_drift
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var car_sprite: Sprite2D = $Icon
-
 @onready var car_scene: Node3D = $SubViewport/CarScene
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var particles: GPUParticles2D = $GPUParticles2D
 
 var current_state = CarState.NORMAL
 
@@ -69,6 +69,10 @@ func _process(delta: float) -> void:
 	#ImGui.Text(str(steering))
 	#ImGui.End()
 	set_sprite_rotation()
+	handle_particles()
+	
+	particles.set_rotation(velocity.angle() - PI/2)
+	
 	heading += steering * delta
 	
 func set_sprite_rotation() -> void:
@@ -92,6 +96,18 @@ func set_sprite_rotation() -> void:
 		index = (index + 8 + 2) % 8
 		
 	animated_sprite.set_frame(index)
+
+func handle_particles() -> void:
+	if current_state == CarState.DRIFTING_LEFT or current_state == CarState.DRIFTING_RIGHT:
+		particles.emitting = true
+		var angle = velocity.angle() - PI/2
+		if current_state == CarState.DRIFTING_LEFT:
+			angle -= PI
+		elif current_state == CarState.DRIFTING_RIGHT:
+			angle += PI
+		particles.set_rotation(angle)
+	else:
+		particles.emitting = false
 
 func _physics_process(_delta: float) -> void:
 	velocity = Vector2(0, -speed).rotated(heading)
