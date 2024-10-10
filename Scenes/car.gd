@@ -35,6 +35,8 @@ func _process(delta: float) -> void:
 	
 	# SHIT CODE FIX LATER LMAOO
 	if current_state in [CarState.DRIFTING_LEFT, CarState.DRIFTING_RIGHT]:
+		if !Input.is_key_pressed(KEY_SPACE):
+			current_state = CarState.NORMAL
 		var direction = 1 if current_state == CarState.DRIFTING_RIGHT else -1
 		car_sprite.rotation += direction * PI / 4
 		steering = direction * STEERING_MAX_TURN
@@ -62,7 +64,7 @@ func _process(delta: float) -> void:
 		if speed > 0:
 			speed -= ENGINE_BRAKING * delta
 	
-	if Input.is_key_pressed(KEY_SPACE):
+	if Input.is_key_pressed(KEY_SPACE) and current_state == CarState.NORMAL:
 		current_state = CarState.HOPPING
 		animation_player.play("Hop")
 	
