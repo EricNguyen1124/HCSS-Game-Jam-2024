@@ -36,6 +36,7 @@ wait_time = 30.0
 autostart = true
 
 [node name="Wheel" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(327, 914)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("6_2ke4k")

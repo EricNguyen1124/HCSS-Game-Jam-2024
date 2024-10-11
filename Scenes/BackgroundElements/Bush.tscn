@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://dhpqsljr7yyfe"]
+
+[ext_resource type="Texture2D" uid="uid://xmuwhufmckqt" path="res://Sprites/Broken+car/frame_00001.png" id="1_27l2k"]
+[ext_resource type="Texture2D" uid="uid://boy4o6b3d55s3" path="res://Sprites/Broken+car/frame_00002.png" id="2_vjdl6"]
+[ext_resource type="Texture2D" uid="uid://dvwmsbvqg16gi" path="res://Sprites/Broken+car/frame_00003.png" id="3_ypboq"]
+[ext_resource type="Texture2D" uid="uid://xwu4qfwrhxyn" path="res://Sprites/Broken+car/frame_00004.png" id="4_sb4g2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wxf47"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_27l2k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_vjdl6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ypboq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_sb4g2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="BrokenCar" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_wxf47")
+frame_progress = 0.742534

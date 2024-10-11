@@ -10,3 +10,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	arrow.rotate_y(delta * 0.7)
+
+func set_arrow_rotation(angle: float) -> void:
+	arrow.set_rotation(Vector3(0.0, -angle, 0.0))

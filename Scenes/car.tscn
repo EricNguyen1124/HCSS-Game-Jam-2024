@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://crb4xj6obysjs"]
+[gd_scene load_steps=27 format=3 uid="uid://crb4xj6obysjs"]
 
 [ext_resource type="Script" path="res://Scenes/car.gd" id="1_gscac"]
 [ext_resource type="Texture2D" uid="uid://4ckvpyjppbvu" path="res://icon.svg" id="2_544c0"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://wsrghggko0ed" path="res://Sprites/Red Car/Frame NE.png" id="10_i2dr0"]
 [ext_resource type="Script" path="res://Scenes/car_scene.gd" id="11_ep8rf"]
 [ext_resource type="PackedScene" uid="uid://ccbdqgcsuledo" path="res://Sprites/direction_arrow/9_27_2024.glb" id="12_ilouq"]
+[ext_resource type="Texture2D" uid="uid://bfftsm850ee4v" path="res://Sprites/Smoke+animation/frame_00001.png" id="13_lgdil"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_af75u"]
 size = Vector2(42.9999, 103)
@@ -207,8 +208,11 @@ transform = Transform3D(-0.485695, 0, 0.874129, 0, 1, 0, -0.874129, 0, -0.485695
 [node name="Camera3D" type="Camera3D" parent="SubViewport/CarScene"]
 transform = Transform3D(1, 0, 0, 0, 0.492833, 0.870124, 0, -0.870124, 0.492833, 0, 2.06453, 1.28985)
 
+[node name="OmniLight3D3" type="OmniLight3D" parent="SubViewport/CarScene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.42569, 0.416967, 0.119936)
+
 [node name="OmniLight3D2" type="OmniLight3D" parent="SubViewport/CarScene"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544509, 1.1575, 0.193263)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.544509, 0.793467, 0.193263)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="SubViewport/CarScene"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.783946, 0)
@@ -216,5 +220,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.783946, 0)
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_vn7rn")
-texture = ExtResource("2_544c0")
+texture = ExtResource("13_lgdil")
 lifetime = 0.5

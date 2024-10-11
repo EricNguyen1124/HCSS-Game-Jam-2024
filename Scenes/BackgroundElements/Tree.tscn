@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://cf0p6lm7qecxf"]
+
+[ext_resource type="Texture2D" uid="uid://tfbt4x14ydmx" path="res://Sprites/Tree/frame_00001.png" id="1_0oryh"]
+[ext_resource type="Texture2D" uid="uid://criw6r62u0fni" path="res://Sprites/Tree/frame_00002.png" id="2_h4e63"]
+[ext_resource type="Texture2D" uid="uid://c0x84glupvn7t" path="res://Sprites/Tree/frame_00003.png" id="3_e2ts2"]
+[ext_resource type="Texture2D" uid="uid://dmo3t1ljepqkj" path="res://Sprites/Tree/frame_00004.png" id="4_e1v23"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wxf47"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0oryh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_h4e63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_e2ts2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_e1v23")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Tree" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_wxf47")
+frame_progress = 0.0755397

@@ -10,11 +10,12 @@ extends Node2D
 @onready var upgrade_ui: UpgradeUI = $CanvasLayer/UpgradeUI
 @onready var world_bounds: Marker2D = $Marker2D
 @onready var wheel: Sprite2D = $Wheel
-
+@onready var arrow = $CanvasLayer/SubViewportContainer/SubViewport/ArrowScene
 
 var currentLine: TireLine2D
 
 var enemies: Array[Enemy]
+var chest: Chest
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,8 +31,14 @@ func _process(_delta: float) -> void:
 			if enemy != null:
 				enemy.target_position = car.global_position
 				
+	if chest != null:
+		arrow.visible = true
+		var angle_to_chest = (chest.global_position - car.global_position).angle()
+		arrow.set_arrow_rotation(angle_to_chest)
+	else:
+		arrow.visible = false
+				
 	var steer_value = car.steering
-	print(steer_value)
 	var steer_angle = steer_value / (PI/2)
 	wheel.set_rotation(steer_angle)
 	
@@ -63,17 +70,22 @@ func spawn_enemies() -> void:
 		add_child(enemy)
 		
 func spawn_chest() -> void:
+	if chest != null:
+		return
+		
 	var randX: float = randf_range(0.0, world_bounds.global_position.x)
 	var randY: float = randf_range(0.0, world_bounds.global_position.y)
 	var spawn_vector: Vector2 = Vector2(randX, randY)
 	
-	var chest: Chest = chestScene.instantiate()
+	var chest_instance: Chest = chestScene.instantiate()
 	
-	print(spawn_vector)
+	chest = chest_instance
 	
-	chest.global_position = spawn_vector
-	add_child(chest)
+	chest_instance.global_position = spawn_vector
+	chest_instance.chest_opened.connect(_on_chest_open)
+	add_child(chest_instance)
 	
 func _on_chest_open(upgrade: Upgrade) -> void:
+	chest = null
 	upgrade_ui.set_text(upgrade.display_name, upgrade.description)
 	upgrade_ui.show_ui()

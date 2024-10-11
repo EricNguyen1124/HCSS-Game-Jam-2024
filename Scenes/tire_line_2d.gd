@@ -36,14 +36,15 @@ func _physics_process(_delta: float) -> void:
 
 			currentArea = null
 
-			var ringEffect: RingEffect = ringEffectScene.instantiate()
-
 			var curve = Curve2D.new()
 			for point in polygonPoints:
 				curve.add_point(point)
+			
+			var ringEffect: RingEffect = ringEffectScene.instantiate()
 			ringEffect.set_curve(curve)
 			ringEffect.ring_effect_completed.connect(do_area_damage)
 			add_child(ringEffect)
+			
 			ringEffect.start_animation()
 
 func do_area_damage(polygon: PackedVector2Array) -> void:

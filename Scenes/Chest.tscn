@@ -1,10 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://bv8264fd3byab"]
+[gd_scene load_steps=15 format=3 uid="uid://bv8264fd3byab"]
 
 [ext_resource type="Texture2D" uid="uid://dsyr3maa3whrd" path="res://Minecraft-Chest.jpg" id="1_u7i7w"]
 [ext_resource type="Script" path="res://Scenes/chest.gd" id="1_w7uc4"]
 [ext_resource type="Resource" uid="uid://bjmsc8s4n0t1d" path="res://Resources/upgrade_database.tres" id="2_8ish2"]
 [ext_resource type="PackedScene" uid="uid://ddmmjkld47bmr" path="res://Scenes/UpgradeUI.tscn" id="4_gab8w"]
 [ext_resource type="AudioStream" uid="uid://dyp4w73rw7pro" path="res://Sounds/level_up.mp3" id="5_y4kcu"]
+[ext_resource type="Texture2D" uid="uid://bsbupb8ge2q5i" path="res://Sprites/Chest+opening/frame_00001.png" id="6_u2kpc"]
+[ext_resource type="Texture2D" uid="uid://ck5ge16e4osjf" path="res://Sprites/Chest+opening/frame_00002.png" id="7_w7pmn"]
+[ext_resource type="Texture2D" uid="uid://ciwhu566ekqp8" path="res://Sprites/Chest+opening/frame_00003.png" id="8_ggql5"]
+[ext_resource type="Texture2D" uid="uid://pxw2nwiu4u87" path="res://Sprites/Chest+opening/frame_00004.png" id="9_w02op"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yuyrh"]
 radius = 16.0312
@@ -70,6 +74,26 @@ _data = {
 "hurt": SubResource("Animation_wiohs")
 }
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_6bokc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_u2kpc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_w7pmn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ggql5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_w02op")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Chest" type="Area2D"]
 process_mode = 3
 collision_layer = 64
@@ -103,3 +127,10 @@ volume_db = -3.0
 [node name="PauseTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4, -17)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_6bokc")
+frame = 2
+frame_progress = 0.508642
