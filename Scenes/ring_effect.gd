@@ -7,11 +7,17 @@ class_name RingEffect
 
 signal ring_effect_completed
 
-func start_animation() -> void:
-	animation_player.play("ring_complete")
+var pulses_count: int = 0
+
+func start_animation(number: int) -> void:
+	pulses_count = number
+	for i in number:
+		animation_player.queue("ring_complete")
 	
 func hide_particles() -> void:
-	particles.visible = false
+	if pulses_count == 0:
+		particles.visible = false
 	
 func emit_ring_effect_completed() -> void:
+	pulses_count -= 1
 	ring_effect_completed.emit(curve.get_baked_points())

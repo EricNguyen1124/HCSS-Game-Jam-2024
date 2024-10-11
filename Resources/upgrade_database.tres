@@ -47,4 +47,4 @@ max_level = 3
 
 [resource]
 script = ExtResource("1_gwe1n")
-upgrades = Array[ExtResource("2_u61bf")]([SubResource("Resource_05b7n"), SubResource("Resource_3qn32"), SubResource("Resource_33j1t"), SubResource("Resource_os0ew"), SubResource("Resource_0frwa"), SubResource("Resource_nsdx5"), null])
+upgrades = Array[ExtResource("2_u61bf")]([SubResource("Resource_05b7n"), SubResource("Resource_3qn32"), SubResource("Resource_33j1t"), SubResource("Resource_os0ew"), SubResource("Resource_0frwa"), SubResource("Resource_nsdx5")])

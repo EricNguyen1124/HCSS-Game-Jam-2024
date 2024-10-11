@@ -7,7 +7,7 @@ const STEERING_TURN_RATE: float = 40.0
 const STEERING_MAX_TURN: float = 4.0
 const DRIFTING_TURN: float = 30.0
 
-const ACCELERATION_RATE: float = 250.0
+const ACCELERATION_RATE: float = 350.0
 const BRAKING_FORCE: float = 400.0
 const ENGINE_BRAKING: float = 65.0
 const MAX_SPEED: float = 750.0

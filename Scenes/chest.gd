@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func deal_damage() -> void:
 	health -= 1
-	if health > 0:
+	if health > 0 and !PlayerVariables.instant_chest:
 		animation_player.play("hurt")
 	else:
 		roll_and_apply_upgrade()

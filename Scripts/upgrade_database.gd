@@ -14,7 +14,7 @@ func get_callable(name: String) -> Callable:
 		"Instant Chest":
 			return func(): PlayerVariables.instant_chest = true
 		"Drift Pulse":
-			return func(): PlayerVariables.ring_pulses += 2
+			return func(): PlayerVariables.ring_pulses += 1
 		"Fire Trail":
 			return func(): pass
 		"Engine Tune Up":

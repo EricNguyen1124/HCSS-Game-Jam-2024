@@ -3,17 +3,17 @@ class_name TireLine2D extends Line2D
 @onready var ringEffectScene: PackedScene = preload("res://Scenes/RingEffect.tscn")
 @onready var hitbox_timer: Timer = $Timer
 
-var areaList: Array[Area2D]
+var area_list: Array[Area2D]
 
-var areaGranularity: int = 3
-var pointsAdded: int = 0
+var area_granularity: int = 3
+var points_added: int = 0
 
-var startPoint: Vector2	
-var firstPoint: bool = true
+var start_point: Vector2	
+var first_point: bool = true
 
-var currentArea: Area2D = null
+var current_area: Area2D = null
 
-var pointIndexByAreaId: Dictionary = {}
+var point_index_by_area_id: Dictionary = {}
 
 var current_hitbox: Area2D = null
 
@@ -22,30 +22,30 @@ func _ready() -> void:
 	hitbox_timer.timeout.connect(_remove_hitbox)
 
 func _physics_process(_delta: float) -> void:
-	if currentArea != null:
-		var overlappingAreas = currentArea.get_overlapping_areas();
-		if overlappingAreas.size() > 1:
-			for area in areaList:
+	if current_area != null:
+		var overlapping_areas = current_area.get_overlapping_areas();
+		if overlapping_areas.size() > 1:
+			for area in area_list:
 				area.queue_free()
-			areaList.clear()
-			overlappingAreas.sort_custom(func(a, b): return a.get_instance_id() < b.get_instance_id())
-			var overlapAreaId = overlappingAreas[0].get_instance_id()
-			var overlapPointIndex = pointIndexByAreaId[overlapAreaId]
+			area_list.clear()
+			overlapping_areas.sort_custom(func(a, b): return a.get_instance_id() < b.get_instance_id())
+			var overlap_area_id = overlapping_areas[0].get_instance_id()
+			var overlap_point_index = point_index_by_area_id[overlap_area_id]
 
-			var polygonPoints: PackedVector2Array = points.slice(overlapPointIndex, pointIndexByAreaId[currentArea.get_instance_id()] - 12)
+			var polygon_points: PackedVector2Array = points.slice(overlap_point_index, point_index_by_area_id[current_area.get_instance_id()] - 12)
 
-			currentArea = null
+			current_area = null
 
 			var curve = Curve2D.new()
-			for point in polygonPoints:
+			for point in polygon_points:
 				curve.add_point(point)
 			
-			var ringEffect: RingEffect = ringEffectScene.instantiate()
-			ringEffect.set_curve(curve)
-			ringEffect.ring_effect_completed.connect(do_area_damage)
-			add_child(ringEffect)
-			
-			ringEffect.start_animation()
+			var ring_effect: RingEffect = ringEffectScene.instantiate()
+			ring_effect.set_curve(curve)
+			ring_effect.ring_effect_completed.connect(do_area_damage)
+			add_child(ring_effect)
+
+			ring_effect.start_animation(PlayerVariables.ring_pulses)
 
 func do_area_damage(polygon: PackedVector2Array) -> void:
 	var area = Area2D.new()
@@ -54,7 +54,6 @@ func do_area_damage(polygon: PackedVector2Array) -> void:
 	area.set_collision_layer(0b10000)
 	area.set_collision_mask(0b1000100)
 
-	
 	collisionShape.polygon = polygon
 	add_child(area)
 	area.add_child(collisionShape)
@@ -72,36 +71,36 @@ func _on_body_enter(body: Enemy) -> void:
 	body.deal_damage(PlayerVariables.ring_damage)
 
 func add_drift_point(pos: Vector2):
-	if firstPoint:
-			startPoint = pos
-			firstPoint = false
+	if first_point:
+			start_point = pos
+			first_point = false
 		
-	if pointsAdded > areaGranularity:
+	if points_added > area_granularity:
 		var area = Area2D.new()
-		var collisionShape = CollisionShape2D.new();
+		var collision_shape = CollisionShape2D.new();
 		var shape = SegmentShape2D.new()
 		
-		shape.a = startPoint
+		shape.a = start_point
 		shape.b = pos
-		startPoint = shape.b
+		start_point = shape.b
 		
-		collisionShape.shape = shape
+		collision_shape.shape = shape
 		
 		area.set_collision_layer(0b1000)
 		area.set_collision_mask(0b1000)
 
 		add_child(area)
-		area.add_child(collisionShape)
+		area.add_child(collision_shape)
 		
-		currentArea = area
+		current_area = area
 
-		areaList.append(area)
+		area_list.append(area)
 
-		pointIndexByAreaId[area.get_instance_id()] = points.size()
+		point_index_by_area_id[area.get_instance_id()] = points.size()
 		
-		pointsAdded = 0
+		points_added = 0
 	else:
-		pointsAdded += 1
+		points_added += 1
 
 	add_point(pos)
 
@@ -110,6 +109,6 @@ func _remove_hitbox() -> void:
 	current_hitbox = null
 
 func end_drift():
-	for area in areaList:
+	for area in area_list:
 		area.queue_free()
-	areaList.clear()
+	area_list.clear()
