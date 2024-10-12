@@ -26,10 +26,17 @@ func do_damage() -> void:
 
 
 func check_collisions() -> void:
+	var damage = PlayerVariables.ring_damage
+
+	if first_attack_done:
+		damage = damage / 2.0
+
 	var enemies = get_overlapping_bodies()
 	for enemy: Enemy in enemies:
-		enemy.deal_damage(PlayerVariables.ring_damage)
+		enemy.deal_damage(damage)
 
 	var chests = get_overlapping_areas()
 	for chest: Chest in chests:
 		chest.deal_damage()
+
+	first_attack_done = true
