@@ -19,8 +19,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 CarState="*res://Scripts/car_state.gd"
-ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
 PlayerVariables="*res://Scripts/player_variables.gd"
+ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
 
 [display]
 
@@ -40,6 +40,7 @@ enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg")
 2d_physics/layer_5="Drift Ring"
 2d_physics/layer_6="Enemy Hurtboxes"
 2d_physics/layer_7="Chest"
+2d_physics/layer_8="Fire"
 
 [rendering]
 

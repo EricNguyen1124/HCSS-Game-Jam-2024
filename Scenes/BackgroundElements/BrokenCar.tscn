@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://boiq1v4dao4uu"]
+
+[ext_resource type="Texture2D" uid="uid://dcxvp7nd8x4e6" path="res://Sprites/Bush/frame_00001.png" id="1_4a5i0"]
+[ext_resource type="Texture2D" uid="uid://dufepd32e2dtf" path="res://Sprites/Bush/frame_00002.png" id="2_cqmqa"]
+[ext_resource type="Texture2D" uid="uid://bxls1mwl3wvol" path="res://Sprites/Bush/frame_00003.png" id="3_mvq7n"]
+[ext_resource type="Texture2D" uid="uid://bml4d7bkpa8vk" path="res://Sprites/Bush/frame_00004.png" id="4_pfucx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1xhut"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4a5i0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_cqmqa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mvq7n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pfucx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Bush" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_1xhut")
+frame_progress = 0.392245

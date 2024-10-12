@@ -1,99 +1,95 @@
 class_name TireLine2D extends Line2D
 
 @onready var ringEffectScene: PackedScene = preload("res://Scenes/RingEffect.tscn")
+@onready var expiration_timer: Timer = $Timer
+@onready var fire_scene: PackedScene = preload("res://Scenes/fire.tscn")
+@onready var ring_attack_scene: PackedScene = preload("res://Scenes/RingAttack.tscn")
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-var areaList: Array[Area2D]
+var area_list: Array[Area2D]
 
-var areaGranularity: int = 3
-var pointsAdded: int = 0
+var area_granularity: int = 3
+var points_added: int = 0
 
-var startPoint: Vector2	
-var firstPoint: bool = true
+var start_point: Vector2	
+var first_point: bool = true
 
-var currentArea: Area2D = null
+var current_area: Area2D = null
 
-var pointIndexByAreaId: Dictionary = {}
+var point_index_by_area_id: Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	expiration_timer.timeout.connect(fade_and_delete)
 
 func _physics_process(_delta: float) -> void:
-	if currentArea != null:
-		var overlappingAreas = currentArea.get_overlapping_areas();
-		if overlappingAreas.size() > 1:
-			for area in areaList:
+	if current_area != null:
+		var overlapping_areas = current_area.get_overlapping_areas();
+		if overlapping_areas.size() > 1:
+			for area in area_list:
 				area.queue_free()
-			areaList.clear()
-			overlappingAreas.sort_custom(func(a, b): return a.get_instance_id() < b.get_instance_id())
-			var overlapAreaId = overlappingAreas[0].get_instance_id()
-			var overlapPointIndex = pointIndexByAreaId[overlapAreaId]
-
-			var area = Area2D.new()
-			var collisionShape = CollisionPolygon2D.new();
+			area_list.clear()
+			overlapping_areas.sort_custom(func(a, b): return a.get_instance_id() < b.get_instance_id())
+			var overlap_area_id = overlapping_areas[0].get_instance_id()
+			var overlap_point_index = point_index_by_area_id[overlap_area_id]
 			
-			area.set_collision_layer(0b10000)
-			area.set_collision_mask(0b1000100)
+			var polygon_points: PackedVector2Array = points.slice(overlap_point_index, point_index_by_area_id[current_area.get_instance_id()] - 6)
+			
+			current_area = null
 
-			var polygonPoints = points.slice(overlapPointIndex, pointIndexByAreaId[currentArea.get_instance_id()] - 12)
-			collisionShape.polygon = polygonPoints
-			add_child(area)
-			area.add_child(collisionShape)
+			var ring_attack: RingAttack = ring_attack_scene.instantiate()
+			add_child(ring_attack)
 
-			area.area_entered.connect(_on_area_enter)
-			area.body_entered.connect(_on_body_enter)
-			currentArea = null
-
-			var ringEffect: Path2D = ringEffectScene.instantiate()
-
-			var curve = Curve2D.new()
-			for point in polygonPoints:
-				curve.add_point(point)
-			ringEffect.set_curve(curve)
-			add_child(ringEffect)
-			ringEffect.start_animation()
-
-func _on_area_enter(area: Chest) -> void:
-	area.deal_damage()
-
-func _on_body_enter(body: Enemy) -> void:
-	body.deal_damage(PlayerVariables.ring_damage)
+			ring_attack.set_polygon(polygon_points)
+			ring_attack.do_damage()
+	
 
 func add_drift_point(pos: Vector2):
-	if firstPoint:
-			startPoint = pos
-			firstPoint = false
-		
-	if pointsAdded > areaGranularity:
+	if first_point:
+			start_point = pos
+			first_point = false
+	
+	if points_added > area_granularity:
 		var area = Area2D.new()
-		var collisionShape = CollisionShape2D.new();
+		var collision_shape = CollisionShape2D.new();
 		var shape = SegmentShape2D.new()
 		
-		shape.a = startPoint
+		shape.a = start_point
 		shape.b = pos
-		startPoint = shape.b
+		start_point = shape.b
 		
-		collisionShape.shape = shape
+		collision_shape.shape = shape
 		
 		area.set_collision_layer(0b1000)
 		area.set_collision_mask(0b1000)
 
 		add_child(area)
-		area.add_child(collisionShape)
+		area.add_child(collision_shape)
 		
-		currentArea = area
+		current_area = area
 
-		areaList.append(area)
+		area_list.append(area)
 
-		pointIndexByAreaId[area.get_instance_id()] = points.size()
+		point_index_by_area_id[area.get_instance_id()] = points.size()
 		
-		pointsAdded = 0
+		points_added = 0
+		if PlayerVariables.drift_fire:
+			spawn_fire(pos)
 	else:
-		pointsAdded += 1
+		points_added += 1
 
 	add_point(pos)
 
+func spawn_fire(point: Vector2) -> void:
+	var fire = fire_scene.instantiate()
+	fire.global_position = point
+	add_child(fire)
+
 func end_drift():
-	for area in areaList:
+	for area in area_list:
 		area.queue_free()
-	areaList.clear()
+	area_list.clear()
+	expiration_timer.start()
+
+func fade_and_delete():
+	animation_player.play("fade")

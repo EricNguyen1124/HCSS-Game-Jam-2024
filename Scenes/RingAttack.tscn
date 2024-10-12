@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://wme80scnh64e"]
+
+[ext_resource type="Script" path="res://Scenes/ring_attack.gd" id="1_8qdyj"]
+[ext_resource type="PackedScene" uid="uid://cf1o5w8oxx4s6" path="res://Scenes/RingEffect.tscn" id="1_eoh61"]
+
+[node name="RingAttack" type="Area2D"]
+collision_layer = 16
+collision_mask = 68
+script = ExtResource("1_8qdyj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="RingEffect" parent="." instance=ExtResource("1_eoh61")]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

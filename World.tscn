@@ -1,20 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://dljit8iuf4it6"]
+[gd_scene load_steps=10 format=3 uid="uid://dljit8iuf4it6"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_l1t70"]
 [ext_resource type="Texture2D" uid="uid://qy4n8qluv7ql" path="res://carpet.png" id="2_m5nk7"]
 [ext_resource type="PackedScene" uid="uid://crb4xj6obysjs" path="res://Scenes/car.tscn" id="3_5ouut"]
-[ext_resource type="PackedScene" uid="uid://bv8264fd3byab" path="res://Scenes/Chest.tscn" id="4_5slmq"]
+[ext_resource type="Texture2D" uid="uid://c2hhjnojihpi1" path="res://Sprites/wheel.png" id="6_2ke4k"]
 [ext_resource type="Texture2D" uid="uid://oiku3d1g702f" path="res://Sprites/notebook.jpg" id="6_eglqe"]
+[ext_resource type="PackedScene" uid="uid://brsr7la0ii3gg" path="res://Scenes/arrow_scene.tscn" id="6_p1p7h"]
+[ext_resource type="PackedScene" uid="uid://ddmmjkld47bmr" path="res://Scenes/UpgradeUI.tscn" id="6_v8cvb"]
+[ext_resource type="Texture2D" uid="uid://cnjokxh0oxoei" path="res://Sprites/UI/health_bar_overlay.png" id="8_epv4q"]
+[ext_resource type="Texture2D" uid="uid://m42efda12cf5" path="res://Sprites/UI/health_bar.png" id="9_5ne0k"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_l1t70")
 
-[node name="Notebook" type="Sprite2D" parent="."]
-texture_filter = 3
-texture_repeat = 2
-position = Vector2(799, 461)
-scale = Vector2(1.594, 1.556)
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 7022.0
+offset_bottom = 5960.0
 texture = ExtResource("6_eglqe")
+expand_mode = 1
+stretch_mode = 1
 
 [node name="Untitled" type="Sprite2D" parent="."]
 visible = false
@@ -29,9 +33,47 @@ position = Vector2(862, 497)
 wait_time = 3.0
 autostart = true
 
-[node name="Chest" parent="." instance=ExtResource("4_5slmq")]
-position = Vector2(1001, 948)
-
 [node name="ChestSpawnTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 5.0
 autostart = true
+
+[node name="Wheel" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(327, 914)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_2ke4k")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -256.0
+offset_top = -131.18
+offset_right = 256.0
+offset_bottom = 380.82
+grow_horizontal = 2
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="ArrowScene" parent="CanvasLayer/SubViewportContainer/SubViewport" instance=ExtResource("6_p1p7h")]
+
+[node name="UpgradeUI" parent="CanvasLayer" instance=ExtResource("6_v8cvb")]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = 30.0
+offset_top = 537.0
+offset_right = 1357.0
+offset_bottom = 782.0
+scale = Vector2(0.33, 0.33)
+value = 100.0
+texture_over = ExtResource("8_epv4q")
+texture_progress = ExtResource("9_5ne0k")
+texture_progress_offset = Vector2(473.145, 102.555)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(2048, 1644)
