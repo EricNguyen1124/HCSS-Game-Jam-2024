@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dm43l42vj75ow"]
+[gd_scene load_steps=3 format=3 uid="uid://dm43l42vj75ow"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_ujwh4"]
-[ext_resource type="Texture2D" uid="uid://bk0bsmxqdxdyt" path="res://Untitled.png" id="2_7a58w"]
 [ext_resource type="PackedScene" uid="uid://uwafv33hnxa" path="res://Scenes/ControlsMenu/controls_menu.tscn" id="2_mrsti"]
 
 [node name="Main_Menu" type="Control"]
@@ -26,10 +25,6 @@ offset_right = 93.0
 offset_bottom = 50.5
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Untitled" type="Sprite2D" parent="MarginContainer"]
-position = Vector2(64, 38.5)
-texture = ExtResource("2_7a58w")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
