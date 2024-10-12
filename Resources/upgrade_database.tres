@@ -1,7 +1,12 @@
-[gd_resource type="Resource" script_class="UpgradeDatabase" load_steps=9 format=3 uid="uid://bjmsc8s4n0t1d"]
+[gd_resource type="Resource" script_class="UpgradeDatabase" load_steps=14 format=3 uid="uid://bjmsc8s4n0t1d"]
 
 [ext_resource type="Script" path="res://Scripts/upgrade_database.gd" id="1_gwe1n"]
 [ext_resource type="Script" path="res://Scripts/upgrade.gd" id="2_u61bf"]
+[ext_resource type="Texture2D" uid="uid://c8owxf6ab5r5f" path="res://Sprites/Upgrades/1000_F_367669009_vSqOGYTjrDgxYj2NFEfpT3vDTzXHcj9N.jpg" id="3_cj57o"]
+[ext_resource type="Texture2D" uid="uid://bkema52y2j8ue" path="res://Sprites/Upgrades/instant_chest.jpg" id="4_28q3i"]
+[ext_resource type="Texture2D" uid="uid://dh20laaucgqh0" path="res://Sprites/Upgrades/drift_fire.jpg" id="5_05hri"]
+[ext_resource type="Texture2D" uid="uid://bojl0aq403tbt" path="res://Sprites/Upgrades/engine_tuneup.jpg" id="6_gtfl8"]
+[ext_resource type="Texture2D" uid="uid://cbcckjpmrlamq" path="res://Sprites/Upgrades/kansei_driftojpg.jpg" id="7_3rdui"]
 
 [sub_resource type="Resource" id="Resource_05b7n"]
 script = ExtResource("2_u61bf")
@@ -9,6 +14,7 @@ display_name = "Drift Damage"
 description = "Increased Drift Damage By 2!"
 level = 0
 max_level = 3
+texture = ExtResource("3_cj57o")
 
 [sub_resource type="Resource" id="Resource_3qn32"]
 script = ExtResource("2_u61bf")
@@ -16,6 +22,7 @@ display_name = "Instant Chest"
 description = "Open up Chests with one Ring!"
 level = 0
 max_level = 1
+texture = ExtResource("4_28q3i")
 
 [sub_resource type="Resource" id="Resource_33j1t"]
 script = ExtResource("2_u61bf")
@@ -23,27 +30,31 @@ display_name = "Drift Pulse"
 description = "Drift Rings deal damage multiple times!"
 level = 0
 max_level = 3
+texture = ExtResource("3_cj57o")
 
 [sub_resource type="Resource" id="Resource_os0ew"]
 script = ExtResource("2_u61bf")
 display_name = "Fire Trail"
 description = "I think this was in Die Hard 2?"
 level = 0
-max_level = 1
+max_level = 3
+texture = ExtResource("5_05hri")
 
 [sub_resource type="Resource" id="Resource_0frwa"]
 script = ExtResource("2_u61bf")
 display_name = "Engine Tune Up"
 description = "Increased Top Speed and Acceleration!"
 level = 0
-max_level = 3
+max_level = 4
+texture = ExtResource("6_gtfl8")
 
 [sub_resource type="Resource" id="Resource_nsdx5"]
 script = ExtResource("2_u61bf")
 display_name = "Kansei Drift"
 description = "More control while drifting!"
 level = 0
-max_level = 3
+max_level = 4
+texture = ExtResource("7_3rdui")
 
 [resource]
 script = ExtResource("1_gwe1n")

@@ -40,6 +40,7 @@ enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg")
 2d_physics/layer_5="Drift Ring"
 2d_physics/layer_6="Enemy Hurtboxes"
 2d_physics/layer_7="Chest"
+2d_physics/layer_8="Fire"
 
 [rendering]
 

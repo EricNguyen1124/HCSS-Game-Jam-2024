@@ -22,8 +22,6 @@ func _ready() -> void:
 	car.start_drift.connect(_on_car_startDrift)
 	enemy_spawn_timer.timeout.connect(spawn_enemies)
 	chest_spawn_timer.timeout.connect(spawn_chest)
-	
-	#chest.chest_opened.connect(_on_chest_open)
 
 func _process(_delta: float) -> void:
 	if Engine.get_frames_drawn() % 5 == 0:
@@ -87,5 +85,5 @@ func spawn_chest() -> void:
 	
 func _on_chest_open(upgrade: Upgrade) -> void:
 	chest = null
-	upgrade_ui.set_text(upgrade.display_name, upgrade.description)
+	upgrade_ui.set_info(upgrade)
 	upgrade_ui.show_ui()

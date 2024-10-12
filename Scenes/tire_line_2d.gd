@@ -2,6 +2,7 @@ class_name TireLine2D extends Line2D
 
 @onready var ringEffectScene: PackedScene = preload("res://Scenes/RingEffect.tscn")
 @onready var hitbox_timer: Timer = $Timer
+@onready var fire_scene: PackedScene = preload("res://Scenes/fire.tscn")
 
 var area_list: Array[Area2D]
 
@@ -17,6 +18,7 @@ var point_index_by_area_id: Dictionary = {}
 
 var current_hitbox: Area2D = null
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hitbox_timer.timeout.connect(_remove_hitbox)
@@ -31,11 +33,11 @@ func _physics_process(_delta: float) -> void:
 			overlapping_areas.sort_custom(func(a, b): return a.get_instance_id() < b.get_instance_id())
 			var overlap_area_id = overlapping_areas[0].get_instance_id()
 			var overlap_point_index = point_index_by_area_id[overlap_area_id]
-
+			
 			var polygon_points: PackedVector2Array = points.slice(overlap_point_index, point_index_by_area_id[current_area.get_instance_id()] - 12)
-
+			
 			current_area = null
-
+			
 			var curve = Curve2D.new()
 			for point in polygon_points:
 				curve.add_point(point)
@@ -44,7 +46,7 @@ func _physics_process(_delta: float) -> void:
 			ring_effect.set_curve(curve)
 			ring_effect.ring_effect_completed.connect(do_area_damage)
 			add_child(ring_effect)
-
+			
 			ring_effect.start_animation(PlayerVariables.ring_pulses)
 
 func do_area_damage(polygon: PackedVector2Array) -> void:
@@ -99,13 +101,23 @@ func add_drift_point(pos: Vector2):
 		point_index_by_area_id[area.get_instance_id()] = points.size()
 		
 		points_added = 0
+		if PlayerVariables.drift_fire:
+			spawn_fire(pos)
+			
 	else:
 		points_added += 1
 
 	add_point(pos)
 
+func spawn_fire(point: Vector2) -> void:
+	var fire = fire_scene.instantiate()
+	fire.global_position = point
+	add_child(fire)
+
 func _remove_hitbox() -> void:
 	current_hitbox.queue_free()
+	# if one line includes multiple hitboxes, they will be untracked and will not be queue_free()
+	# maybe instantiate a timer for each hitbox, instead of trying to keep track of them.
 	current_hitbox = null
 
 func end_drift():
