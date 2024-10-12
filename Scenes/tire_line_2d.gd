@@ -3,6 +3,7 @@ class_name TireLine2D extends Line2D
 @onready var ringEffectScene: PackedScene = preload("res://Scenes/RingEffect.tscn")
 @onready var expiration_timer: Timer = $Timer
 @onready var fire_scene: PackedScene = preload("res://Scenes/fire.tscn")
+@onready var ring_attack_scene: PackedScene = preload("res://Scenes/RingAttack.tscn")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var area_list: Array[Area2D]
@@ -35,54 +36,19 @@ func _physics_process(_delta: float) -> void:
 			var polygon_points: PackedVector2Array = points.slice(overlap_point_index, point_index_by_area_id[current_area.get_instance_id()] - 6)
 			
 			current_area = null
-			
-			var curve = Curve2D.new()
-			for point in polygon_points:
-				curve.add_point(point)
-			
-			var ring_effect: RingEffect = ringEffectScene.instantiate()
-			ring_effect.set_curve(curve)
-			ring_effect.ring_effect_completed.connect(do_area_damage)
-			add_child(ring_effect)
-			
-			ring_effect.start_animation(PlayerVariables.ring_pulses)
 
-func do_area_damage(polygon: PackedVector2Array) -> void:
-	var area = Area2D.new()
+			var ring_attack: RingAttack = ring_attack_scene.instantiate()
+			add_child(ring_attack)
+
+			ring_attack.set_polygon(polygon_points)
+			ring_attack.do_damage()
 	
-	area.set_collision_layer(0b10000)
-	area.set_collision_mask(0b1000100)
-
-	var collisionShape = CollisionPolygon2D.new();
-
-	collisionShape.polygon = polygon
-
-	area.add_child(collisionShape)
-
-	var timer = Timer.new()
-	timer.wait_time = 0.5
-	timer.one_shot = true
-	timer.autostart = true
-	timer.timeout.connect(area.queue_free)
-
-	add_child(area)
-	add_child(timer)
-
-	area.area_entered.connect(_on_area_enter)
-	area.body_entered.connect(_on_body_enter)
-	
-
-func _on_area_enter(area: Chest) -> void:
-	area.deal_damage()
-
-func _on_body_enter(body: Enemy) -> void:
-	body.deal_damage(PlayerVariables.ring_damage)
 
 func add_drift_point(pos: Vector2):
 	if first_point:
 			start_point = pos
 			first_point = false
-		
+	
 	if points_added > area_granularity:
 		var area = Area2D.new()
 		var collision_shape = CollisionShape2D.new();
@@ -123,6 +89,7 @@ func end_drift():
 	for area in area_list:
 		area.queue_free()
 	area_list.clear()
+	expiration_timer.start()
 
 func fade_and_delete():
 	animation_player.play("fade")

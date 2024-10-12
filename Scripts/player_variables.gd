@@ -4,7 +4,7 @@ var ring_damage: float = 6
 
 var instant_chest = false
 
-var ring_pulses: int = 3
+var ring_pulses: int = 1
 
 var drift_fire = false
 var drift_fire_damage: float = 0

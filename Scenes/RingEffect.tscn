@@ -3,10 +3,6 @@
 [ext_resource type="Script" path="res://Scenes/ring_effect.gd" id="1_4ac1a"]
 
 [sub_resource type="Curve2D" id="Curve2D_hqtk2"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 168, 50, 0, 0, 0, 0, 115, 300, 0, 0, 0, 0, 307, 409, 0, 0, 0, 0, 357, 468, 0, 0, 0, 0, 549, 409, 0, 0, 0, 0, 649, 297, 0, 0, 0, 0, 656, 129, 0, 0, 0, 0, 616, 43, 0, 0, 0, 0, 388, 38, 0, 0, 0, 0, 304, 90, 0, 0, 0, 0, 196, 87, 0, 0, 0, 0, 33, 2)
-}
-point_count = 13
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_llyxs"]
 particle_flag_disable_z = true
@@ -87,7 +83,8 @@ curve = SubResource("Curve2D_hqtk2")
 script = ExtResource("1_4ac1a")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-rotation = 0.289271
+position = Vector2(196, 87)
+rotation = -2.66092
 
 [node name="Sprite2D" type="Sprite2D" parent="PathFollow2D"]
 
