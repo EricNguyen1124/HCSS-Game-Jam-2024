@@ -1,14 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://dljit8iuf4it6"]
+[gd_scene load_steps=11 format=3 uid="uid://dljit8iuf4it6"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_l1t70"]
 [ext_resource type="Texture2D" uid="uid://qy4n8qluv7ql" path="res://carpet.png" id="2_m5nk7"]
 [ext_resource type="PackedScene" uid="uid://crb4xj6obysjs" path="res://Scenes/car.tscn" id="3_5ouut"]
 [ext_resource type="Texture2D" uid="uid://c2hhjnojihpi1" path="res://Sprites/wheel.png" id="6_2ke4k"]
 [ext_resource type="Texture2D" uid="uid://oiku3d1g702f" path="res://Sprites/notebook.jpg" id="6_eglqe"]
-[ext_resource type="PackedScene" path="res://Scenes/arrow_scene.tscn" id="6_p1p7h"]
-[ext_resource type="PackedScene" path="res://Scenes/UpgradeUI.tscn" id="6_v8cvb"]
+[ext_resource type="PackedScene" uid="uid://brsr7la0ii3gg" path="res://Scenes/arrow_scene.tscn" id="6_p1p7h"]
+[ext_resource type="PackedScene" uid="uid://ddmmjkld47bmr" path="res://Scenes/UpgradeUI.tscn" id="6_v8cvb"]
 [ext_resource type="Texture2D" uid="uid://cnjokxh0oxoei" path="res://Sprites/UI/health_bar_overlay.png" id="8_epv4q"]
 [ext_resource type="Texture2D" uid="uid://m42efda12cf5" path="res://Sprites/UI/health_bar.png" id="9_5ne0k"]
+[ext_resource type="Texture2D" uid="uid://8rltp6fynmb2" path="res://Sprites/UI/radio.png" id="10_mt1nr"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_l1t70")
@@ -74,6 +75,15 @@ value = 100.0
 texture_over = ExtResource("8_epv4q")
 texture_progress = ExtResource("9_5ne0k")
 texture_progress_offset = Vector2(473.145, 102.555)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = 814.0
+offset_top = 502.0
+offset_right = 1721.0
+offset_bottom = 859.0
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("10_mt1nr")
+expand_mode = 1
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(2048, 1644)

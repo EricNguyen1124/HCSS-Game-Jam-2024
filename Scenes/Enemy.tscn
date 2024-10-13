@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c7yutvhshxhxj"]
+[gd_scene load_steps=28 format=3 uid="uid://c7yutvhshxhxj"]
 
 [ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_kkja3"]
 [ext_resource type="Texture2D" uid="uid://c2xia4psnkv5a" path="res://Sprites/Zombies/Zombie+right+to+left/frame_00001.png" id="2_bqc73"]
@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://bymn53su0p3c4" path="res://Sprites/Zombies/Zombie+top+to+bot/frame_00002.png" id="15_ikmea"]
 [ext_resource type="Texture2D" uid="uid://gp4ytcmnyy5x" path="res://Sprites/Zombies/Zombie+top+to+bot/frame_00003.png" id="16_y2inx"]
 [ext_resource type="Texture2D" uid="uid://bog32xarrmspm" path="res://Sprites/Zombies/Zombie+top+to+bot/frame_00004.png" id="17_e0k8f"]
+[ext_resource type="Texture2D" uid="uid://kwnb1ye8mgf4" path="res://Sprites/UI/enemy_ui_overlay.png" id="18_4pyc8"]
+[ext_resource type="Texture2D" uid="uid://bgjog4qrqitr3" path="res://Sprites/UI/enemy_bar.png" id="19_tpap1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hpxrb"]
 radius = 20.0
@@ -284,3 +286,14 @@ amount = 50
 process_material = SubResource("ParticleProcessMaterial_lkg3u")
 lifetime = 0.25
 one_shot = true
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = -22.0
+offset_top = -57.0
+offset_right = 807.0
+offset_bottom = 147.0
+scale = Vector2(0.065, 0.05)
+value = 100.0
+texture_over = ExtResource("18_4pyc8")
+texture_progress = ExtResource("19_tpap1")
+texture_progress_offset = Vector2(21.22, 16.37)

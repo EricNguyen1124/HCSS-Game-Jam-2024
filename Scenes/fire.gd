@@ -1,4 +1,4 @@
-extends Sprite2D
+extends AnimatedSprite2D
 
 @onready var hitbox = $Area2D
 @onready var extinguish_timer = $ExtinguishTimer

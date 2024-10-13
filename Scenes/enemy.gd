@@ -4,13 +4,15 @@ class_name Enemy
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var health_bar: TextureProgressBar = $HealthBar
 
 const SPEED: float = 1800.0
 const DIR_4 = [Vector2.LEFT,Vector2.UP,Vector2.RIGHT,Vector2.DOWN]
 
 var target_position: Vector2 = Vector2(0, 0)
-var health = 15
-var dead = false
+var initial_health: float = 15.0
+var health: float  = 15.0
+var dead: bool = false
 
 func _process(_delta) -> void:
 	var cardinal_direction = Vector2()
@@ -38,6 +40,9 @@ func _physics_process(delta: float) -> void:
 
 func deal_damage(dmg: int) -> void:
 	health -= dmg
+
+	health_bar.value = (health / initial_health) * 100
+
 	if health > 0:
 		animation_player.play("hurt")
 	else:
