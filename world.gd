@@ -11,15 +11,18 @@ extends Node2D
 @onready var world_bounds: Marker2D = $Marker2D
 @onready var wheel: Sprite2D = $Wheel
 @onready var arrow = $CanvasLayer/SubViewportContainer/SubViewport/ArrowScene
+@onready var health_bar: TextureProgressBar = $CanvasLayer/TextureProgressBar
 
-var currentLine: TireLine2D
+var current_line: TireLine2D
 
 var enemies: Array[Enemy]
 var chest: Chest
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	car.start_drift.connect(_on_car_startDrift)
+	car.start_drift.connect(on_car_start_drift)
+	car.damage_taken.connect(on_damage_taken)
+
 	enemy_spawn_timer.timeout.connect(spawn_enemies)
 	chest_spawn_timer.timeout.connect(spawn_chest)
 
@@ -45,15 +48,15 @@ func _process(_delta: float) -> void:
 func _physics_process(_delta: float) -> void:
 	var car_is_drifting: bool = car.current_state == CarState.DRIFTING_LEFT or car.current_state == CarState.DRIFTING_RIGHT
 
-	if currentLine != null and car_is_drifting:
-		currentLine.add_drift_point(carLeftTire.global_position)
-	elif currentLine != null and !car_is_drifting:
-		currentLine.end_drift()
-		currentLine = null
+	if current_line != null and car_is_drifting:
+		current_line.add_drift_point(carLeftTire.global_position)
+	elif current_line != null and !car_is_drifting:
+		current_line.end_drift()
+		current_line = null
 
-func _on_car_startDrift():
-	currentLine = tireScene.instantiate()
-	add_child(currentLine)
+func on_car_start_drift():
+	current_line = tireScene.instantiate()
+	add_child(current_line)
 
 func spawn_enemies() -> void:
 	var random_angle = randf_range(0.0, 2 * PI)
@@ -80,10 +83,14 @@ func spawn_chest() -> void:
 	chest = chest_instance
 	
 	chest_instance.global_position = spawn_vector
-	chest_instance.chest_opened.connect(_on_chest_open)
+	chest_instance.chest_opened.connect(on_chest_open)
 	add_child(chest_instance)
 	
-func _on_chest_open(upgrade: Upgrade) -> void:
+func on_chest_open(upgrade: Upgrade) -> void:
 	chest = null
 	upgrade_ui.set_info(upgrade)
 	upgrade_ui.show_ui()
+
+func on_damage_taken(new_health: float) -> void:
+	print(new_health)
+	health_bar.value = new_health

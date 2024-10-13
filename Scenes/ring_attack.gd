@@ -31,12 +31,21 @@ func check_collisions() -> void:
 	if first_attack_done:
 		damage = damage / 2.0
 
+	var enemies_killed = 0
+
 	var enemies = get_overlapping_bodies()
 	for enemy: Enemy in enemies:
 		enemy.deal_damage(damage)
+		if enemy.dead:
+			enemies_killed += 1
 
 	var chests = get_overlapping_areas()
 	for chest: Chest in chests:
 		chest.deal_damage()
+
+	if enemies_killed > 0:
+		# spawn orbs
+		# do some combo scoring action
+		print(enemies_killed)
 
 	first_attack_done = true

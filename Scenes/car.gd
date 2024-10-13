@@ -15,26 +15,33 @@ const BRAKING_FORCE: float = 400.0
 const DRIFT_IN: float = 1.35
 const DRIFT_OUT: float = 1.65
 
+var health: float = 100.0
+
 var heading: float = 0.0
 var steering: float = 0.0
 var speed: float = 0.0
 
 signal start_drift
+signal damage_taken
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var car_sprite: Sprite2D = $Icon
+@onready var car_hurtbox: Area2D = $Area2D
 @onready var car_scene: Node3D = $SubViewport/CarScene
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var particles: GPUParticles2D = $GPUParticles2D
 
 var current_state = CarState.NORMAL
 
+func _ready() -> void:
+	car_hurtbox.area_entered.connect(on_area_entered)
+
 func _process(delta: float) -> void:
 	#ImGui.Begin("Current Car State")
 	#ImGui.Text(str(current_state))
 	#ImGui.Text(str(speed))
 	
-	
+	# car_hurtbox.set_rotation(heading)
 	car_sprite.rotation = heading
 		
 	# SHIT CODE FIX LATER LMAOO
@@ -82,11 +89,17 @@ func _process(delta: float) -> void:
 	heading += steering * delta
 	
 func set_sprite_rotation() -> void:
-	var model_angle = velocity.angle() - PI/4 + 0.25
+	var model_angle = heading - PI/2 - 0.50
+	var hurtbox_angle = heading
+
 	if current_state == CarState.DRIFTING_LEFT:
 		model_angle -= PI/2
+		hurtbox_angle -= PI/2
 	elif current_state == CarState.DRIFTING_RIGHT:
 		model_angle += PI/2
+		hurtbox_angle += PI/2
+
+	car_hurtbox.set_rotation(hurtbox_angle)
 	car_scene.set_car_rotation(model_angle)
 
 	var angle = velocity.angle()
@@ -119,7 +132,7 @@ func _physics_process(_delta: float) -> void:
 	velocity = Vector2(0, -speed).rotated(heading)
 	move_and_slide()
 
-func on_hop_land():
+func on_hop_land() -> void:
 	if Input.is_key_pressed(KEY_A):
 		current_state = CarState.DRIFTING_LEFT
 		start_drift.emit()
@@ -128,3 +141,8 @@ func on_hop_land():
 		start_drift.emit()
 	else:
 		current_state = CarState.NORMAL
+
+func on_area_entered(_area: Area2D) -> void:
+	health -= 10
+	damage_taken.emit(health)
+	print(health)
