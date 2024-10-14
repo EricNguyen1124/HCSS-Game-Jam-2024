@@ -1,15 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://crb4xj6obysjs"]
+[gd_scene load_steps=19 format=3 uid="uid://crb4xj6obysjs"]
 
 [ext_resource type="Script" path="res://Scenes/car.gd" id="1_gscac"]
 [ext_resource type="Texture2D" uid="uid://4ckvpyjppbvu" path="res://icon.svg" id="2_544c0"]
-[ext_resource type="Texture2D" uid="uid://ul3w5ett1jyf" path="res://Sprites/Red Car/Frame E.png" id="3_yqjl3"]
-[ext_resource type="Texture2D" uid="uid://26tfvbmnbw03" path="res://Sprites/Red Car/Frame SE.png" id="4_xkr2e"]
-[ext_resource type="Texture2D" uid="uid://bm3tel85erfyt" path="res://Sprites/Red Car/Frame S.png" id="5_e3e1c"]
-[ext_resource type="Texture2D" uid="uid://406yq3rgiyed" path="res://Sprites/Red Car/Frame SW.png" id="6_jxvco"]
-[ext_resource type="Texture2D" uid="uid://ca0f0djo5ixg6" path="res://Sprites/Red Car/Frame W.png" id="7_yecwp"]
-[ext_resource type="Texture2D" uid="uid://b5bskkgl51qvk" path="res://Sprites/Red Car/Frame NW.png" id="8_7hqpe"]
-[ext_resource type="Texture2D" uid="uid://b0pvc8fmhakfg" path="res://Sprites/Red Car/Frame N.png" id="9_u7pjr"]
-[ext_resource type="Texture2D" uid="uid://wsrghggko0ed" path="res://Sprites/Red Car/Frame NE.png" id="10_i2dr0"]
 [ext_resource type="PackedScene" uid="uid://b42ajkoq328rr" path="res://Scenes/CarScene.tscn" id="11_3yg0f"]
 [ext_resource type="Texture2D" uid="uid://bfftsm850ee4v" path="res://Sprites/Smoke+animation/frame_00001.png" id="13_lgdil"]
 
@@ -72,44 +64,55 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(-0.500026, -5.5)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_c6dht"]
+resource_name = "hurt"
+length = 0.7055
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.999551, 0, 0.0494517, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.666667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"anim_hurt_finished"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4vi1l"]
 _data = {
 "Hop": SubResource("Animation_h38jl"),
-"RESET": SubResource("Animation_q53kt")
+"RESET": SubResource("Animation_q53kt"),
+"hurt": SubResource("Animation_c6dht")
 }
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_nldst"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_yqjl3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_xkr2e")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_e3e1c")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_jxvco")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_yecwp")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_7hqpe")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_u7pjr")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_i2dr0")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_r2kls"]
 viewport_path = NodePath("SubViewport")
@@ -184,14 +187,6 @@ libraries = {
 "": SubResource("AnimationLibrary_4vi1l")
 }
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(124, 0)
-scale = Vector2(0.12, 0.12)
-sprite_frames = SubResource("SpriteFrames_nldst")
-frame = 1
-frame_progress = 0.813685
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-0.5, 30)
 texture = SubResource("ViewportTexture_r2kls")
@@ -205,7 +200,6 @@ render_target_update_mode = 4
 [node name="CarScene" parent="SubViewport" instance=ExtResource("11_3yg0f")]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-visible = false
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_vn7rn")
 texture = ExtResource("13_lgdil")
@@ -219,3 +213,7 @@ position = Vector2(-0.57, -3.61)
 scale = Vector2(2.32, 2.32)
 shape = SubResource("CapsuleShape2D_0so5k")
 debug_color = Color(0.884116, 0.000314775, 0.811507, 0.42)
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 0.65
+one_shot = true

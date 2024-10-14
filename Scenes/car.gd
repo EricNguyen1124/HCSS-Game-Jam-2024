@@ -17,6 +17,8 @@ const DRIFT_OUT: float = 1.65
 
 var health: float = 100.0
 
+var invincible: bool = false
+
 var heading: float = 0.0
 var steering: float = 0.0
 var speed: float = 0.0
@@ -28,13 +30,15 @@ signal damage_taken
 @onready var car_sprite: Sprite2D = $Icon
 @onready var car_hurtbox: Area2D = $Area2D
 @onready var car_scene: Node3D = $SubViewport/CarScene
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var car_3d_sprite: Sprite2D = $Sprite2D
 @onready var particles: GPUParticles2D = $GPUParticles2D
+@onready var invincibility_timer: Timer = $InvincibilityTimer
 
 var current_state = CarState.NORMAL
 
 func _ready() -> void:
 	car_hurtbox.area_entered.connect(on_area_entered)
+	invincibility_timer.timeout.connect(anim_hurt_finished)
 
 func _process(delta: float) -> void:
 	#ImGui.Begin("Current Car State")
@@ -101,20 +105,7 @@ func set_sprite_rotation() -> void:
 
 	car_hurtbox.set_rotation(hurtbox_angle)
 	car_scene.set_car_rotation(model_angle)
-
-	var angle = velocity.angle()
-	
-	if angle < 0:
-		angle += TAU
 		
-	var index = int(round(angle / (PI / 4))) % 8
-	
-	if current_state == CarState.DRIFTING_LEFT:
-		index = (index + 8 - 2) % 8
-	elif current_state == CarState.DRIFTING_RIGHT:
-		index = (index + 8 + 2) % 8
-		
-	animated_sprite.set_frame(index)
 
 func handle_particles() -> void:
 	if current_state == CarState.DRIFTING_LEFT or current_state == CarState.DRIFTING_RIGHT:
@@ -143,6 +134,16 @@ func on_hop_land() -> void:
 		current_state = CarState.NORMAL
 
 func on_area_entered(_area: Area2D) -> void:
+	if invincible: return
+	
+	invincible = true
+	
+	car_3d_sprite.modulate = Color.FIREBRICK
+	
 	health -= 10
 	damage_taken.emit(health)
-	print(health)
+	invincibility_timer.start()
+
+func anim_hurt_finished() -> void:
+	car_3d_sprite.modulate = Color.WHITE
+	invincible = false
