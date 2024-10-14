@@ -14,3 +14,5 @@ var speed_bonus: float = 0
 var acceleration_bonus: float = 0
 
 var drift_bonus: float = 0.0
+
+var combo_timer: float = 5.5

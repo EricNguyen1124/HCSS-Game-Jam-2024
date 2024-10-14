@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dljit8iuf4it6"]
+[gd_scene load_steps=12 format=3 uid="uid://dljit8iuf4it6"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_l1t70"]
 [ext_resource type="Texture2D" uid="uid://qy4n8qluv7ql" path="res://carpet.png" id="2_m5nk7"]
 [ext_resource type="PackedScene" uid="uid://crb4xj6obysjs" path="res://Scenes/car.tscn" id="3_5ouut"]
-[ext_resource type="Texture2D" uid="uid://c2hhjnojihpi1" path="res://Sprites/wheel.png" id="6_2ke4k"]
 [ext_resource type="Texture2D" uid="uid://oiku3d1g702f" path="res://Sprites/notebook.jpg" id="6_eglqe"]
 [ext_resource type="PackedScene" uid="uid://brsr7la0ii3gg" path="res://Scenes/arrow_scene.tscn" id="6_p1p7h"]
 [ext_resource type="PackedScene" uid="uid://ddmmjkld47bmr" path="res://Scenes/UpgradeUI.tscn" id="6_v8cvb"]
@@ -42,12 +41,6 @@ autostart = true
 [node name="ChestSpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
-
-[node name="Wheel" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(327, 914)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("6_2ke4k")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

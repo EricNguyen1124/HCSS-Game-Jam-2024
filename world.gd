@@ -9,14 +9,13 @@ extends Node2D
 @onready var chest_spawn_timer: Timer = $ChestSpawnTimer
 @onready var upgrade_ui: UpgradeUI = $CanvasLayer/UpgradeUI
 @onready var world_bounds: Marker2D = $Marker2D
-@onready var wheel: Sprite2D = $Wheel
 @onready var arrow = $CanvasLayer/SubViewportContainer/SubViewport/ArrowScene
 @onready var health_bar: TextureProgressBar = $CanvasLayer/TextureProgressBar
 
 @onready var combo_label: ComboLabel = $CanvasLayer/ComboLabel
+@onready var score_label: Label = $CanvasLayer/ScoreLabel
 
-
-var score: float = 0
+var score: int = 0
 
 var current_line: TireLine2D
 
@@ -27,6 +26,10 @@ var chest: Chest
 func _ready() -> void:
 	car.start_drift.connect(on_car_start_drift)
 	car.damage_taken.connect(on_damage_taken)
+
+	score_label.text = str(score)
+
+	combo_label.combo_finished.connect(on_combo_finished)
 
 	enemy_spawn_timer.timeout.connect(spawn_enemies)
 	chest_spawn_timer.timeout.connect(spawn_chest)
@@ -43,11 +46,6 @@ func _process(_delta: float) -> void:
 		arrow.set_arrow_rotation(angle_to_chest)
 	else:
 		arrow.visible = false
-				
-	var steer_value = car.steering
-	var steer_angle = steer_value / (PI/2)
-	wheel.set_rotation(steer_angle)
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta: float) -> void:
@@ -103,3 +101,7 @@ func on_damage_taken(new_health: float) -> void:
 
 func on_enemies_killed(count: int) -> void:
 	combo_label.on_enemies_killed(count)
+
+func on_combo_finished(final_score: int) -> void:
+	score += final_score
+	score_label.text = str(score)

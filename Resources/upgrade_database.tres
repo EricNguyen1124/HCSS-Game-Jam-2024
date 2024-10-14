@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UpgradeDatabase" load_steps=14 format=3 uid="uid://bjmsc8s4n0t1d"]
+[gd_resource type="Resource" script_class="UpgradeDatabase" load_steps=15 format=3 uid="uid://bjmsc8s4n0t1d"]
 
 [ext_resource type="Script" path="res://Scripts/upgrade_database.gd" id="1_gwe1n"]
 [ext_resource type="Script" path="res://Scripts/upgrade.gd" id="2_u61bf"]
@@ -35,7 +35,7 @@ texture = ExtResource("3_cj57o")
 [sub_resource type="Resource" id="Resource_os0ew"]
 script = ExtResource("2_u61bf")
 display_name = "Fire Trail"
-description = "I think this was in Die Hard 2?"
+description = "Increased Fire Damage and Duration"
 level = 0
 max_level = 3
 texture = ExtResource("5_05hri")
@@ -45,7 +45,7 @@ script = ExtResource("2_u61bf")
 display_name = "Engine Tune Up"
 description = "Increased Top Speed and Acceleration!"
 level = 0
-max_level = 4
+max_level = 3
 texture = ExtResource("6_gtfl8")
 
 [sub_resource type="Resource" id="Resource_nsdx5"]
@@ -56,6 +56,13 @@ level = 0
 max_level = 4
 texture = ExtResource("7_3rdui")
 
+[sub_resource type="Resource" id="Resource_ygpiy"]
+script = ExtResource("2_u61bf")
+display_name = "Combo Extender"
+description = "More time to do combos! "
+level = 0
+max_level = 2
+
 [resource]
 script = ExtResource("1_gwe1n")
-upgrades = Array[ExtResource("2_u61bf")]([SubResource("Resource_05b7n"), SubResource("Resource_3qn32"), SubResource("Resource_33j1t"), SubResource("Resource_os0ew"), SubResource("Resource_0frwa"), SubResource("Resource_nsdx5")])
+upgrades = Array[ExtResource("2_u61bf")]([SubResource("Resource_05b7n"), SubResource("Resource_3qn32"), SubResource("Resource_33j1t"), SubResource("Resource_os0ew"), SubResource("Resource_0frwa"), SubResource("Resource_nsdx5"), SubResource("Resource_ygpiy")])

@@ -27,7 +27,7 @@ func deal_damage() -> void:
 func roll_and_apply_upgrade() -> void:
 	var valid_upgrades: Array[Upgrade] = upgrade_database.upgrades.filter(func(u: Upgrade): return u.level < u.max_level)
 	
-	#valid_upgrades = valid_upgrades.filter(func(u: Upgrade): return u.display_name == "Kansei Drift")
+	#valid_upgrades = valid_upgrades.filter(func(u: Upgrade): return u.display_name == "Combo Extender")
 	
 	if valid_upgrades.is_empty():
 		return

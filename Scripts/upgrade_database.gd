@@ -30,5 +30,8 @@ func get_callable(name: String) -> Callable:
 		"Kansei Drift":
 			return func():
 				PlayerVariables.drift_bonus += 0.8
+		"Combo Extender":
+			return func():
+				PlayerVariables.combo_timer += 0.75
 	
 	return func(): print("update get_callable dummie lmao")
