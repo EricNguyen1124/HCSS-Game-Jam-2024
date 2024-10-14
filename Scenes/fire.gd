@@ -18,7 +18,10 @@ func deal_damage() -> void:
 	var zombies = hitbox.get_overlapping_bodies()
 	for zombie in zombies:
 		# deal damage until 1 damage remaining
-		zombie.deal_damage(PlayerVariables.drift_fire_damage)
+		if zombie.health - PlayerVariables.drift_fire_damage < 1:
+			zombie.health = 1
+		else:
+			zombie.deal_damage(PlayerVariables.drift_fire_damage)
 
 func extinguish() -> void:
 	queue_free()

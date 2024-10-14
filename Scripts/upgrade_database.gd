@@ -21,7 +21,7 @@ func get_callable(name: String) -> Callable:
 		"Fire Trail":
 			return func(): 
 				PlayerVariables.drift_fire = true 
-				PlayerVariables.drift_fire_damage += 2.0
+				PlayerVariables.drift_fire_damage += 1.0
 				PlayerVariables.drift_fire_duration += 0.25
 		"Engine Tune Up":
 			return func():

@@ -34,7 +34,7 @@ texture = ExtResource("3_cj57o")
 
 [sub_resource type="Resource" id="Resource_os0ew"]
 script = ExtResource("2_u61bf")
-display_name = "Fire Trail"
+display_name = "(Non-Lethal) Fire Trail"
 description = "Increased Fire Damage and Duration"
 level = 0
 max_level = 3

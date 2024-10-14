@@ -25,9 +25,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if PlayerVariables.combo_timer != combo_timer.wait_time:
 		combo_timer.wait_time = PlayerVariables.combo_timer
-	
-	print(combo_timer.wait_time)
-	
+		
 	progress_bar.value = (combo_timer.time_left / combo_timer.wait_time) * 100
 	
 	visible = combo_in_progress
