@@ -6,3 +6,5 @@
 script = ExtResource("1_lapcj")
 display_name = "Drift Damage"
 description = "Increase Drift Damage By 2"
+level = 0
+max_level = 0

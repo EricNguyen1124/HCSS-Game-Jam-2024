@@ -16,3 +16,5 @@ var acceleration_bonus: float = 0
 var drift_bonus: float = 0.0
 
 var combo_timer: float = 5.5
+
+var healing_factor: float = 1.6

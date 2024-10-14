@@ -18,7 +18,7 @@ func get_callable(name: String) -> Callable:
 		"Drift Pulse":
 			return func():
 				PlayerVariables.ring_pulses += 1
-		"Fire Trail":
+		"(Non-Lethal) Fire Trail":
 			return func(): 
 				PlayerVariables.drift_fire = true 
 				PlayerVariables.drift_fire_damage += 1.0
@@ -33,5 +33,8 @@ func get_callable(name: String) -> Callable:
 		"Combo Extender":
 			return func():
 				PlayerVariables.combo_timer += 0.75
+		"Healing Factor":
+			return func():
+				PlayerVariables.healing_factor += 0.55
 	
 	return func(): print("update get_callable dummie lmao")

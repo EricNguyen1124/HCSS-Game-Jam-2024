@@ -147,3 +147,11 @@ func on_area_entered(_area: Area2D) -> void:
 func anim_hurt_finished() -> void:
 	car_3d_sprite.modulate = Color.WHITE
 	invincible = false
+
+func heal_damage(heal_amount: float) -> void:
+	health += heal_amount
+
+	if health > 100:
+		health = 100
+
+	damage_taken.emit(health)

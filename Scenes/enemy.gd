@@ -5,6 +5,7 @@ class_name Enemy
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var health_bar: TextureProgressBar = $HealthBar
+@onready var particles: GPUParticles2D = $GPUParticles2D
 
 const SPEED: float = 1800.0
 const DIR_4 = [Vector2.LEFT,Vector2.UP,Vector2.RIGHT,Vector2.DOWN]
@@ -47,6 +48,7 @@ func deal_damage(dmg: int) -> void:
 		animation_player.play("hurt")
 	else:
 		dead = true
+		particles.emitting = true
 		set_process(false)
 		animated_sprite.pause()
 		animation_player.play("die")

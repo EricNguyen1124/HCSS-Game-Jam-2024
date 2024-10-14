@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c7yutvhshxhxj"]
+[gd_scene load_steps=33 format=3 uid="uid://c7yutvhshxhxj"]
 
 [ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_kkja3"]
 [ext_resource type="Texture2D" uid="uid://c2xia4psnkv5a" path="res://Sprites/Zombies/Zombie+right+to+left/frame_00001.png" id="2_bqc73"]
@@ -18,7 +18,11 @@
 [ext_resource type="Texture2D" uid="uid://gp4ytcmnyy5x" path="res://Sprites/Zombies/Zombie+top+to+bot/frame_00003.png" id="16_y2inx"]
 [ext_resource type="Texture2D" uid="uid://bog32xarrmspm" path="res://Sprites/Zombies/Zombie+top+to+bot/frame_00004.png" id="17_e0k8f"]
 [ext_resource type="Texture2D" uid="uid://kwnb1ye8mgf4" path="res://Sprites/UI/enemy_ui_overlay.png" id="18_4pyc8"]
+[ext_resource type="Texture2D" uid="uid://df5tt3gftgefk" path="res://Sprites/Healing Orb/frame_00001.png" id="18_b4alc"]
 [ext_resource type="Texture2D" uid="uid://bgjog4qrqitr3" path="res://Sprites/UI/enemy_bar.png" id="19_tpap1"]
+[ext_resource type="Texture2D" uid="uid://c56igb8qoqh8q" path="res://Sprites/Healing Orb/frame_00002.png" id="19_uu0ef"]
+[ext_resource type="Texture2D" uid="uid://c7bkfuwahet75" path="res://Sprites/Healing Orb/frame_00003.png" id="20_t5va0"]
+[ext_resource type="Texture2D" uid="uid://bxs2q6ffuj64i" path="res://Sprites/Healing Orb/frame_00004.png" id="21_8hvf1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hpxrb"]
 radius = 20.0
@@ -242,12 +246,26 @@ _data = {
 "hurt": SubResource("Animation_87b7q")
 }
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lkg3u"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ru322"]
 particle_flag_disable_z = true
-spread = 180.0
-initial_velocity_max = 129.47
-gravity = Vector3(0, 150, 0)
-turbulence_enabled = true
+direction = Vector3(0, -1, 0)
+spread = 40.0
+initial_velocity_min = 417.52
+initial_velocity_max = 445.87
+gravity = Vector3(0, 550, 0)
+scale_min = 0.2
+scale_max = 0.2
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_bw1gq"]
+frames = 4
+frame_0/texture = ExtResource("18_b4alc")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("19_uu0ef")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("20_t5va0")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("21_8hvf1")
+frame_3/duration = 0.1
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
@@ -282,9 +300,9 @@ libraries = {
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(5, -22)
 emitting = false
-amount = 50
-process_material = SubResource("ParticleProcessMaterial_lkg3u")
-lifetime = 0.25
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_ru322")
+texture = SubResource("AnimatedTexture_bw1gq")
 one_shot = true
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]

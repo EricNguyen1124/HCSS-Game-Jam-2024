@@ -9,9 +9,9 @@ extends Node2D
 @onready var chest_spawn_timer: Timer = $ChestSpawnTimer
 @onready var upgrade_ui: UpgradeUI = $CanvasLayer/UpgradeUI
 @onready var world_bounds: Marker2D = $Marker2D
+
 @onready var arrow = $CanvasLayer/SubViewportContainer/SubViewport/ArrowScene
 @onready var health_bar: TextureProgressBar = $CanvasLayer/TextureProgressBar
-
 @onready var combo_label: ComboLabel = $CanvasLayer/ComboLabel
 @onready var score_label: Label = $CanvasLayer/ScoreLabel
 
@@ -21,6 +21,8 @@ var current_line: TireLine2D
 
 var enemies: Array[Enemy]
 var chest: Chest
+
+var game_duration_in_seconds: float = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,7 +36,9 @@ func _ready() -> void:
 	enemy_spawn_timer.timeout.connect(spawn_enemies)
 	chest_spawn_timer.timeout.connect(spawn_chest)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	game_duration_in_seconds += delta
+	
 	if Engine.get_frames_drawn() % 5 == 0:
 		for enemy in enemies:
 			if enemy != null:
@@ -63,16 +67,27 @@ func on_car_start_drift():
 	add_child(current_line)
 
 func spawn_enemies() -> void:
-	var random_angle = randf_range(0.0, 2 * PI)
-	var spawn_vector = (Vector2(0.0, 1.0).rotated(random_angle) * 800) + car.global_position
+	var duration_in_minutes = game_duration_in_seconds / 60
 	
-	var random_number_of_enemies = randi_range(3,7)
+	var random_angle = randf_range(0.0, 2 * PI)
+	var spawn_vector = (Vector2(0.0, 1.0).rotated(random_angle) * 1000) + car.global_position
+	
+	var random_number_of_enemies = randi_range(1,3) + floor(duration_in_minutes)
 	
 	for i in random_number_of_enemies:
-		var enemy: CharacterBody2D = enemyScene.instantiate()
-		enemy.global_position = spawn_vector + Vector2(randf_range(100.0, 200.0),randf_range(100.0, 200.0))
+		var enemy: Enemy = enemyScene.instantiate()
+		enemy.initial_health = 15 + floor(duration_in_minutes)
+		enemy.health = enemy.initial_health
+		enemy.global_position = spawn_vector + Vector2(randf_range(10.0, 20.0),randf_range(10.0, 20.0))
 		enemies.append(enemy)
 		add_child(enemy)
+		
+	var new_spawn_wait_time = (-duration_in_minutes / 4.5) + 5
+	enemy_spawn_timer.stop()
+	enemy_spawn_timer.wait_time = new_spawn_wait_time
+	enemy_spawn_timer.start()
+	print(duration_in_minutes)
+	print(enemy_spawn_timer.wait_time)
 		
 func spawn_chest() -> void:
 	if chest != null:
@@ -101,6 +116,9 @@ func on_damage_taken(new_health: float) -> void:
 
 func on_enemies_killed(count: int) -> void:
 	combo_label.on_enemies_killed(count)
+	
+	var healing = PlayerVariables.healing_factor * count
+	car.heal_damage(healing)
 
 func on_combo_finished(final_score: int) -> void:
 	score += final_score

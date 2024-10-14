@@ -155,8 +155,8 @@ turbulence_influence_min = 0.043
 turbulence_influence_max = 0.046
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0so5k"]
-radius = 6.3
-height = 26.5
+radius = 5.0
+height = 23.0
 
 [node name="Car" type="CharacterBody2D"]
 position = Vector2(576, 324)
@@ -209,7 +209,7 @@ lifetime = 0.5
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-0.57, -3.61)
+position = Vector2(-2.53, -0.34)
 scale = Vector2(2.32, 2.32)
 shape = SubResource("CapsuleShape2D_0so5k")
 debug_color = Color(0.884116, 0.000314775, 0.811507, 0.42)

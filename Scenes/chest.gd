@@ -14,6 +14,8 @@ signal chest_opened(upgrade: Upgrade)
 
 var health = 3
 
+var opened = false
+
 func _ready() -> void:
 	pause_timer.timeout.connect(resume_game)
 
@@ -22,6 +24,7 @@ func deal_damage() -> void:
 	if health > 0 and !PlayerVariables.instant_chest:
 		animation_player.play("hurt")
 	else:
+		opened = true
 		roll_and_apply_upgrade()
 		
 func roll_and_apply_upgrade() -> void:

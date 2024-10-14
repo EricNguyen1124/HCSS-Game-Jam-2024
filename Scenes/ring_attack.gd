@@ -36,13 +36,13 @@ func check_collisions() -> void:
 	var kill_count = 0
 
 	var enemies = get_overlapping_bodies()
-	for enemy: Enemy in enemies:
+	for enemy: Enemy in enemies.filter(func(e: Enemy): return !e.dead):
 		enemy.deal_damage(damage)
 		if enemy.dead:
 			kill_count += 1
 
 	var chests = get_overlapping_areas()
-	for chest: Chest in chests:
+	for chest: Chest in chests.filter(func(c: Chest): return !c.opened):
 		chest.deal_damage()
 
 	if kill_count > 0:
