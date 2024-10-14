@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dljit8iuf4it6"]
+[gd_scene load_steps=13 format=3 uid="uid://dljit8iuf4it6"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_l1t70"]
 [ext_resource type="Texture2D" uid="uid://qy4n8qluv7ql" path="res://carpet.png" id="2_m5nk7"]
@@ -10,6 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://cnjokxh0oxoei" path="res://Sprites/UI/health_bar_overlay.png" id="8_epv4q"]
 [ext_resource type="Texture2D" uid="uid://m42efda12cf5" path="res://Sprites/UI/health_bar.png" id="9_5ne0k"]
 [ext_resource type="Texture2D" uid="uid://8rltp6fynmb2" path="res://Sprites/UI/radio.png" id="10_mt1nr"]
+[ext_resource type="PackedScene" uid="uid://do1oqtawxkdkc" path="res://Scenes/ComboLabel.tscn" id="11_q15s8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vlm5m"]
+font_size = 36
+font_color = Color(0, 0, 0, 1)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_l1t70")
@@ -84,6 +89,20 @@ offset_bottom = 859.0
 scale = Vector2(0.32, 0.32)
 texture = ExtResource("10_mt1nr")
 expand_mode = 1
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.97
+anchor_top = 0.051
+anchor_right = 1.0
+anchor_bottom = 0.051
+offset_left = -182.0
+offset_bottom = 50.0
+grow_horizontal = 0
+text = "00000 x 00"
+label_settings = SubResource("LabelSettings_vlm5m")
+
+[node name="ComboLabel" parent="CanvasLayer" instance=ExtResource("11_q15s8")]
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(2048, 1644)

@@ -4,6 +4,8 @@ class_name RingAttack extends Area2D
 @onready var collision_polygon: CollisionPolygon2D = $CollisionPolygon2D
 @onready var ring_effect: RingEffect = $RingEffect
 
+signal enemies_killed
+
 var first_attack_done: bool = false
 
 # Called when the node enters the scene tree for the first time.
@@ -31,21 +33,20 @@ func check_collisions() -> void:
 	if first_attack_done:
 		damage = damage / 2.0
 
-	var enemies_killed = 0
+	var kill_count = 0
 
 	var enemies = get_overlapping_bodies()
 	for enemy: Enemy in enemies:
 		enemy.deal_damage(damage)
 		if enemy.dead:
-			enemies_killed += 1
+			kill_count += 1
 
 	var chests = get_overlapping_areas()
 	for chest: Chest in chests:
 		chest.deal_damage()
 
-	if enemies_killed > 0:
+	if kill_count > 0:
 		# spawn orbs
-		# do some combo scoring action
-		print(enemies_killed)
+		enemies_killed.emit(kill_count)
 
 	first_attack_done = true

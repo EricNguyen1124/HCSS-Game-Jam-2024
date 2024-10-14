@@ -5,8 +5,10 @@ class_name Chest
 @export var upgrade_database: UpgradeDatabase
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var audio: AudioStreamPlayer2D = $AudioStreamPlayer2D
 @onready var pause_timer: Timer = $PauseTimer
+@onready var upgrade_texture: TextureRect = $UpgradeTexture
 
 signal chest_opened(upgrade: Upgrade)
 
@@ -34,6 +36,10 @@ func roll_and_apply_upgrade() -> void:
 		
 	upgrade.level += 1
 	audio.play()
+	upgrade_texture.texture = upgrade.texture
+	upgrade_texture.visible = true
+	animated_sprite.play("open")
+	animation_player.play("upgrade_rise")
 	
 	get_tree().paused = true
 	
@@ -44,4 +50,3 @@ func roll_and_apply_upgrade() -> void:
 	
 func resume_game() -> void:
 	get_tree().paused = false
-	queue_free()

@@ -1,12 +1,11 @@
 [gd_scene load_steps=15 format=3 uid="uid://bv8264fd3byab"]
 
-[ext_resource type="Texture2D" uid="uid://dsyr3maa3whrd" path="res://Minecraft-Chest.jpg" id="1_u7i7w"]
 [ext_resource type="Script" path="res://Scenes/chest.gd" id="1_w7uc4"]
 [ext_resource type="Resource" uid="uid://bjmsc8s4n0t1d" path="res://Resources/upgrade_database.tres" id="2_8ish2"]
-[ext_resource type="PackedScene" uid="uid://ddmmjkld47bmr" path="res://Scenes/UpgradeUI.tscn" id="4_gab8w"]
 [ext_resource type="AudioStream" uid="uid://dyp4w73rw7pro" path="res://Sounds/level_up.mp3" id="5_y4kcu"]
 [ext_resource type="Texture2D" uid="uid://bsbupb8ge2q5i" path="res://Sprites/Chest+opening/frame_00001.png" id="6_u2kpc"]
 [ext_resource type="Texture2D" uid="uid://ck5ge16e4osjf" path="res://Sprites/Chest+opening/frame_00002.png" id="7_w7pmn"]
+[ext_resource type="Texture2D" uid="uid://c8owxf6ab5r5f" path="res://Sprites/Upgrades/1000_F_367669009_vSqOGYTjrDgxYj2NFEfpT3vDTzXHcj9N.jpg" id="8_d070t"]
 [ext_resource type="Texture2D" uid="uid://ciwhu566ekqp8" path="res://Sprites/Chest+opening/frame_00003.png" id="8_ggql5"]
 [ext_resource type="Texture2D" uid="uid://pxw2nwiu4u87" path="res://Sprites/Chest+opening/frame_00004.png" id="9_w02op"]
 
@@ -18,26 +17,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Minecraft-chest:position")
+tracks/0/path = NodePath("UpgradeTexture:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(-25, -5)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Minecraft-chest:rotation")
+tracks/1/path = NodePath("UpgradeTexture:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_wiohs"]
@@ -46,7 +45,7 @@ length = 0.45
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Minecraft-chest:position")
+tracks/0/path = NodePath("AnimatedSprite2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -58,7 +57,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Minecraft-chest:rotation")
+tracks/1/path = NodePath("AnimatedSprite2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -68,10 +67,53 @@ tracks/1/keys = {
 "values": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_2jehr"]
+resource_name = "upgrade_rise"
+length = 2.252
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UpgradeTexture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.33333, 2.252),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-34, -17), Vector2(-33, -131), Vector2(-32, -138)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UpgradeTexture:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.7, 2.16667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2.16667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0acpu"]
 _data = {
 "RESET": SubResource("Animation_nbg3l"),
-"hurt": SubResource("Animation_wiohs")
+"hurt": SubResource("Animation_wiohs"),
+"upgrade_rise": SubResource("Animation_2jehr")
 }
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6bokc"]
@@ -89,8 +131,8 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("9_w02op")
 }],
-"loop": true,
-"name": &"default",
+"loop": false,
+"name": &"open",
 "speed": 5.0
 }]
 
@@ -101,18 +143,10 @@ collision_mask = 0
 script = ExtResource("1_w7uc4")
 upgrade_database = ExtResource("2_8ish2")
 
-[node name="Minecraft-chest" type="Sprite2D" parent="."]
-scale = Vector2(0.035, 0.035)
-texture = ExtResource("1_u7i7w")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
+position = Vector2(-1, 17.9)
 scale = Vector2(1.73, 1.73)
 shape = SubResource("CircleShape2D_yuyrh")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="UpgradeUI" parent="CanvasLayer" instance=ExtResource("4_gab8w")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -129,8 +163,17 @@ wait_time = 2.0
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(4, -17)
+process_mode = 3
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_6bokc")
-frame = 2
-frame_progress = 0.508642
+animation = &"open"
+
+[node name="UpgradeTexture" type="TextureRect" parent="."]
+visible = false
+offset_left = -32.0
+offset_top = -138.0
+offset_right = 8.0
+offset_bottom = -98.0
+scale = Vector2(1.58, 1.58)
+texture = ExtResource("8_d070t")
+expand_mode = 1

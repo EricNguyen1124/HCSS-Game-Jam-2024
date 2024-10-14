@@ -17,6 +17,7 @@ func _process(delta: float) -> void:
 func deal_damage() -> void:
 	var zombies = hitbox.get_overlapping_bodies()
 	for zombie in zombies:
+		# deal damage until 1 damage remaining
 		zombie.deal_damage(PlayerVariables.drift_fire_damage)
 
 func extinguish() -> void:

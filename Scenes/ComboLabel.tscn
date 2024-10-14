@@ -1,0 +1,98 @@
+[gd_scene load_steps=7 format=3 uid="uid://do1oqtawxkdkc"]
+
+[ext_resource type="Script" path="res://Scripts/combo_label.gd" id="1_8hvsg"]
+
+[sub_resource type="FontVariation" id="FontVariation_7ytop"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vlm5m"]
+font_size = 36
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_43y23"]
+resource_name = "collapse"
+length = 0.212
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_fonts/font:spacing_glyph")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.205),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0, -16, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.205),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show_final_score"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7y3jp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_fonts/font:spacing_glyph")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q6jl4"]
+_data = {
+"RESET": SubResource("Animation_7y3jp"),
+"collapse": SubResource("Animation_43y23")
+}
+
+[node name="ComboLabel" type="Label"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.899
+anchor_right = 0.5
+anchor_bottom = 0.899
+offset_left = -91.0
+offset_top = -49.552
+offset_right = 91.0
+offset_bottom = 0.447998
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = SubResource("FontVariation_7ytop")
+text = "250 + 5 Zombie Bonus!"
+label_settings = SubResource("LabelSettings_vlm5m")
+script = ExtResource("1_8hvsg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_q6jl4")
+}
+
+[node name="DelayTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="ComboTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = -0.5
+offset_top = 48.0
+offset_right = 389.5
+offset_bottom = 75.0

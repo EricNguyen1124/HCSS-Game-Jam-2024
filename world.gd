@@ -13,6 +13,11 @@ extends Node2D
 @onready var arrow = $CanvasLayer/SubViewportContainer/SubViewport/ArrowScene
 @onready var health_bar: TextureProgressBar = $CanvasLayer/TextureProgressBar
 
+@onready var combo_label: ComboLabel = $CanvasLayer/ComboLabel
+
+
+var score: float = 0
+
 var current_line: TireLine2D
 
 var enemies: Array[Enemy]
@@ -56,6 +61,7 @@ func _physics_process(_delta: float) -> void:
 
 func on_car_start_drift():
 	current_line = tireScene.instantiate()
+	current_line.enemies_killed.connect(on_enemies_killed)
 	add_child(current_line)
 
 func spawn_enemies() -> void:
@@ -94,3 +100,6 @@ func on_chest_open(upgrade: Upgrade) -> void:
 func on_damage_taken(new_health: float) -> void:
 	print(new_health)
 	health_bar.value = new_health
+
+func on_enemies_killed(count: int) -> void:
+	combo_label.on_enemies_killed(count)
