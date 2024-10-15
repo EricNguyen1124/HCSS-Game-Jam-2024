@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://world.gd" id="1_l1t70"]
 [ext_resource type="PackedScene" uid="uid://cx30x7x4n2shy" path="res://Scenes/PauseMenu/pause_menu.tscn" id="2_aypqn"]
 [ext_resource type="PackedScene" uid="uid://crb4xj6obysjs" path="res://Scenes/car.tscn" id="3_5ouut"]
-[ext_resource type="Texture2D" uid="uid://oiku3d1g702f" path="res://Sprites/notebook.jpg" id="6_eglqe"]
+[ext_resource type="Texture2D" uid="uid://mrj4l867svcu" path="res://Sprites/UI/bg.png" id="3_wmn2l"]
 [ext_resource type="PackedScene" uid="uid://brsr7la0ii3gg" path="res://Scenes/arrow_scene.tscn" id="6_p1p7h"]
 [ext_resource type="PackedScene" uid="uid://ddmmjkld47bmr" path="res://Scenes/UpgradeUI.tscn" id="6_v8cvb"]
 [ext_resource type="Texture2D" uid="uid://cnjokxh0oxoei" path="res://Sprites/UI/health_bar_overlay.png" id="8_epv4q"]
@@ -27,10 +27,9 @@ pause_menu_packed_scene = ExtResource("2_aypqn")
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -4961.0
 offset_top = -4365.0
-offset_right = 12468.0
-offset_bottom = 10074.0
-texture = ExtResource("6_eglqe")
-expand_mode = 1
+offset_right = 12495.0
+offset_bottom = 11439.0
+texture = ExtResource("3_wmn2l")
 stretch_mode = 1
 
 [node name="Untitled" type="Sprite2D" parent="."]

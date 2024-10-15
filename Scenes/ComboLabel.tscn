@@ -101,3 +101,4 @@ offset_left = -195.0
 offset_right = 195.0
 offset_bottom = 27.0
 grow_horizontal = 2
+show_percentage = false
