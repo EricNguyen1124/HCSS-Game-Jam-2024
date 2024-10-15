@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cca83305q2wo5"
+path="res://.godot/imported/Zombie Hello.mp3-c3d695312f4961995fdeff29b42d8294.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Zombie/Zombie Hello.mp3"
+dest_files=["res://.godot/imported/Zombie Hello.mp3-c3d695312f4961995fdeff29b42d8294.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

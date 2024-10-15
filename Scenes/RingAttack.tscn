@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://wme80scnh64e"]
+[gd_scene load_steps=7 format=3 uid="uid://wme80scnh64e"]
 
 [ext_resource type="Script" path="res://Scenes/ring_attack.gd" id="1_8qdyj"]
 [ext_resource type="PackedScene" uid="uid://cf1o5w8oxx4s6" path="res://Scenes/RingEffect.tscn" id="1_eoh61"]
+[ext_resource type="AudioStream" uid="uid://4toc2uj64ens" path="res://Audio/SFX/Zombie/Zombie Hurt 1.mp3" id="3_mrarr"]
+[ext_resource type="AudioStream" uid="uid://bob5f0hw7r5p5" path="res://Audio/SFX/Zombie/Zombie Hurt 2.mp3" id="4_w4la5"]
+[ext_resource type="AudioStream" uid="uid://b1bhepvhowsl" path="res://Audio/SFX/Drift Complete KaBoom.mp3" id="5_b4fmy"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_l6ive"]
+random_pitch = 1.2
+streams_count = 2
+stream_0/stream = ExtResource("3_mrarr")
+stream_1/stream = ExtResource("4_w4la5")
 
 [node name="RingAttack" type="Area2D"]
 collision_layer = 16
@@ -9,8 +18,16 @@ collision_mask = 68
 script = ExtResource("1_8qdyj")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 0.7
 
 [node name="RingEffect" parent="." instance=ExtResource("1_eoh61")]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+[node name="ZombieHurtSoundEffect" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_l6ive")
+volume_db = 2.943
+
+[node name="AttackSoundEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_b4fmy")
+volume_db = -2.3

@@ -1,8 +1,15 @@
-[gd_scene load_steps=19 format=3 uid="uid://crb4xj6obysjs"]
+[gd_scene load_steps=27 format=3 uid="uid://crb4xj6obysjs"]
 
 [ext_resource type="Script" path="res://Scenes/car.gd" id="1_gscac"]
 [ext_resource type="Texture2D" uid="uid://4ckvpyjppbvu" path="res://icon.svg" id="2_544c0"]
+[ext_resource type="AudioStream" uid="uid://dhh3ajnkwyyo5" path="res://Audio/SFX/Car/Car Engine.mp3" id="5_fmu8t"]
+[ext_resource type="AudioStream" uid="uid://bt4ko1fd5xsmn" path="res://Audio/SFX/Car/Tire Screech.mp3" id="5_hm3wp"]
+[ext_resource type="AudioStream" uid="uid://dv7ekcftfqc2i" path="res://Audio/SFX/Car/Car Idle.mp3" id="6_j8v7v"]
+[ext_resource type="Texture2D" uid="uid://b5hy8nf6r2mvo" path="res://Sprites/Fire/frame_00001.png" id="8_5rlli"]
+[ext_resource type="Texture2D" uid="uid://brh6jsr3wdpb3" path="res://Sprites/Fire/frame_00002.png" id="9_h3vda"]
+[ext_resource type="Texture2D" uid="uid://d1n6v8rmhnion" path="res://Sprites/Fire/frame_00003.png" id="10_77dtr"]
 [ext_resource type="PackedScene" uid="uid://b42ajkoq328rr" path="res://Scenes/CarScene.tscn" id="11_3yg0f"]
+[ext_resource type="Texture2D" uid="uid://dkhx6krld60e0" path="res://Sprites/Fire/frame_00004.png" id="11_ybkwp"]
 [ext_resource type="Texture2D" uid="uid://bfftsm850ee4v" path="res://Sprites/Smoke+animation/frame_00001.png" id="13_lgdil"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_af75u"]
@@ -156,7 +163,26 @@ turbulence_influence_max = 0.046
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0so5k"]
 radius = 5.0
-height = 23.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rduq3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_5rlli")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_h3vda")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_77dtr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ybkwp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
 
 [node name="Car" type="CharacterBody2D"]
 position = Vector2(576, 324)
@@ -217,3 +243,32 @@ debug_color = Color(0.884116, 0.000314775, 0.811507, 0.42)
 [node name="InvincibilityTimer" type="Timer" parent="."]
 wait_time = 0.65
 one_shot = true
+
+[node name="TireScreechSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_hm3wp")
+volume_db = -80.0
+autoplay = true
+bus = &"Sound FX"
+parameters/looping = true
+
+[node name="EngineSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_fmu8t")
+volume_db = -80.0
+autoplay = true
+bus = &"Sound FX"
+parameters/looping = true
+
+[node name="IdleEngineSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_j8v7v")
+volume_db = -5.0
+autoplay = true
+bus = &"Sound FX"
+parameters/looping = true
+
+[node name="AnimatedFire" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(6, -23)
+scale = Vector2(0.545, 0.545)
+sprite_frames = SubResource("SpriteFrames_rduq3")
+autoplay = "default"
+frame_progress = 0.792208

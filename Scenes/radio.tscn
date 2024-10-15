@@ -1,39 +1,47 @@
-[gd_scene load_steps=8 format=3 uid="uid://cr0kt82t5syeb"]
+[gd_scene load_steps=9 format=3 uid="uid://cr0kt82t5syeb"]
 
 [ext_resource type="AudioStream" uid="uid://c55ssmmlfp47y" path="res://Audio/Music/HeavyChip.mp3" id="1_tshaf"]
-[ext_resource type="AudioStream" uid="uid://b81kbj5ojmua6" path="res://Audio/Commercials/Commercial 1.mp3" id="2_lpc8o"]
-[ext_resource type="AudioStream" uid="uid://c7kjnhobhxp76" path="res://Audio/Commercials/Commercial 2.mp3" id="3_a3omo"]
-[ext_resource type="AudioStream" uid="uid://5xcxbbbg8itr" path="res://Audio/Commercials/Commercial 3.mp3" id="4_xhxk5"]
-[ext_resource type="AudioStream" uid="uid://s28qrhw7r1op" path="res://Audio/Commercials/Commercial 4.mp3" id="5_dj806"]
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_845ch"]
-streams_count = 4
-stream_0/stream = ExtResource("2_lpc8o")
-stream_1/stream = ExtResource("3_a3omo")
-stream_2/stream = ExtResource("4_xhxk5")
-stream_3/stream = ExtResource("5_dj806")
-
-[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_rgx6f"]
-clip_count = 2
-clip_0/name = &"Heavy Chip"
-clip_0/stream = ExtResource("1_tshaf")
-clip_0/auto_advance = 1
-clip_0/next_clip = 1
-clip_1/name = &"Commercials"
-clip_1/stream = SubResource("AudioStreamRandomizer_845ch")
-clip_1/auto_advance = 1
-clip_1/next_clip = 0
+[ext_resource type="Script" path="res://Scenes/radio.gd" id="1_ucubv"]
+[ext_resource type="Resource" uid="uid://p1hixpp3ql2a" path="res://Resources/commercials.tres" id="3_63j5x"]
+[ext_resource type="AudioStream" uid="uid://77aigxwpxxa0" path="res://Audio/Music/HeavyRock.mp3" id="4_2l2oc"]
+[ext_resource type="AudioStream" uid="uid://b0yffgmudxnkn" path="res://Audio/Music/HeavyClassic.mp3" id="5_rtdbu"]
+[ext_resource type="Script" path="res://Scenes/radio_station.gd" id="6_dm1kc"]
+[ext_resource type="AudioStream" uid="uid://c8i761ndmru8x" path="res://Audio/Music/HeavyTech.mp3" id="6_m0ov1"]
+[ext_resource type="AudioStream" uid="uid://dwe5oee14ntft" path="res://Audio/radio_static.mp3" id="8_2ir33"]
 
 [node name="Radio" type="Node"]
+process_mode = 3
+script = ExtResource("1_ucubv")
 
-[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="."]
+[node name="RockStation" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_2l2oc")
+volume_db = -80.0
+bus = &"Music"
+script = ExtResource("6_dm1kc")
+song = ExtResource("4_2l2oc")
+commercials = ExtResource("3_63j5x")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="ChipStation" type="AudioStreamPlayer" parent="."]
+volume_db = -80.0
+bus = &"Music"
+script = ExtResource("6_dm1kc")
+song = ExtResource("1_tshaf")
+commercials = ExtResource("3_63j5x")
 
-[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="."]
+[node name="ClassicStation" type="AudioStreamPlayer" parent="."]
+volume_db = -80.0
+bus = &"Music"
+script = ExtResource("6_dm1kc")
+song = ExtResource("5_rtdbu")
+commercials = ExtResource("3_63j5x")
 
-[node name="AudioStreamPlayer2D4" type="AudioStreamPlayer2D" parent="."]
+[node name="TechStation" type="AudioStreamPlayer" parent="."]
+volume_db = -80.0
+bus = &"Music"
+script = ExtResource("6_dm1kc")
+song = ExtResource("6_m0ov1")
+commercials = ExtResource("3_63j5x")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamInteractive_rgx6f")
+[node name="StaticPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_2ir33")
 bus = &"Music"

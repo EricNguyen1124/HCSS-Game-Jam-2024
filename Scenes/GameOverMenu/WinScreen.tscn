@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://7f0wear2g7ky"]
+
+[ext_resource type="PackedScene" uid="uid://o7nj734q43mp" path="res://Scenes/GameOverMenu/ScoreInfoUI.tscn" id="1_85tm6"]
+[ext_resource type="Script" path="res://Scenes/GameOverMenu/win_screen.gd" id="1_phrso"]
+[ext_resource type="Texture2D" uid="uid://vqt85l1fea03" path="res://Sprites/UI/win_screen.png" id="2_hh3tf"]
+[ext_resource type="FontFile" uid="uid://qaii6ad4ufsw" path="res://Font/GloriaHallelujah-Regular.ttf" id="3_j0vl6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_r015s"]
+font = ExtResource("3_j0vl6")
+font_size = 100
+font_color = Color(0, 0, 0, 1)
+
+[node name="WinScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_phrso")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_hh3tf")
+
+[node name="ScoreInfoUI" parent="." instance=ExtResource("1_85tm6")]
+layout_mode = 1
+offset_left = -291.0
+offset_top = -35.0
+offset_right = 307.0
+offset_bottom = 156.0
+
+[node name="YouWinLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.203
+anchor_right = 0.5
+anchor_bottom = 0.203
+offset_left = -173.0
+offset_top = -75.5
+offset_right = 173.0
+offset_bottom = 75.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You Win!"
+label_settings = SubResource("LabelSettings_r015s")
+
+[node name="RetryButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.479
+anchor_top = 0.696
+anchor_right = 0.505
+anchor_bottom = 0.696
+offset_left = -26.295
+offset_top = 44.5931
+offset_right = 23.705
+offset_bottom = 75.5931
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.79, 1.79)
+pivot_offset = Vector2(24.7, 14.685)
+text = "Retry"
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.479
+anchor_top = 0.812
+anchor_right = 0.505
+anchor_bottom = 0.812
+offset_left = -26.295
+offset_top = 44.5931
+offset_right = 23.705
+offset_bottom = 75.5931
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.79, 1.79)
+pivot_offset = Vector2(24.7, 14.685)
+text = "Quit
+"

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dv7ekcftfqc2i"
+path="res://.godot/imported/Car Idle.mp3-aee91e48663138544a2b187e3bd05888.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Car/Car Idle.mp3"
+dest_files=["res://.godot/imported/Car Idle.mp3-aee91e48663138544a2b187e3bd05888.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -72,7 +72,7 @@ offset_bottom = 0.447998
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = SubResource("FontVariation_7ytop")
-text = "250 + 5 Zombie Bonus!"
+text = "asdfasda"
 label_settings = SubResource("LabelSettings_vlm5m")
 script = ExtResource("1_8hvsg")
 
@@ -91,8 +91,13 @@ one_shot = true
 autostart = true
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-layout_mode = 0
-offset_left = -0.5
-offset_top = 48.0
-offset_right = 389.5
-offset_bottom = 75.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -195.0
+offset_right = 195.0
+offset_bottom = 27.0
+grow_horizontal = 2

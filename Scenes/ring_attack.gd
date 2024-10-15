@@ -1,8 +1,12 @@
+
 class_name RingAttack extends Area2D
 
 @onready var timer: Timer = $Timer
 @onready var collision_polygon: CollisionPolygon2D = $CollisionPolygon2D
 @onready var ring_effect: RingEffect = $RingEffect
+
+@onready var zombie_hurt_sound: AudioStreamPlayer = $ZombieHurtSoundEffect
+@onready var attack_sound: AudioStreamPlayer = $AttackSoundEffect
 
 signal enemies_killed
 
@@ -11,7 +15,8 @@ var first_attack_done: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	ring_effect.ring_effect_completed.connect(check_collisions)
-	ring_effect.done_pulsing.connect(queue_free)
+	ring_effect.done_pulsing.connect(timer.start)
+	timer.timeout.connect(queue_free_after_delay)
 
 func set_polygon(polygon: PackedVector2Array) -> void:
 	collision_polygon.polygon = polygon
@@ -28,16 +33,20 @@ func do_damage() -> void:
 
 
 func check_collisions() -> void:
+	attack_sound.play()
+	
 	var damage = PlayerVariables.ring_damage
-
+	var zombie_damaged = false
+	
 	if first_attack_done:
-		damage = damage / 2.0
+		damage = damage / 1.5
 
 	var kill_count = 0
 
 	var enemies = get_overlapping_bodies()
 	for enemy: Enemy in enemies.filter(func(e: Enemy): return !e.dead):
 		enemy.deal_damage(damage)
+		zombie_damaged = true
 		if enemy.dead:
 			kill_count += 1
 
@@ -45,8 +54,13 @@ func check_collisions() -> void:
 	for chest: Chest in chests.filter(func(c: Chest): return !c.opened):
 		chest.deal_damage()
 
+	if zombie_damaged:
+		zombie_hurt_sound.play()
+
 	if kill_count > 0:
-		# spawn orbs
 		enemies_killed.emit(kill_count)
 
 	first_attack_done = true
+
+func queue_free_after_delay():
+	queue_free()

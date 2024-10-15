@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ddmmjkld47bmr"]
 
 [ext_resource type="Script" path="res://Scenes/upgrade_ui.gd" id="1_1yfnx"]
-[ext_resource type="Texture2D" uid="uid://c8owxf6ab5r5f" path="res://Sprites/Upgrades/1000_F_367669009_vSqOGYTjrDgxYj2NFEfpT3vDTzXHcj9N.jpg" id="2_qqov5"]
+[ext_resource type="Texture2D" uid="uid://dtosa7movpuu6" path="res://Sprites/Upgrades/pulse.png" id="2_wr7hl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pe5vb"]
 font_size = 22
@@ -85,7 +85,7 @@ layout_mode = 2
 
 [node name="Texture" type="TextureRect" parent="VBox/HBox"]
 layout_mode = 2
-texture = ExtResource("2_qqov5")
+texture = ExtResource("2_wr7hl")
 expand_mode = 2
 
 [node name="VSeparator2" type="VSeparator" parent="VBox/HBox"]

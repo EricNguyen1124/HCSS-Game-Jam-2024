@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://o7nj734q43mp"]
+
+[ext_resource type="Script" path="res://Scenes/GameOverMenu/score_info_ui.gd" id="1_byp82"]
+[ext_resource type="FontFile" uid="uid://qaii6ad4ufsw" path="res://Font/GloriaHallelujah-Regular.ttf" id="1_i0stn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ynsjy"]
+font = ExtResource("1_i0stn")
+font_size = 30
+font_color = Color(0, 0, 0, 1)
+
+[node name="ScoreInfoUI" type="HBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -299.0
+offset_top = -95.5
+offset_right = 299.0
+offset_bottom = 95.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_byp82")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="RingsCompletedLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Rings Completed:"
+label_settings = SubResource("LabelSettings_ynsjy")
+horizontal_alignment = 2
+
+[node name="ZombiesEliminatedLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Zombies Eliminated:"
+label_settings = SubResource("LabelSettings_ynsjy")
+horizontal_alignment = 2
+
+[node name="FinalScoreLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Final Score:"
+label_settings = SubResource("LabelSettings_ynsjy")
+horizontal_alignment = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="RingsCompletedValue" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "4"
+label_settings = SubResource("LabelSettings_ynsjy")
+
+[node name="ZombiesEliminatedValue" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "2"
+label_settings = SubResource("LabelSettings_ynsjy")
+
+[node name="FinalScoreValue" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "23"
+label_settings = SubResource("LabelSettings_ynsjy")

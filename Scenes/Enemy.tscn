@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c7yutvhshxhxj"]
+[gd_scene load_steps=37 format=3 uid="uid://c7yutvhshxhxj"]
 
 [ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_kkja3"]
 [ext_resource type="Texture2D" uid="uid://c2xia4psnkv5a" path="res://Sprites/Zombies/Zombie+right+to+left/frame_00001.png" id="2_bqc73"]
@@ -23,6 +23,9 @@
 [ext_resource type="Texture2D" uid="uid://c56igb8qoqh8q" path="res://Sprites/Healing Orb/frame_00002.png" id="19_uu0ef"]
 [ext_resource type="Texture2D" uid="uid://c7bkfuwahet75" path="res://Sprites/Healing Orb/frame_00003.png" id="20_t5va0"]
 [ext_resource type="Texture2D" uid="uid://bxs2q6ffuj64i" path="res://Sprites/Healing Orb/frame_00004.png" id="21_8hvf1"]
+[ext_resource type="AudioStream" uid="uid://cpin1vmg8kra0" path="res://Audio/SFX/Zombie/Zombie Brains.mp3" id="24_rqc5i"]
+[ext_resource type="AudioStream" uid="uid://cca83305q2wo5" path="res://Audio/SFX/Zombie/Zombie Hello.mp3" id="25_w8mrr"]
+[ext_resource type="AudioStream" uid="uid://c6tlmrqtgd3nm" path="res://Audio/SFX/Zombie/Zombie Ugh 1.mp3" id="26_3qdgb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hpxrb"]
 radius = 20.0
@@ -267,6 +270,14 @@ frame_2/duration = 0.1
 frame_3/texture = ExtResource("21_8hvf1")
 frame_3/duration = 0.1
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fywuj"]
+random_pitch = 1.3
+streams_count = 3
+stream_0/stream = ExtResource("24_rqc5i")
+stream_1/stream = ExtResource("25_w8mrr")
+stream_1/weight = 0.3
+stream_2/stream = ExtResource("26_3qdgb")
+
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 150
@@ -289,8 +300,7 @@ debug_color = Color(0.828121, 0.284948, 0.693533, 0.42)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.27, 0.27)
 sprite_frames = SubResource("SpriteFrames_7f2ek")
-animation = &"left_to_right"
-frame_progress = 0.131281
+animation = &"top_to_bot"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -315,3 +325,11 @@ value = 100.0
 texture_over = ExtResource("18_4pyc8")
 texture_progress = ExtResource("19_tpap1")
 texture_progress_offset = Vector2(21.22, 16.37)
+
+[node name="IdleSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_fywuj")
+volume_db = 1.5
+bus = &"Sound FX"
+
+[node name="AudioTimer" type="Timer" parent="."]
+wait_time = 3.0

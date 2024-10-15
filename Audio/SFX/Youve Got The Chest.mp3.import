@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://qqpiudt2hr5v"
+path="res://.godot/imported/Youve Got The Chest.mp3-44baa75a9839047cc6da65f42249c39f.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Youve Got The Chest.mp3"
+dest_files=["res://.godot/imported/Youve Got The Chest.mp3-44baa75a9839047cc6da65f42249c39f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

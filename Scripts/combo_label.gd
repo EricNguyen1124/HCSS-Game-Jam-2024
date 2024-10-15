@@ -72,4 +72,3 @@ func finish_combo() -> void:
 	base_score = 0.0
 	multi_kill_bonus = 0.0
 	ring_count = 0
-	

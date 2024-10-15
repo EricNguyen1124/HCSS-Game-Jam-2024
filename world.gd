@@ -10,13 +10,18 @@ extends Node2D
 @onready var chest_spawn_timer: Timer = $ChestSpawnTimer
 @onready var upgrade_ui: UpgradeUI = $CanvasLayer/UpgradeUI
 @onready var world_bounds: Marker2D = $Marker2D
+@onready var radio = $Radio
+@onready var game_timer = $GameTimer
 
 @onready var arrow = $CanvasLayer/SubViewportContainer/SubViewport/ArrowScene
 @onready var health_bar: TextureProgressBar = $CanvasLayer/TextureProgressBar
 @onready var combo_label: ComboLabel = $CanvasLayer/ComboLabel
 @onready var score_label: Label = $CanvasLayer/ScoreLabel
+@onready var timer_label: Label = $CanvasLayer/TimeLabel
 
 @export var pause_menu_packed_scene : PackedScene = null
+@onready var game_over_scene: PackedScene = preload("res://Scenes/GameOverMenu/GameOverMenu.tscn")
+@onready var win_screen_scene: PackedScene = preload("res://Scenes/GameOverMenu/WinScreen.tscn")
 @onready var ui_container: CanvasLayer = $CanvasLayer
 
 
@@ -28,17 +33,25 @@ var enemies: Array[Enemy]
 var chest: Chest
 
 var game_duration_in_seconds: float = 0.0
+
+var enemies_killed: int = 0
+var rings_completed: int = 0
+var final_score: int = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	car.start_drift.connect(on_car_start_drift)
 	car.damage_taken.connect(on_damage_taken)
-
+	car.died.connect(game_over)
+	
 	score_label.text = str(score)
 
 	combo_label.combo_finished.connect(on_combo_finished)
 
 	enemy_spawn_timer.timeout.connect(spawn_enemies)
 	chest_spawn_timer.timeout.connect(spawn_chest)
+	game_timer.start()
+	game_timer.timeout.connect(win_game)
 
 func _process(delta: float) -> void:
 	game_duration_in_seconds += delta
@@ -48,6 +61,11 @@ func _process(delta: float) -> void:
 			if enemy != null:
 				enemy.target_position = car.global_position
 				
+	
+	var seconds = int(game_timer.get_time_left()) % 60
+	var minutes = (int(game_timer.get_time_left()) / 60) % 60
+	timer_label.text = "%02d:%02d" % [minutes, seconds]
+	
 	if chest != null:
 		arrow.visible = true
 		var angle_to_chest = (chest.global_position - car.global_position).angle()
@@ -68,6 +86,7 @@ func _physics_process(_delta: float) -> void:
 func on_car_start_drift():
 	current_line = tireScene.instantiate()
 	current_line.enemies_killed.connect(on_enemies_killed)
+	current_line.ring_completed.connect(on_ring_completed)
 	add_child(current_line)
 
 func spawn_enemies() -> void:
@@ -76,20 +95,21 @@ func spawn_enemies() -> void:
 	var random_angle = randf_range(0.0, 2 * PI)
 	var spawn_vector = (Vector2(0.0, 1.0).rotated(random_angle) * 1000) + car.global_position
 	
-	var random_number_of_enemies = randi_range(1,3) + floor(duration_in_minutes)
+	var random_number_of_enemies = randi_range(1,3) + ceil(duration_in_minutes) * 2
 	
 	for i in random_number_of_enemies:
 		var enemy: Enemy = enemyScene.instantiate()
 		
 		enemy.initial_health = 15 + floor(duration_in_minutes)
 		enemy.health = enemy.initial_health
-		enemy.damage = duration_in_minutes * 0.4 + 7
+		enemy.damage = duration_in_minutes * 0.33 + 7
+		enemy.SPEED += randi_range(-75, 75)
 
-		enemy.global_position = spawn_vector + Vector2(randf_range(10.0, 20.0),randf_range(10.0, 20.0))
+		enemy.global_position = spawn_vector + Vector2(randf_range(20.0, 60.0),randf_range(20.0, 60.0))
 		enemies.append(enemy)
 		add_child(enemy)
 		
-	var new_spawn_wait_time = (-duration_in_minutes / 4.5) + 5
+	var new_spawn_wait_time = (-duration_in_minutes / 2.5) + 6
 	enemy_spawn_timer.stop()
 	enemy_spawn_timer.wait_time = new_spawn_wait_time
 	enemy_spawn_timer.start()
@@ -120,16 +140,51 @@ func on_damage_taken(new_health: float) -> void:
 
 func on_enemies_killed(count: int) -> void:
 	combo_label.on_enemies_killed(count)
+	enemies_killed += count
 	
 	var healing = PlayerVariables.healing_factor * count
 	car.heal_damage(healing)
 
-func on_combo_finished(final_score: int) -> void:
-	score += final_score
+func on_ring_completed() -> void:
+	rings_completed +=1
+
+func on_combo_finished(final_combo_score: int) -> void:
+	score += final_combo_score
 	score_label.text = str(score)
 	
 func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action("pause"):
+	if event.is_action("pause") && !car.dead:
 		var new_pause_menu : PauseMenu = pause_menu_packed_scene.instantiate()
 		
 		ui_container.add_child(new_pause_menu)
+
+func game_over() -> void:
+	health_bar.visible = false
+	score_label.visible = false
+
+	if combo_label.combo_in_progress:
+		combo_label.show_final_score()
+		combo_label.finish_combo()
+		combo_label.combo_in_progress = false
+
+	var game_over_screen = game_over_scene.instantiate()
+	ui_container.add_child(game_over_screen)
+	game_over_screen.set_values(rings_completed, enemies_killed, score)
+	radio.queue_free()
+
+func win_game() -> void:
+	health_bar.visible = false
+	score_label.visible = false
+	
+	car.dead = true
+	car.invincible = true
+
+	if combo_label.combo_in_progress:
+		combo_label.show_final_score()
+		combo_label.finish_combo()
+		combo_label.combo_in_progress = false
+
+	var win_screen_screen = win_screen_scene.instantiate()
+	ui_container.add_child(win_screen_screen)
+	win_screen_screen.set_values(rings_completed, enemies_killed, score)
+	radio.queue_free()

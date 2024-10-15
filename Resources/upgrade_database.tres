@@ -1,12 +1,15 @@
-[gd_resource type="Resource" script_class="UpgradeDatabase" load_steps=16 format=3 uid="uid://bjmsc8s4n0t1d"]
+[gd_resource type="Resource" script_class="UpgradeDatabase" load_steps=19 format=3 uid="uid://bjmsc8s4n0t1d"]
 
 [ext_resource type="Script" path="res://Scripts/upgrade_database.gd" id="1_gwe1n"]
 [ext_resource type="Script" path="res://Scripts/upgrade.gd" id="2_u61bf"]
-[ext_resource type="Texture2D" uid="uid://c8owxf6ab5r5f" path="res://Sprites/Upgrades/1000_F_367669009_vSqOGYTjrDgxYj2NFEfpT3vDTzXHcj9N.jpg" id="3_cj57o"]
+[ext_resource type="Texture2D" uid="uid://deol61m8yqmv4" path="res://Sprites/Upgrades/damage_up.png" id="3_mcpkc"]
 [ext_resource type="Texture2D" uid="uid://bkema52y2j8ue" path="res://Sprites/Upgrades/instant_chest.jpg" id="4_28q3i"]
+[ext_resource type="Texture2D" uid="uid://dtosa7movpuu6" path="res://Sprites/Upgrades/pulse.png" id="5_4lcnr"]
 [ext_resource type="Texture2D" uid="uid://dh20laaucgqh0" path="res://Sprites/Upgrades/drift_fire.jpg" id="5_05hri"]
-[ext_resource type="Texture2D" uid="uid://bojl0aq403tbt" path="res://Sprites/Upgrades/engine_tuneup.jpg" id="6_gtfl8"]
 [ext_resource type="Texture2D" uid="uid://cbcckjpmrlamq" path="res://Sprites/Upgrades/kansei_driftojpg.jpg" id="7_3rdui"]
+[ext_resource type="Texture2D" uid="uid://o6a7pj04x6s6" path="res://Sprites/Upgrades/engine_tuneup.png" id="7_84yq6"]
+[ext_resource type="Texture2D" uid="uid://otoowwlkbd4" path="res://Sprites/Upgrades/combo_extender.png" id="9_3q85h"]
+[ext_resource type="Texture2D" uid="uid://00ncorpwet3e" path="res://Sprites/Upgrades/healing_factor.png" id="10_maxl5"]
 
 [sub_resource type="Resource" id="Resource_05b7n"]
 script = ExtResource("2_u61bf")
@@ -14,7 +17,7 @@ display_name = "Drift Damage"
 description = "Increased Drift Damage By 2!"
 level = 0
 max_level = 3
-texture = ExtResource("3_cj57o")
+texture = ExtResource("3_mcpkc")
 
 [sub_resource type="Resource" id="Resource_3qn32"]
 script = ExtResource("2_u61bf")
@@ -30,7 +33,7 @@ display_name = "Drift Pulse"
 description = "Drift Rings deal damage multiple times!"
 level = 0
 max_level = 2
-texture = ExtResource("3_cj57o")
+texture = ExtResource("5_4lcnr")
 
 [sub_resource type="Resource" id="Resource_os0ew"]
 script = ExtResource("2_u61bf")
@@ -46,7 +49,7 @@ display_name = "Engine Tune Up"
 description = "Increased Top Speed and Acceleration!"
 level = 0
 max_level = 3
-texture = ExtResource("6_gtfl8")
+texture = ExtResource("7_84yq6")
 
 [sub_resource type="Resource" id="Resource_nsdx5"]
 script = ExtResource("2_u61bf")
@@ -62,6 +65,7 @@ display_name = "Combo Extender"
 description = "More time to do combos! "
 level = 0
 max_level = 2
+texture = ExtResource("9_3q85h")
 
 [sub_resource type="Resource" id="Resource_glijo"]
 script = ExtResource("2_u61bf")
@@ -69,6 +73,7 @@ display_name = "Healing Factor"
 description = "Increased Healing from Destroying Zombies!"
 level = 0
 max_level = 3
+texture = ExtResource("10_maxl5")
 
 [resource]
 script = ExtResource("1_gwe1n")

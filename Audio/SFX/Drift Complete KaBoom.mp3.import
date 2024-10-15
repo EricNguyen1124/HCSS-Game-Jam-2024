@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b1bhepvhowsl"
+path="res://.godot/imported/Drift Complete KaBoom.mp3-4259f15ed5bbf3c93eb204b31005f4ec.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Drift Complete KaBoom.mp3"
+dest_files=["res://.godot/imported/Drift Complete KaBoom.mp3-4259f15ed5bbf3c93eb204b31005f4ec.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

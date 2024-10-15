@@ -11,7 +11,7 @@ func get_callable(name: String) -> Callable:
 	match name:
 		"Drift Damage":
 			return func():
-				PlayerVariables.ring_damage += 2
+				PlayerVariables.ring_damage += 2.5
 		"Instant Chest":
 			return func():
 				PlayerVariables.instant_chest = true
@@ -35,6 +35,6 @@ func get_callable(name: String) -> Callable:
 				PlayerVariables.combo_timer += 0.75
 		"Healing Factor":
 			return func():
-				PlayerVariables.healing_factor += 0.55
+				PlayerVariables.healing_factor += 0.6
 	
 	return func(): print("update get_callable dummie lmao")

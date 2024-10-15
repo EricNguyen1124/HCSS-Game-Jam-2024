@@ -7,6 +7,7 @@ class_name TireLine2D extends Line2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 signal enemies_killed
+signal ring_completed
 
 var area_list: Array[Area2D]
 
@@ -40,13 +41,13 @@ func _physics_process(_delta: float) -> void:
 			current_area = null
 
 			var ring_attack: RingAttack = ring_attack_scene.instantiate()
-
 			ring_attack.enemies_killed.connect(enemies_killed.emit)
 			
 			add_child(ring_attack)
 
 			ring_attack.set_polygon(polygon_points)
 			ring_attack.do_damage()
+			ring_completed.emit()
 	
 
 func add_drift_point(pos: Vector2):

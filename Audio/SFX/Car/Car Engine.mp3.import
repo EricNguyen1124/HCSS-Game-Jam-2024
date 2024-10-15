@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dhh3ajnkwyyo5"
+path="res://.godot/imported/Car Engine.mp3-11b08b2322bd15e574d5315d19e57d8b.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Car/Car Engine.mp3"
+dest_files=["res://.godot/imported/Car Engine.mp3-11b08b2322bd15e574d5315d19e57d8b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

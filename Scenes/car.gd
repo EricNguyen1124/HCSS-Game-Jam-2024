@@ -17,6 +17,7 @@ const DRIFT_OUT: float = 1.65
 
 var health: float = 100.0
 
+var dead: bool = false
 var invincible: bool = false
 
 var heading: float = 0.0
@@ -25,6 +26,7 @@ var speed: float = 0.0
 
 signal start_drift
 signal damage_taken
+signal died
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var car_sprite: Sprite2D = $Icon
@@ -33,6 +35,13 @@ signal damage_taken
 @onready var car_3d_sprite: Sprite2D = $Sprite2D
 @onready var particles: GPUParticles2D = $GPUParticles2D
 @onready var invincibility_timer: Timer = $InvincibilityTimer
+@onready var fire_animation: AnimatedSprite2D = $AnimatedFire
+
+@onready var engine_sound: AudioStreamPlayer = $EngineSoundPlayer
+@onready var idle_sound: AudioStreamPlayer = $IdleEngineSoundPlayer
+@onready var tire_sound: AudioStreamPlayer = $TireScreechSoundPlayer
+
+var foot_on_gas: bool = false
 
 var current_state = CarState.NORMAL
 
@@ -41,15 +50,17 @@ func _ready() -> void:
 	invincibility_timer.timeout.connect(anim_hurt_finished)
 
 func _process(delta: float) -> void:
-	#ImGui.Begin("Current Car State")
-	#ImGui.Text(str(current_state))
-	#ImGui.Text(str(speed))
+	if dead:
+		particles.emitting = true
+		if speed > 0:
+			speed -= 130 * delta
+		current_state = CarState.NORMAL
+		return
 	
-	# car_hurtbox.set_rotation(heading)
 	car_sprite.rotation = heading
-		
+	
 	# SHIT CODE FIX LATER LMAOO
-	if current_state in [CarState.DRIFTING_LEFT, CarState.DRIFTING_RIGHT]:
+	if current_state in [CarState.DRIFTING_LEFT, CarState.DRIFTING_RIGHT]:		
 		if !Input.is_key_pressed(KEY_SPACE):
 			current_state = CarState.NORMAL
 		var direction = 1 if current_state == CarState.DRIFTING_RIGHT else -1
@@ -60,6 +71,7 @@ func _process(delta: float) -> void:
 		elif Input.is_key_pressed(KEY_D):
 			steering += DRIFT_IN + PlayerVariables.drift_bonus if direction == 1 else DRIFT_OUT + PlayerVariables.drift_bonus
 	else:
+		tire_sound.volume_db = -80
 		if Input.is_key_pressed(KEY_A):
 			steering = maxf(-STEERING_MAX_TURN, steering - (STEERING_TURN_RATE * delta))
 		elif Input.is_key_pressed(KEY_D):
@@ -71,20 +83,26 @@ func _process(delta: float) -> void:
 				steering -= STEERING_CENTERING_FORCE * delta
 
 	if Input.is_key_pressed(KEY_W):
+		engine_sound.volume_db = -13
+		idle_sound.volume_db = -80
+		
 		if speed < MAX_SPEED + PlayerVariables.speed_bonus:
 			speed += (ACCELERATION_RATE + PlayerVariables.acceleration_bonus) * delta
 	elif Input.is_key_pressed(KEY_S):
+		engine_sound.volume_db = -80
+		idle_sound.volume_db = -3
 		speed -= BRAKING_FORCE * delta
 	else:
 		if speed > 0:
 			speed -= ENGINE_BRAKING * delta
+
+		engine_sound.volume_db = -80
+		idle_sound.volume_db = -3
 	
 	if Input.is_key_pressed(KEY_SPACE) and current_state == CarState.NORMAL and !animation_player.is_playing():
 		current_state = CarState.HOPPING
 		animation_player.play("Hop")
 	
-	#ImGui.Text(str(steering))
-	#ImGui.End()
 	set_sprite_rotation()
 	handle_particles()
 	
@@ -142,8 +160,17 @@ func on_area_entered(area: Area2D) -> void:
 	
 	var enemy: Enemy = area.get_parent()
 
-	health -= enemy.damage
+	health -= enemy.damage 
 	damage_taken.emit(health)
+	
+	if health <= 0 and !dead:
+		dead = true
+		died.emit()
+		fire_animation.visible = true
+		engine_sound.queue_free()
+		idle_sound.queue_free()
+		tire_sound.queue_free()
+	
 	invincibility_timer.start()
 
 func anim_hurt_finished() -> void:
