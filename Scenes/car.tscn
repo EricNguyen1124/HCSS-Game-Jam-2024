@@ -163,6 +163,7 @@ turbulence_influence_max = 0.046
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0so5k"]
 radius = 5.0
+height = 23.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rduq3"]
 animations = [{

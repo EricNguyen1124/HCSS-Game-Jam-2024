@@ -55,7 +55,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	game_duration_in_seconds += delta
-	
+
 	if Engine.get_frames_drawn() % 5 == 0:
 		for enemy in enemies:
 			if enemy != null:
