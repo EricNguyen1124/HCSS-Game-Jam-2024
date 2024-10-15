@@ -124,6 +124,6 @@ position = Vector2(6550, 5571)
 [node name="Radio" parent="." instance=ExtResource("11_7koj0")]
 
 [node name="GameTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 600.0
 one_shot = true
 autostart = true
