@@ -133,14 +133,16 @@ func on_hop_land() -> void:
 	else:
 		current_state = CarState.NORMAL
 
-func on_area_entered(_area: Area2D) -> void:
+
+func on_area_entered(area: Area2D) -> void:
 	if invincible: return
 	
 	invincible = true
-	
 	car_3d_sprite.modulate = Color.FIREBRICK
 	
-	health -= 10
+	var enemy: Enemy = area.get_parent()
+
+	health -= enemy.damage
 	damage_taken.emit(health)
 	invincibility_timer.start()
 

@@ -1,19 +1,36 @@
-[gd_scene load_steps=12 format=3 uid="uid://dljit8iuf4it6"]
+[gd_scene load_steps=18 format=3 uid="uid://dljit8iuf4it6"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_l1t70"]
 [ext_resource type="Texture2D" uid="uid://qy4n8qluv7ql" path="res://carpet.png" id="2_m5nk7"]
 [ext_resource type="PackedScene" uid="uid://crb4xj6obysjs" path="res://Scenes/car.tscn" id="3_5ouut"]
 [ext_resource type="Texture2D" uid="uid://oiku3d1g702f" path="res://Sprites/notebook.jpg" id="6_eglqe"]
-[ext_resource type="PackedScene" path="res://Scenes/arrow_scene.tscn" id="6_p1p7h"]
-[ext_resource type="PackedScene" path="res://Scenes/UpgradeUI.tscn" id="6_v8cvb"]
+[ext_resource type="PackedScene" uid="uid://brsr7la0ii3gg" path="res://Scenes/arrow_scene.tscn" id="6_p1p7h"]
+[ext_resource type="PackedScene" uid="uid://ddmmjkld47bmr" path="res://Scenes/UpgradeUI.tscn" id="6_v8cvb"]
 [ext_resource type="Texture2D" uid="uid://cnjokxh0oxoei" path="res://Sprites/UI/health_bar_overlay.png" id="8_epv4q"]
 [ext_resource type="Texture2D" uid="uid://m42efda12cf5" path="res://Sprites/UI/health_bar.png" id="9_5ne0k"]
 [ext_resource type="Texture2D" uid="uid://8rltp6fynmb2" path="res://Sprites/UI/radio.png" id="10_mt1nr"]
 [ext_resource type="PackedScene" uid="uid://do1oqtawxkdkc" path="res://Scenes/ComboLabel.tscn" id="11_q15s8"]
+[ext_resource type="AudioStream" uid="uid://b81kbj5ojmua6" path="res://Audio/Commercials/Commercial 1.mp3" id="12_e3a6d"]
+[ext_resource type="AudioStream" uid="uid://c7kjnhobhxp76" path="res://Audio/Commercials/Commercial 2.mp3" id="13_kc5nf"]
+[ext_resource type="AudioStream" uid="uid://5xcxbbbg8itr" path="res://Audio/Commercials/Commercial 3.mp3" id="14_63rmg"]
+[ext_resource type="AudioStream" uid="uid://s28qrhw7r1op" path="res://Audio/Commercials/Commercial 4.mp3" id="15_5e7q6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vlm5m"]
 font_size = 36
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3aaur"]
+playback_mode = 1
+streams_count = 3
+stream_0/stream = ExtResource("13_kc5nf")
+stream_1/stream = ExtResource("14_63rmg")
+stream_2/stream = ExtResource("15_5e7q6")
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_6dudy"]
+loop = false
+stream_count = 2
+stream_0 = SubResource("AudioStreamRandomizer_3aaur")
+stream_1 = ExtResource("12_e3a6d")
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_l1t70")
@@ -99,3 +116,9 @@ label_settings = SubResource("LabelSettings_vlm5m")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(4080, 3076)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPlaylist_6dudy")
+volume_db = -14.14
+autoplay = true
+bus = &"Music"

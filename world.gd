@@ -23,7 +23,6 @@ var enemies: Array[Enemy]
 var chest: Chest
 
 var game_duration_in_seconds: float = 0.0
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	car.start_drift.connect(on_car_start_drift)
@@ -76,8 +75,11 @@ func spawn_enemies() -> void:
 	
 	for i in random_number_of_enemies:
 		var enemy: Enemy = enemyScene.instantiate()
+		
 		enemy.initial_health = 15 + floor(duration_in_minutes)
 		enemy.health = enemy.initial_health
+		enemy.damage = duration_in_minutes * 0.4 + 7
+
 		enemy.global_position = spawn_vector + Vector2(randf_range(10.0, 20.0),randf_range(10.0, 20.0))
 		enemies.append(enemy)
 		add_child(enemy)
@@ -86,8 +88,6 @@ func spawn_enemies() -> void:
 	enemy_spawn_timer.stop()
 	enemy_spawn_timer.wait_time = new_spawn_wait_time
 	enemy_spawn_timer.start()
-	print(duration_in_minutes)
-	print(enemy_spawn_timer.wait_time)
 		
 func spawn_chest() -> void:
 	if chest != null:
@@ -111,7 +111,6 @@ func on_chest_open(upgrade: Upgrade) -> void:
 	upgrade_ui.show_ui()
 
 func on_damage_taken(new_health: float) -> void:
-	print(new_health)
 	health_bar.value = new_health
 
 func on_enemies_killed(count: int) -> void:

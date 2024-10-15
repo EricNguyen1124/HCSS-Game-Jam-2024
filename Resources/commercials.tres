@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Commercials" load_steps=5 format=3 uid="uid://p1hixpp3ql2a"]
+
+[ext_resource type="Script" path="res://Resources/commercials.gd" id="1_y1hyo"]
+[ext_resource type="AudioStream" uid="uid://c7kjnhobhxp76" path="res://Audio/Commercials/Commercial 2.mp3" id="2_lg2gp"]
+[ext_resource type="AudioStream" uid="uid://5xcxbbbg8itr" path="res://Audio/Commercials/Commercial 3.mp3" id="3_3gwf3"]
+[ext_resource type="AudioStream" uid="uid://s28qrhw7r1op" path="res://Audio/Commercials/Commercial 4.mp3" id="4_826mb"]
+
+[resource]
+script = ExtResource("1_y1hyo")
+streams = Array[AudioStream]([ExtResource("2_lg2gp"), ExtResource("2_lg2gp"), ExtResource("3_3gwf3"), ExtResource("4_826mb")])
