@@ -1,4 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bj0pb7smkdgu8"]
+[gd_scene load_steps=7 format=3 uid="uid://bj0pb7smkdgu8"]
+
+[ext_resource type="PackedScene" uid="uid://cuhu0kq8wp0ey" path="res://Scenes/OptionsMenu/audio_slider_settings.tscn" id="1_g1f3b"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1cik8"]
 
@@ -48,22 +50,23 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Sound/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound/MarginContainer/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 64
-alignment = 1
 
-[node name="Music" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+[node name="Audio_Slider_Settings" parent="TabContainer/Sound/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_g1f3b")]
 layout_mode = 2
-text = "Music"
+bus_name = "Master"
 
-[node name="Car" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+[node name="Audio_Slider_Settings2" parent="TabContainer/Sound/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_g1f3b")]
 layout_mode = 2
-text = "Car"
 
-[node name="SFX" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+[node name="Audio_Slider_Settings3" parent="TabContainer/Sound/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_g1f3b")]
 layout_mode = 2
-text = "SFX"
+bus_name = "Sound FX"
 
 [node name="Controls" type="TabBar" parent="TabContainer"]
 visible = false

@@ -1,5 +1,6 @@
 extends Node2D
 
+
 @onready var car: Car = $Car
 @onready var carLeftTire: Marker2D = $Car/Icon/LeftTireMarker
 @onready var tireScene: PackedScene = preload("res://Scenes/TireLine2D.tscn")
@@ -14,6 +15,10 @@ extends Node2D
 @onready var health_bar: TextureProgressBar = $CanvasLayer/TextureProgressBar
 @onready var combo_label: ComboLabel = $CanvasLayer/ComboLabel
 @onready var score_label: Label = $CanvasLayer/ScoreLabel
+
+@export var pause_menu_packed_scene : PackedScene = null
+@onready var ui_container: CanvasLayer = $CanvasLayer
+
 
 var score: int = 0
 
@@ -122,3 +127,9 @@ func on_enemies_killed(count: int) -> void:
 func on_combo_finished(final_score: int) -> void:
 	score += final_score
 	score_label.text = str(score)
+	
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action("pause"):
+		var new_pause_menu : PauseMenu = pause_menu_packed_scene.instantiate()
+		
+		ui_container.add_child(new_pause_menu)
