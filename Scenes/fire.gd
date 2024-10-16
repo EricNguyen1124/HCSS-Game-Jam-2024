@@ -10,10 +10,6 @@ func _ready() -> void:
 	extinguish_timer.wait_time = PlayerVariables.drift_fire_duration
 	damage_timer.timeout.connect(deal_damage)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func deal_damage() -> void:
 	var zombies = hitbox.get_overlapping_bodies()
 	for zombie in zombies:

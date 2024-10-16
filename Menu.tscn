@@ -129,6 +129,15 @@ process_material = SubResource("ParticleProcessMaterial_0kuun")
 texture = ExtResource("5_owmon")
 lifetime = 0.5
 
+[node name="HowToPlay" type="Button" parent="."]
+layout_mode = 0
+offset_left = 881.0
+offset_top = 559.0
+offset_right = 995.0
+offset_bottom = 590.0
+scale = Vector2(1.93, 1.93)
+text = "How To Play"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_controls_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
