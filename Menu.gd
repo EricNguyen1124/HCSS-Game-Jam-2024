@@ -4,6 +4,8 @@ extends Control
 @onready var play_button: Button = $MarginContainer/VBoxContainer/Play
 @onready var options_button: Button = $MarginContainer/VBoxContainer/Options
 @onready var quit_button: Button = $MarginContainer/VBoxContainer/Quit
+@onready var tutorial_button: Button = $HowToPlay
+
 @onready var options_menu: OptionsMenu = $Options_Menu
 @onready var margin_container: MarginContainer = $MarginContainer
 
@@ -31,11 +33,15 @@ func on_exit_options_menu() -> void:
 	toggle_menu_visibility(true)
 	options_menu.visible = false
 	
+func on_tutorial_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/TutorialMenu/TutorialMenu.tscn")
+	
 func handle_connecting_signals() -> void:
 	play_button.button_down.connect(on_start_pressed)
 	options_button.button_down.connect(on_options_pressed)
 	quit_button.button_down.connect(on_quit_pressed)
 	options_menu.exit_options_menu.connect(on_exit_options_menu)
+	tutorial_button.button_down.connect(on_tutorial_pressed)
 	
 func toggle_menu_visibility(view: bool) -> void:
 	margin_container.visible = view

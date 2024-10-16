@@ -15,7 +15,7 @@ var acceleration_bonus: float = 0.0
 
 var drift_bonus: float = 0.0
 
-var combo_timer: float = 5.5
+var combo_timer: float = 5.7
 
 var healing_factor: float = 1.7
 
@@ -29,5 +29,5 @@ func reset() -> void:
 	speed_bonus = 0.0
 	acceleration_bonus = 0.0
 	drift_bonus = 0.0
-	combo_timer = 5.5
+	combo_timer = 5.7
 	healing_factor = 1.7
