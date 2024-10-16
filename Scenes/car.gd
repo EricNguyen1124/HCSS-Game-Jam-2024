@@ -48,7 +48,7 @@ var current_state = CarState.NORMAL
 func _ready() -> void:
 	car_hurtbox.area_entered.connect(on_area_entered)
 	invincibility_timer.timeout.connect(anim_hurt_finished)
-
+	
 func _process(delta: float) -> void:
 	if dead:
 		particles.emitting = true
@@ -82,22 +82,28 @@ func _process(delta: float) -> void:
 			elif steering > 0:
 				steering -= STEERING_CENTERING_FORCE * delta
 
-	if Input.is_key_pressed(KEY_W):
-		engine_sound.volume_db = -13
-		idle_sound.volume_db = -80
-		
-		if speed < MAX_SPEED + PlayerVariables.speed_bonus:
-			speed += (ACCELERATION_RATE + PlayerVariables.acceleration_bonus) * delta
-	elif Input.is_key_pressed(KEY_S):
-		engine_sound.volume_db = -80
-		idle_sound.volume_db = -3
-		speed -= BRAKING_FORCE * delta
-	else:
-		if speed > 0:
-			speed -= ENGINE_BRAKING * delta
 
-		engine_sound.volume_db = -80
-		idle_sound.volume_db = -3
+	engine_sound.volume_db = -13
+	idle_sound.volume_db = -80
+	
+	if speed < MAX_SPEED + PlayerVariables.speed_bonus:
+		speed += (ACCELERATION_RATE + PlayerVariables.acceleration_bonus) * delta
+	#if Input.is_key_pressed(KEY_W) or current_state in [CarState.DRIFTING_LEFT, CarState.DRIFTING_RIGHT]:
+		#engine_sound.volume_db = -13
+		#idle_sound.volume_db = -80
+		#
+		#if speed < MAX_SPEED + PlayerVariables.speed_bonus:
+			#speed += (ACCELERATION_RATE + PlayerVariables.acceleration_bonus) * delta
+	#elif Input.is_key_pressed(KEY_S):
+		#engine_sound.volume_db = -80
+		#idle_sound.volume_db = -4
+		#speed -= BRAKING_FORCE * delta
+	#else:
+		#if speed > 0:
+			#speed -= ENGINE_BRAKING * delta
+#
+		#engine_sound.volume_db = -80
+		#idle_sound.volume_db = -4
 	
 	if Input.is_key_pressed(KEY_SPACE) and current_state == CarState.NORMAL and !animation_player.is_playing():
 		current_state = CarState.HOPPING

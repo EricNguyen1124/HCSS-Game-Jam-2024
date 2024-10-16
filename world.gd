@@ -87,13 +87,14 @@ func on_car_start_drift():
 	current_line = tireScene.instantiate()
 	current_line.enemies_killed.connect(on_enemies_killed)
 	current_line.ring_completed.connect(on_ring_completed)
+	current_line.chest_circled.connect(on_chest_attacked)
 	add_child(current_line)
 
 func spawn_enemies() -> void:
 	var duration_in_minutes = game_duration_in_seconds / 60
 	
 	var random_angle = randf_range(0.0, 2 * PI)
-	var spawn_vector = (Vector2(0.0, 1.0).rotated(random_angle) * 1000) + car.global_position
+	var spawn_vector = (Vector2(0.0, 1.0).rotated(random_angle) * 850) + car.global_position
 	
 	var random_number_of_enemies = randi_range(1,3) + ceil(duration_in_minutes) * 2
 	
@@ -144,6 +145,9 @@ func on_enemies_killed(count: int) -> void:
 	
 	var healing = PlayerVariables.healing_factor * count
 	car.heal_damage(healing)
+
+func on_chest_attacked() -> void:
+	combo_label.reset_combo_timer()
 
 func on_ring_completed() -> void:
 	rings_completed +=1

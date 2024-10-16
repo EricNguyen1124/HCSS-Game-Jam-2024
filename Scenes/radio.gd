@@ -2,7 +2,7 @@ extends Node
 
 @onready var static_player: AudioStreamPlayer = $StaticPlayer
 
-const RADIO_VOL = -12
+const RADIO_VOL = -9
 
 
 const NUM_STATIONS = 4

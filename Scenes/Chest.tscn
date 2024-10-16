@@ -1,12 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://bv8264fd3byab"]
+[gd_scene load_steps=16 format=3 uid="uid://bv8264fd3byab"]
 
 [ext_resource type="Script" path="res://Scenes/chest.gd" id="1_w7uc4"]
 [ext_resource type="Resource" uid="uid://bjmsc8s4n0t1d" path="res://Resources/upgrade_database.tres" id="2_8ish2"]
-[ext_resource type="AudioStream" uid="uid://dyp4w73rw7pro" path="res://Sounds/level_up.mp3" id="5_y4kcu"]
+[ext_resource type="AudioStream" uid="uid://qqpiudt2hr5v" path="res://Audio/SFX/Youve Got The Chest.mp3" id="3_y87c2"]
 [ext_resource type="Texture2D" uid="uid://bsbupb8ge2q5i" path="res://Sprites/Chest+opening/frame_00001.png" id="6_u2kpc"]
 [ext_resource type="Texture2D" uid="uid://ck5ge16e4osjf" path="res://Sprites/Chest+opening/frame_00002.png" id="7_w7pmn"]
 [ext_resource type="Texture2D" uid="uid://c8owxf6ab5r5f" path="res://Sprites/Upgrades/1000_F_367669009_vSqOGYTjrDgxYj2NFEfpT3vDTzXHcj9N.jpg" id="8_d070t"]
 [ext_resource type="Texture2D" uid="uid://ciwhu566ekqp8" path="res://Sprites/Chest+opening/frame_00003.png" id="8_ggql5"]
+[ext_resource type="AudioStream" uid="uid://bwxn3w6vurky1" path="res://Audio/SFX/Go Get The Chest.mp3" id="9_53iiw"]
 [ext_resource type="Texture2D" uid="uid://pxw2nwiu4u87" path="res://Sprites/Chest+opening/frame_00004.png" id="9_w02op"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yuyrh"]
@@ -155,8 +156,9 @@ libraries = {
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3
-stream = ExtResource("5_y4kcu")
-volume_db = -3.0
+stream = ExtResource("3_y87c2")
+volume_db = 3.0
+bus = &"Sound FX"
 
 [node name="PauseTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -177,3 +179,9 @@ offset_bottom = 35.0
 scale = Vector2(1.58, 1.58)
 texture = ExtResource("8_d070t")
 expand_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_53iiw")
+volume_db = 1.0
+autoplay = true
+bus = &"Sound FX"

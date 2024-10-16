@@ -4,6 +4,7 @@ class_name RingEffect
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var particles: GPUParticles2D = $PathFollow2D/GPUParticles2D
+@onready var line2D: Line2D = $Line2D
 
 signal ring_effect_completed
 signal done_pulsing
@@ -23,3 +24,5 @@ func hide_particles() -> void:
 func emit_ring_effect_completed() -> void:
 	pulses_count -= 1
 	ring_effect_completed.emit()
+	var points = get_curve().get_baked_points()
+	line2D.points = points

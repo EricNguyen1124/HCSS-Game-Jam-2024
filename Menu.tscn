@@ -1,7 +1,56 @@
-[gd_scene load_steps=3 format=3 uid="uid://dm43l42vj75ow"]
+[gd_scene load_steps=14 format=3 uid="uid://dm43l42vj75ow"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_ujwh4"]
 [ext_resource type="PackedScene" uid="uid://uwafv33hnxa" path="res://Scenes/OptionsMenu/options_menu.tscn" id="2_mrsti"]
+[ext_resource type="Texture2D" uid="uid://mrj4l867svcu" path="res://Sprites/UI/bg.png" id="2_x1ssy"]
+[ext_resource type="Texture2D" uid="uid://bq416xbw82vsc" path="res://Sprites/UI/menu_bg.png" id="3_dys1x"]
+[ext_resource type="Texture2D" uid="uid://bfftsm850ee4v" path="res://Sprites/Smoke+animation/frame_00001.png" id="5_owmon"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7vmar"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 93.72
+initial_velocity_max = 139.75
+gravity = Vector3(0, 0, 0)
+scale_max = 7.0
+
+[sub_resource type="Curve" id="Curve_nvc2b"]
+_data = [Vector2(0, 0.380084), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_81pl3"]
+curve = SubResource("Curve_nvc2b")
+
+[sub_resource type="Curve" id="Curve_rkte4"]
+_data = [Vector2(0.017301, 0), 0.0, 0.0, 0, 0, Vector2(0.186851, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fbi8t"]
+curve = SubResource("Curve_rkte4")
+
+[sub_resource type="Curve" id="Curve_gad7r"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0657439, 0.343618), -0.0302833, -0.0302833, 0, 0, Vector2(0.33218, 0.826788), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_8vhnf"]
+curve = SubResource("Curve_gad7r")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0kuun"]
+particle_flag_disable_z = true
+angle_min = -163.9
+angle_max = 159.5
+angle_curve = SubResource("CurveTexture_fbi8t")
+direction = Vector3(1, 1, 0)
+spread = 10.822
+initial_velocity_min = 483.08
+initial_velocity_max = 747.71
+gravity = Vector3(0, -10, 0)
+scale_curve = SubResource("CurveTexture_8vhnf")
+alpha_curve = SubResource("CurveTexture_81pl3")
+turbulence_enabled = true
+turbulence_influence_min = 0.043
+turbulence_influence_max = 0.046
 
 [node name="Main_Menu" type="Control"]
 layout_mode = 3
@@ -12,20 +61,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ujwh4")
 
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = -189.0
+offset_top = -152.0
+offset_right = 1325.0
+offset_bottom = 824.0
+texture = ExtResource("2_x1ssy")
+stretch_mode = 1
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -176.0
-offset_top = -92.0
-offset_right = 10.0
-offset_bottom = 9.0
+anchors_preset = -1
+anchor_left = 0.474
+anchor_top = 0.884
+anchor_right = 0.474
+anchor_bottom = 0.884
+offset_left = -93.0
+offset_top = -101.0
+offset_right = 93.0
 grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -46,10 +102,31 @@ text = "Quit"
 visible = false
 layout_mode = 1
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(781, 353)
+scale = Vector2(2.07, 2.07)
+amount = 300
+process_material = SubResource("ParticleProcessMaterial_7vmar")
+lifetime = 0.35
+
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_right = 1318.0
+offset_bottom = 1032.0
+grow_horizontal = 2
+scale = Vector2(0.41, 0.41)
+texture = ExtResource("3_dys1x")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(265, 299)
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_0kuun")
+texture = ExtResource("5_owmon")
+lifetime = 0.5
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_controls_pressed"]

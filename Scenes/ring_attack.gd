@@ -9,6 +9,7 @@ class_name RingAttack extends Area2D
 @onready var attack_sound: AudioStreamPlayer = $AttackSoundEffect
 
 signal enemies_killed
+signal chest_attacked
 
 var first_attack_done: bool = false
 
@@ -37,6 +38,7 @@ func check_collisions() -> void:
 	
 	var damage = PlayerVariables.ring_damage
 	var zombie_damaged = false
+	var chest_hurted = false
 	
 	if first_attack_done:
 		damage = damage / 1.5
@@ -53,10 +55,14 @@ func check_collisions() -> void:
 	var chests = get_overlapping_areas()
 	for chest: Chest in chests.filter(func(c: Chest): return !c.opened):
 		chest.deal_damage()
+		chest_hurted = true
 
 	if zombie_damaged:
 		zombie_hurt_sound.play()
-
+	
+	if chest_hurted:
+		chest_attacked.emit()
+	
 	if kill_count > 0:
 		enemies_killed.emit(kill_count)
 
