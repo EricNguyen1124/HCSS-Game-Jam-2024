@@ -14,9 +14,9 @@
 [sub_resource type="Resource" id="Resource_05b7n"]
 script = ExtResource("2_u61bf")
 display_name = "Drift Damage"
-description = "Increased Drift Damage By 2!"
+description = "Increased Drift Damage!"
 level = 0
-max_level = 3
+max_level = 4
 texture = ExtResource("3_mcpkc")
 
 [sub_resource type="Resource" id="Resource_3qn32"]
@@ -32,7 +32,7 @@ script = ExtResource("2_u61bf")
 display_name = "Drift Pulse"
 description = "Drift Rings deal damage multiple times!"
 level = 0
-max_level = 2
+max_level = 3
 texture = ExtResource("5_4lcnr")
 
 [sub_resource type="Resource" id="Resource_os0ew"]
@@ -64,7 +64,7 @@ script = ExtResource("2_u61bf")
 display_name = "Combo Extender"
 description = "More time to do combos! "
 level = 0
-max_level = 2
+max_level = 3
 texture = ExtResource("9_3q85h")
 
 [sub_resource type="Resource" id="Resource_glijo"]

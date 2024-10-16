@@ -36,10 +36,7 @@ signal died
 @onready var particles: GPUParticles2D = $GPUParticles2D
 @onready var invincibility_timer: Timer = $InvincibilityTimer
 @onready var fire_animation: AnimatedSprite2D = $AnimatedFire
-
 @onready var engine_sound: AudioStreamPlayer = $EngineSoundPlayer
-@onready var idle_sound: AudioStreamPlayer = $IdleEngineSoundPlayer
-@onready var tire_sound: AudioStreamPlayer = $TireScreechSoundPlayer
 
 var foot_on_gas: bool = false
 
@@ -61,30 +58,25 @@ func _process(delta: float) -> void:
 	
 	# SHIT CODE FIX LATER LMAOO
 	if current_state in [CarState.DRIFTING_LEFT, CarState.DRIFTING_RIGHT]:		
-		if !Input.is_key_pressed(KEY_SPACE):
+		if !Input.is_action_pressed("hop"):
 			current_state = CarState.NORMAL
 		var direction = 1 if current_state == CarState.DRIFTING_RIGHT else -1
 		car_sprite.rotation += direction * PI / 4
 		steering = direction * STEERING_MAX_TURN
-		if Input.is_key_pressed(KEY_A):
+		if Input.is_action_pressed("steer_left"):
 			steering -= DRIFT_OUT + PlayerVariables.drift_bonus if direction == 1 else DRIFT_IN + PlayerVariables.drift_bonus
-		elif Input.is_key_pressed(KEY_D):
+		elif Input.is_action_pressed("steer_right"):
 			steering += DRIFT_IN + PlayerVariables.drift_bonus if direction == 1 else DRIFT_OUT + PlayerVariables.drift_bonus
 	else:
-		tire_sound.volume_db = -80
-		if Input.is_key_pressed(KEY_A):
+		if Input.is_action_pressed("steer_left"):
 			steering = maxf(-STEERING_MAX_TURN, steering - (STEERING_TURN_RATE * delta))
-		elif Input.is_key_pressed(KEY_D):
+		elif Input.is_action_pressed("steer_right"):
 			steering = minf(STEERING_MAX_TURN, steering + (STEERING_TURN_RATE * delta))
 		else:
 			if steering < 0:
 				steering += STEERING_CENTERING_FORCE * delta
 			elif steering > 0:
 				steering -= STEERING_CENTERING_FORCE * delta
-
-
-	engine_sound.volume_db = -13
-	idle_sound.volume_db = -80
 	
 	if speed < MAX_SPEED + PlayerVariables.speed_bonus:
 		speed += (ACCELERATION_RATE + PlayerVariables.acceleration_bonus) * delta
@@ -105,7 +97,7 @@ func _process(delta: float) -> void:
 		#engine_sound.volume_db = -80
 		#idle_sound.volume_db = -4
 	
-	if Input.is_key_pressed(KEY_SPACE) and current_state == CarState.NORMAL and !animation_player.is_playing():
+	if Input.is_action_pressed("hop") and current_state == CarState.NORMAL and !animation_player.is_playing():
 		current_state = CarState.HOPPING
 		animation_player.play("Hop")
 	
@@ -148,10 +140,10 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 
 func on_hop_land() -> void:
-	if Input.is_key_pressed(KEY_A):
+	if Input.is_action_pressed("steer_left"):
 		current_state = CarState.DRIFTING_LEFT
 		start_drift.emit()
-	elif Input.is_key_pressed(KEY_D):
+	elif Input.is_action_pressed("steer_right"):
 		current_state = CarState.DRIFTING_RIGHT
 		start_drift.emit()
 	else:
@@ -174,8 +166,6 @@ func on_area_entered(area: Area2D) -> void:
 		died.emit()
 		fire_animation.visible = true
 		engine_sound.queue_free()
-		idle_sound.queue_free()
-		tire_sound.queue_free()
 	
 	invincibility_timer.start()
 

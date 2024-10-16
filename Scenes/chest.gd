@@ -16,6 +16,8 @@ var health = 3
 
 var opened = false
 
+signal last_chest_opened
+
 func _ready() -> void:
 	pause_timer.timeout.connect(resume_game)
 
@@ -31,6 +33,9 @@ func roll_and_apply_upgrade() -> void:
 	var valid_upgrades: Array[Upgrade] = upgrade_database.upgrades.filter(func(u: Upgrade): return u.level < u.max_level)
 	
 	#valid_upgrades = valid_upgrades.filter(func(u: Upgrade): return u.display_name == "Combo Extender")
+	
+	if valid_upgrades.size() == 1:
+		last_chest_opened.emit()
 	
 	if valid_upgrades.is_empty():
 		return

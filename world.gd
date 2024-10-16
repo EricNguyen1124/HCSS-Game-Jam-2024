@@ -11,7 +11,7 @@ extends Node2D
 @onready var upgrade_ui: UpgradeUI = $CanvasLayer/UpgradeUI
 @onready var world_bounds: Marker2D = $Marker2D
 @onready var radio = $Radio
-@onready var game_timer = $GameTimer
+@onready var game_timer: Timer = $GameTimer
 
 @onready var arrow = $CanvasLayer/SubViewportContainer/SubViewport/ArrowScene
 @onready var health_bar: TextureProgressBar = $CanvasLayer/TextureProgressBar
@@ -52,6 +52,8 @@ func _ready() -> void:
 	chest_spawn_timer.timeout.connect(spawn_chest)
 	game_timer.start()
 	game_timer.timeout.connect(win_game)
+	
+	PlayerVariables.reset()
 
 func _process(delta: float) -> void:
 	game_duration_in_seconds += delta
@@ -129,12 +131,16 @@ func spawn_chest() -> void:
 	
 	chest_instance.global_position = spawn_vector
 	chest_instance.chest_opened.connect(on_chest_open)
+	chest_instance.last_chest_opened.connect(stop_spawning_chests)
 	add_child(chest_instance)
 	
 func on_chest_open(upgrade: Upgrade) -> void:
 	chest = null
 	upgrade_ui.set_info(upgrade)
 	upgrade_ui.show_ui()
+
+func stop_spawning_chests() -> void:
+	chest_spawn_timer.stop()
 
 func on_damage_taken(new_health: float) -> void:
 	health_bar.value = new_health
@@ -175,6 +181,7 @@ func game_over() -> void:
 	ui_container.add_child(game_over_screen)
 	game_over_screen.set_values(rings_completed, enemies_killed, score)
 	radio.queue_free()
+	game_timer.set_paused(true)
 
 func win_game() -> void:
 	health_bar.visible = false
