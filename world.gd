@@ -24,6 +24,7 @@ extends Node2D
 @onready var win_screen_scene: PackedScene = preload("res://Scenes/GameOverMenu/WinScreen.tscn")
 @onready var ui_container: CanvasLayer = $CanvasLayer
 
+@export var upgrade_database: UpgradeDatabase
 
 var score: int = 0
 
@@ -37,6 +38,9 @@ var game_duration_in_seconds: float = 0.0
 var enemies_killed: int = 0
 var rings_completed: int = 0
 var final_score: int = 0
+
+var winned = false
+var died = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -54,6 +58,7 @@ func _ready() -> void:
 	game_timer.timeout.connect(win_game)
 	
 	PlayerVariables.reset()
+	upgrade_database.reset_upgrades()
 
 func _process(delta: float) -> void:
 	game_duration_in_seconds += delta
@@ -74,6 +79,7 @@ func _process(delta: float) -> void:
 		arrow.set_arrow_rotation(angle_to_chest)
 	else:
 		arrow.visible = false
+		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta: float) -> void:
@@ -169,33 +175,40 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		ui_container.add_child(new_pause_menu)
 
 func game_over() -> void:
+	if died: return
+	
+	died = true
 	health_bar.visible = false
 	score_label.visible = false
 
-	if combo_label.combo_in_progress:
-		combo_label.show_final_score()
-		combo_label.finish_combo()
+	var current_combo = 0.0
+	if combo_label != null and combo_label.combo_in_progress:
+		current_combo = combo_label.show_final_score()
 		combo_label.combo_in_progress = false
 
 	var game_over_screen = game_over_scene.instantiate()
 	ui_container.add_child(game_over_screen)
-	game_over_screen.set_values(rings_completed, enemies_killed, score)
+	game_over_screen.set_values(rings_completed, enemies_killed, score + current_combo)
 	radio.queue_free()
 	game_timer.set_paused(true)
 
 func win_game() -> void:
+	if winned: return
+	winned = true
 	health_bar.visible = false
 	score_label.visible = false
 	
 	car.dead = true
 	car.invincible = true
 
-	if combo_label.combo_in_progress:
-		combo_label.show_final_score()
-		combo_label.finish_combo()
+
+	var current_combo = 0.0
+	if combo_label != null and combo_label.combo_in_progress:
+		current_combo = combo_label.show_final_score()
 		combo_label.combo_in_progress = false
 
 	var win_screen_screen = win_screen_scene.instantiate()
 	ui_container.add_child(win_screen_screen)
-	win_screen_screen.set_values(rings_completed, enemies_killed, score)
-	radio.queue_free()
+	win_screen_screen.set_values(rings_completed, enemies_killed, score + current_combo)
+	if radio != null:
+		radio.queue_free()

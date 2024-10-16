@@ -60,15 +60,19 @@ func on_enemies_killed(count: int) -> void:
 func collapse_score() -> void:
 	animation_player.play("collapse")
 
+
 func reset_combo_timer() -> void:
 	if !combo_timer.is_stopped():
 		combo_timer.stop()
 		combo_timer.start()
 
-func show_final_score() -> void:
+func show_final_score():
 	var final_score = base_score + multi_kill_bonus
 	current_combo += final_score
 	text = str(current_combo)
+	base_score = 0.0
+	multi_kill_bonus = 0.0
+	return current_combo
 
 func finish_combo() -> void:
 	combo_in_progress = false

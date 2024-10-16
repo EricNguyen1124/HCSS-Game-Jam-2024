@@ -1,10 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://crb4xj6obysjs"]
+[gd_scene load_steps=26 format=3 uid="uid://crb4xj6obysjs"]
 
 [ext_resource type="Script" path="res://Scenes/car.gd" id="1_gscac"]
 [ext_resource type="Texture2D" uid="uid://4ckvpyjppbvu" path="res://icon.svg" id="2_544c0"]
 [ext_resource type="AudioStream" uid="uid://dhh3ajnkwyyo5" path="res://Audio/SFX/Car/Car Engine.mp3" id="5_fmu8t"]
 [ext_resource type="AudioStream" uid="uid://bt4ko1fd5xsmn" path="res://Audio/SFX/Car/Tire Screech.mp3" id="5_hm3wp"]
-[ext_resource type="AudioStream" uid="uid://dv7ekcftfqc2i" path="res://Audio/SFX/Car/Car Idle.mp3" id="6_j8v7v"]
 [ext_resource type="Texture2D" uid="uid://b5hy8nf6r2mvo" path="res://Sprites/Fire/frame_00001.png" id="8_5rlli"]
 [ext_resource type="Texture2D" uid="uid://brh6jsr3wdpb3" path="res://Sprites/Fire/frame_00002.png" id="9_h3vda"]
 [ext_resource type="Texture2D" uid="uid://d1n6v8rmhnion" path="res://Sprites/Fire/frame_00003.png" id="10_77dtr"]
@@ -255,13 +254,6 @@ parameters/looping = true
 [node name="EngineSoundPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_fmu8t")
 volume_db = -13.0
-autoplay = true
-bus = &"Sound FX"
-parameters/looping = true
-
-[node name="IdleEngineSoundPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_j8v7v")
-volume_db = -5.0
 autoplay = true
 bus = &"Sound FX"
 parameters/looping = true

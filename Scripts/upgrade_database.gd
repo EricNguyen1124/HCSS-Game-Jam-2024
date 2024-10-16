@@ -38,3 +38,7 @@ func get_callable(name: String) -> Callable:
 				PlayerVariables.healing_factor += 0.6
 	
 	return func(): print("update get_callable dummie lmao")
+
+func reset_upgrades() -> void:
+	for upgrade in upgrades:
+		upgrade.level = 0
