@@ -32,9 +32,10 @@ offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 0
+current_tab = 1
 
 [node name="Sound" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -69,7 +70,6 @@ layout_mode = 2
 bus_name = "Sound FX"
 
 [node name="Controls" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -104,23 +104,13 @@ theme_override_constants/separation = 20
 
 [node name="HSeparator" type="HSeparator" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 16
 theme_override_styles/separator = SubResource("StyleBoxEmpty_xnefd")
-
-[node name="Forward" type="Label" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Forward"
 
 [node name="Left" type="Label" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Left"
-
-[node name="Back" type="Label" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Back"
 
 [node name="Right" type="Label" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -132,6 +122,21 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Drift"
 
+[node name="Previous Station" type="Label" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Previous Station"
+
+[node name="Next Station" type="Label" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Next Station"
+
+[node name="Pause" type="Label" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Pause"
+
 [node name="HSeparator2" type="HSeparator" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 32
@@ -140,7 +145,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_53d36")
 [node name="VSeparator2" type="VSeparator" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_constants/separation = 600
+theme_override_constants/separation = 425
 theme_override_styles/separator = SubResource("StyleBoxEmpty_v6xu5")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer"]
@@ -151,16 +156,8 @@ theme_override_constants/separation = 12
 
 [node name="HSeparator" type="HSeparator" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 16
 theme_override_styles/separator = SubResource("StyleBoxEmpty_q3306")
-
-[node name="ForwardKey" type="Button" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
-process_mode = 4
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 32
-text = "W"
-icon_alignment = 1
 
 [node name="LeftKey" type="Button" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
 process_mode = 4
@@ -174,17 +171,29 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "S"
 
-[node name="BackKey" type="Button" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
-process_mode = 4
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "D"
-
 [node name="DriftKey" type="Button" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
 process_mode = 4
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "SPACE"
+
+[node name="PreviousKey" type="Button" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
+process_mode = 4
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Z"
+
+[node name="NextKey" type="Button" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
+process_mode = 4
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "X"
+
+[node name="Pause" type="Button" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
+process_mode = 4
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "ESCAPE"
 
 [node name="HSeparator2" type="HSeparator" parent="TabContainer/Controls/MarginContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
