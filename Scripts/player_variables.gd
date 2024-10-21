@@ -1,5 +1,7 @@
 extends Node
 
+var player_name: String = ""
+
 var ring_damage: float = 6
 
 var instant_chest = false
@@ -19,6 +21,10 @@ var combo_timer: float = 5.7
 
 var healing_factor: float = 1.7
 
+var rings_completed: int = 0
+var zombies_killed: int = 0
+var final_score: int = 0
+
 func reset() -> void:
 	ring_damage = 6
 	instant_chest = false
@@ -31,3 +37,6 @@ func reset() -> void:
 	drift_bonus = 0.0
 	combo_timer = 5.7
 	healing_factor = 1.7
+	rings_completed = 0
+	zombies_killed = 0
+	final_score = 0

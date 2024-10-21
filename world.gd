@@ -99,6 +99,8 @@ func on_car_start_drift():
 	add_child(current_line)
 
 func spawn_enemies() -> void:
+	if died: return
+
 	var duration_in_minutes = game_duration_in_seconds / 60
 	
 	var random_angle = randf_range(0.0, 2 * PI)
@@ -195,20 +197,17 @@ func game_over() -> void:
 func win_game() -> void:
 	if winned: return
 	winned = true
-	health_bar.visible = false
-	score_label.visible = false
 	
 	car.dead = true
 	car.invincible = true
-
 
 	var current_combo = 0.0
 	if combo_label != null and combo_label.combo_in_progress:
 		current_combo = combo_label.show_final_score()
 		combo_label.combo_in_progress = false
 
-	var win_screen_screen = win_screen_scene.instantiate()
-	ui_container.add_child(win_screen_screen)
-	win_screen_screen.set_values(rings_completed, enemies_killed, score + current_combo)
-	if radio != null:
-		radio.queue_free()
+	PlayerVariables.rings_completed = rings_completed
+	PlayerVariables.zombies_killed = enemies_killed
+	PlayerVariables.final_score = score + current_combo
+
+	get_tree().change_scene_to_packed(win_screen_scene)

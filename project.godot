@@ -20,6 +20,7 @@ config/icon="res://thumbnail.png"
 
 CarState="*res://Scripts/car_state.gd"
 PlayerVariables="*res://Scripts/player_variables.gd"
+SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
 
 [display]
 
