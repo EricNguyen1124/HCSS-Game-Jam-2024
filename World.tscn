@@ -103,11 +103,15 @@ anchor_left = 0.97
 anchor_top = 0.051
 anchor_right = 1.0
 anchor_bottom = 0.051
-offset_left = -182.0
-offset_bottom = 50.0
+offset_left = -196.44
+offset_top = -8.048
+offset_right = -14.4401
+offset_bottom = 63.952
 grow_horizontal = 0
-text = "00000 x 00"
+text = "0
+"
 label_settings = SubResource("LabelSettings_vlm5m")
+horizontal_alignment = 2
 
 [node name="TimeLabel" type="Label" parent="CanvasLayer"]
 anchors_preset = 5
@@ -130,6 +134,6 @@ position = Vector2(5653, 4387)
 [node name="Radio" parent="." instance=ExtResource("11_7koj0")]
 
 [node name="GameTimer" type="Timer" parent="."]
-wait_time = 600.0
+wait_time = 30.0
 one_shot = true
 autostart = true
