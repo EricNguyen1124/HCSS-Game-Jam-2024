@@ -1,7 +1,10 @@
-[gd_scene format=3 uid="uid://2wy4d8d5av0l"]
+[gd_scene load_steps=2 format=3 uid="uid://2wy4d8d5av0l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_n5jf2"]
+font_size = 25
 
 [node name="ScoreItem" type="Panel"]
-custom_minimum_size = Vector2(500, 50)
+custom_minimum_size = Vector2(350, 33.91)
 grow_horizontal = 0
 grow_vertical = 0
 
@@ -11,15 +14,16 @@ layout_mode = 0
 offset_left = 8.0
 offset_right = 359.0
 offset_bottom = 50.0
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 25
 text = "1. Godzilla"
 
 [node name="Score" type="Label" parent="."]
 layout_mode = 0
-offset_left = 359.0
-offset_top = 1.0
-offset_right = 485.0
-offset_bottom = 49.0
+offset_left = 213.0
+offset_top = -0.0900002
+offset_right = 339.0
+offset_bottom = 47.91
 theme_override_font_sizes/font_size = 32
 text = "13"
+label_settings = SubResource("LabelSettings_n5jf2")
 horizontal_alignment = 2

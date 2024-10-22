@@ -10,11 +10,11 @@ func _ready() -> void:
 	quit_button.button_down.connect(back_to_menu)
 	scoreUI.set_values(PlayerVariables.rings_completed, PlayerVariables.zombies_killed, PlayerVariables.final_score)
 
-	if !PlayerVariables.player_name.is_empty():
+	if !PlayerVariables.player_name.is_empty() and PlayerVariables.final_score != 0:
 		await SilentWolf.Scores.save_score(PlayerVariables.player_name, PlayerVariables.final_score).sw_save_score_complete
 
-		var leaderboard = leaderboard_scene.instantiate()
-		add_child(leaderboard)
+	var leaderboard = leaderboard_scene.instantiate()
+	add_child(leaderboard)
 
 func retry_game() -> void:
 	get_tree().change_scene_to_file("res://World.tscn")

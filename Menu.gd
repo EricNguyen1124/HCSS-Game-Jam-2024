@@ -38,7 +38,7 @@ func _ready():
 	SilentWolf.configure_scores({
 		"open_scene_on_close": "res://Menu.tscn"
 	})
-
+	
 func _process(_delta: float) -> void:
 	name_entry_button.disabled = leaderboard_name.is_empty()
 	

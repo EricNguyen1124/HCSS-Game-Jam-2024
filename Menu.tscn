@@ -160,15 +160,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -226.5
-offset_top = -53.5
-offset_right = 226.5
-offset_bottom = -4.5
+offset_left = -166.5
+offset_top = -50.0
+offset_right = 167.5
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 placeholder_text = "Enter Name for Leaderboard"
 alignment = 1
-max_length = 20
+max_length = 10
 
 [node name="Button" type="Button" parent="NameEntryPanel"]
 layout_mode = 1
