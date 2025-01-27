@@ -30,6 +30,10 @@ func _ready():
 		"open_scene_on_close": "res://Menu.tscn"
 	})
 	
+func _process(delta: float) -> void:
+	if Input.is_action_pressed("exit"):
+		get_tree().quit()
+	
 func on_start_pressed() -> void:
 	get_tree().change_scene_to_packed(world)
 	

@@ -25,6 +25,9 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	submit_leaderboard_button.disabled = leaderboard_name.is_empty() or score_submitted
+	
+	if Input.is_action_pressed("exit"):
+		get_tree().quit()
 
 func set_values(rings, zombies, score):
 	PlayerVariables.final_score = score

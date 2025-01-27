@@ -47,6 +47,9 @@ func _ready() -> void:
 	invincibility_timer.timeout.connect(anim_hurt_finished)
 	
 func _process(delta: float) -> void:
+	if Input.is_action_pressed("exit"):
+		get_tree().quit()
+	
 	if dead:
 		particles.emitting = true
 		if speed > 0:

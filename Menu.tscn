@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://dm43l42vj75ow"]
+[gd_scene load_steps=15 format=3 uid="uid://b1oe53tj6nbtc"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_ujwh4"]
 [ext_resource type="PackedScene" uid="uid://uwafv33hnxa" path="res://Scenes/OptionsMenu/options_menu.tscn" id="2_mrsti"]
 [ext_resource type="Texture2D" uid="uid://mrj4l867svcu" path="res://Sprites/UI/bg.png" id="2_x1ssy"]
+[ext_resource type="Script" path="res://Scripts/play_button.gd" id="3_bnvfw"]
 [ext_resource type="Texture2D" uid="uid://bq416xbw82vsc" path="res://Sprites/UI/menu_bg.png" id="3_dys1x"]
 [ext_resource type="Texture2D" uid="uid://bfftsm850ee4v" path="res://Sprites/Smoke+animation/frame_00001.png" id="5_owmon"]
 
@@ -90,14 +91,19 @@ layout_mode = 2
 
 [node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_focus_color = Color(0, 0.831373, 0, 1)
 text = "Play"
+script = ExtResource("3_bnvfw")
 
 [node name="Options" type="Button" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
+theme_override_colors/font_focus_color = Color(1, 1, 0, 1)
 text = "Options"
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
 text = "Quit"
 
 [node name="Options_Menu" parent="." instance=ExtResource("2_mrsti")]
@@ -137,6 +143,7 @@ offset_top = 559.0
 offset_right = 995.0
 offset_bottom = 590.0
 scale = Vector2(1.93, 1.93)
+theme_override_colors/font_focus_color = Color(1, 1, 0, 1)
 text = "How To Play"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
