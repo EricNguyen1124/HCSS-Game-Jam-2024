@@ -22,8 +22,8 @@ func _ready() -> void:
 
 	scoreUI.set_values(PlayerVariables.rings_completed, PlayerVariables.zombies_killed, PlayerVariables.final_score)
 
-	leaderboard = leaderboard_scene.instantiate()
-	add_child(leaderboard)
+	# leaderboard = leaderboard_scene.instantiate()
+	# add_child(leaderboard)
 
 func _process(_delta: float) -> void:
 	submit_leaderboard_button.disabled = leaderboard_name.is_empty() or score_submitted

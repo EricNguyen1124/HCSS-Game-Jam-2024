@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://7f0wear2g7ky"]
+[gd_scene load_steps=7 format=3 uid="uid://7f0wear2g7ky"]
 
 [ext_resource type="PackedScene" uid="uid://o7nj734q43mp" path="res://Scenes/GameOverMenu/ScoreInfoUI.tscn" id="1_85tm6"]
 [ext_resource type="Script" path="res://Scenes/GameOverMenu/win_screen.gd" id="1_phrso"]
 [ext_resource type="Texture2D" uid="uid://vqt85l1fea03" path="res://Sprites/UI/win_screen.png" id="2_hh3tf"]
 [ext_resource type="FontFile" uid="uid://qaii6ad4ufsw" path="res://Font/GloriaHallelujah-Regular.ttf" id="3_j0vl6"]
+[ext_resource type="Script" path="res://Scripts/play_button.gd" id="5_tphks"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_r015s"]
 font = ExtResource("3_j0vl6")
@@ -64,7 +65,9 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.3, 1.3)
 pivot_offset = Vector2(24.7, 14.685)
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
 text = "Retry"
+script = ExtResource("5_tphks")
 
 [node name="QuitButton" type="Button" parent="."]
 layout_mode = 1
@@ -81,9 +84,11 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.3, 1.3)
 pivot_offset = Vector2(24.7, 14.685)
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
 text = "Quit"
 
 [node name="NameLineEdit" type="LineEdit" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 467.0
 offset_top = 472.0
@@ -93,6 +98,7 @@ placeholder_text = "Enter Name For Leaderboard"
 max_length = 10
 
 [node name="SubmitButton" type="Button" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.479

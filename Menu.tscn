@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b1oe53tj6nbtc"]
+[gd_scene load_steps=19 format=3 uid="uid://b1oe53tj6nbtc"]
 
 [ext_resource type="Script" path="res://Menu.gd" id="1_ujwh4"]
 [ext_resource type="PackedScene" uid="uid://uwafv33hnxa" path="res://Scenes/OptionsMenu/options_menu.tscn" id="2_mrsti"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/play_button.gd" id="3_bnvfw"]
 [ext_resource type="Texture2D" uid="uid://bq416xbw82vsc" path="res://Sprites/UI/menu_bg.png" id="3_dys1x"]
 [ext_resource type="Texture2D" uid="uid://bfftsm850ee4v" path="res://Sprites/Smoke+animation/frame_00001.png" id="5_owmon"]
+[ext_resource type="Texture2D" uid="uid://ctb1xu4sgr27y" path="res://Scenes/PauseMenu/1xhzcpz0.bmp" id="7_0kkms"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7vmar"]
 particle_flag_disable_z = true
@@ -52,6 +53,68 @@ alpha_curve = SubResource("CurveTexture_81pl3")
 turbulence_enabled = true
 turbulence_influence_min = 0.043
 turbulence_influence_max = 0.046
+
+[sub_resource type="Animation" id="Animation_w6ndh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("1Xhzcpz0:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.255, 1.255)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("1Xhzcpz0:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.18326]
+}
+
+[sub_resource type="Animation" id="Animation_4m520"]
+resource_name = "audio badge"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("1Xhzcpz0:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.533333, 1.46667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.255, 1.255), Vector2(1.695, 1.695), Vector2(1.255, 1.255)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("1Xhzcpz0:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.733333, 1.46667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.18326, -0.251327, 0.18326]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g1si3"]
+_data = {
+"RESET": SubResource("Animation_w6ndh"),
+"audio badge": SubResource("Animation_4m520")
+}
 
 [node name="Main_Menu" type="Control"]
 layout_mode = 3
@@ -145,6 +208,18 @@ offset_bottom = 590.0
 scale = Vector2(1.93, 1.93)
 theme_override_colors/font_focus_color = Color(1, 1, 0, 1)
 text = "How To Play"
+
+[node name="1Xhzcpz0" type="Sprite2D" parent="."]
+position = Vector2(992, 305)
+rotation = 0.18326
+scale = Vector2(1.255, 1.255)
+texture = ExtResource("7_0kkms")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_g1si3")
+}
+autoplay = "audio badge"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_controls_pressed"]
